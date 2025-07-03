@@ -12,11 +12,10 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+  Button,
+  Popover,
+  PopoverAction,
+  PopoverContent,
 } from "keep-react";
 
 export const BarChartComponent = () => {
