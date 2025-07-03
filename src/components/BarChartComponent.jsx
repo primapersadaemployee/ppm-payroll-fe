@@ -22,6 +22,49 @@ export const BarChartComponent = () => {
   const [attendanceFilter, setAttendanceFilter] = useState("Month");
   const [employeeFilter, setEmployeeFilter] = useState("Last 2 week");
 
+  const attendanceOptions = ["Day", "Week", "Month"];
+  const employeeOptions = [
+    "Last 1 week",
+    "Last 2 week",
+    "Last 3 week",
+    "Last 4 week",
+  ];
+
+  const FilterDropdown = ({ value, options, onChange }) => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    return (
+      <Popover open={isOpen} onOpenChange={setIsOpen}>
+        <PopoverAction asChild>
+          <Button
+            variant="outline"
+            className="w-32 justify-between text-sm"
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {value}
+            <span className="ml-2">▼</span>
+          </Button>
+        </PopoverAction>
+        <PopoverContent className="w-40 p-1">
+          <div className="flex flex-col">
+            {options.map((option) => (
+              <button
+                key={option}
+                className="px-3 py-2 text-sm text-left hover:bg-gray-100 rounded"
+                onClick={() => {
+                  onChange(option);
+                  setIsOpen(false);
+                }}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
+        </PopoverContent>
+      </Popover>
+    );
+  };
+
   const chartData = [
     { department: "IT Development", employees: 90 },
     { department: "Design Development", employees: 65 },
