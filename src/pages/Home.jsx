@@ -147,11 +147,7 @@ export default function Home() {
                     </div>
                   </Card>
                 </div>
-                <div className="flex gap-2 mt-8">
-                  {/* Progress bar chart */}
-                  <div className="w-1/3">
-                    <p>Test</p>
-                  </div>
+                <div className="mt-8">
                   <BarChartComponent />
                 </div>
               </div>
