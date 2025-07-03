@@ -32,7 +32,7 @@ export const BarChartComponent = () => {
   };
 
   return (
-    <ChartContainer config={chartConfig} className="min-h-[200px]">
+    <ChartContainer config={chartConfig} className="min-h-[200px] w-3/4">
       <BarChart accessibilityLayer data={chartData}>
         <CartesianGrid vertical={false} />
         <YAxis
