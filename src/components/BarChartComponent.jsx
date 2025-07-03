@@ -170,16 +170,11 @@ export const BarChartComponent = () => {
           <h3 className="text-lg font-medium text-gray-700">
             Insights Kehadiran
           </h3>
-          <Select value={attendanceFilter} onValueChange={setAttendanceFilter}>
-            <SelectTrigger className="w-32">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="Day">Day</SelectItem>
-              <SelectItem value="Week">Week</SelectItem>
-              <SelectItem value="Month">Month</SelectItem>
-            </SelectContent>
-          </Select>
+          <FilterDropdown
+            value={attendanceFilter}
+            options={attendanceOptions}
+            onChange={setAttendanceFilter}
+          />
         </div>
         <CircularProgress />
       </div>
