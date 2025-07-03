@@ -185,17 +185,11 @@ export const BarChartComponent = () => {
           <h3 className="text-lg font-medium text-gray-700">
             Total Karyawan Hadir per Divisi
           </h3>
-          <Select value={employeeFilter} onValueChange={setEmployeeFilter}>
-            <SelectTrigger className="w-40">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="Last 1 week">Last 1 week</SelectItem>
-              <SelectItem value="Last 2 week">Last 2 week</SelectItem>
-              <SelectItem value="Last 3 week">Last 3 week</SelectItem>
-              <SelectItem value="Last 4 week">Last 4 week</SelectItem>
-            </SelectContent>
-          </Select>
+          <FilterDropdown
+            value={employeeFilter}
+            options={employeeOptions}
+            onChange={setEmployeeFilter}
+          />
         </div>
 
         <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
