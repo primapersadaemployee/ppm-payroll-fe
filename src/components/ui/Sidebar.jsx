@@ -29,11 +29,26 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import { BuildingOfficeIcon } from "@phosphor-icons/react";
 import Logo from "/logo.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export const SidebarComponent = () => {
-  const [open, setIsOpen] = useState(true);
+  const [open, setIsOpen] = useState(false);
   const location = useLocation().pathname;
+  
+  useEffect(() => {
+    const handleResize = () => {
+      setIsOpen(window.innerWidth >= 640);
+    };
+    
+    // Set initial state based on screen size
+    handleResize();
+    
+    // Add event listener for window resize
+    window.addEventListener('resize', handleResize);
+    
+    // Clean up event listener
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const sidebarMenus = [
     {

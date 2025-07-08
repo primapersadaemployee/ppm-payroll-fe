@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   Avatar,
   AvatarFallback,
@@ -13,15 +14,52 @@ import {
   Input,
   InputIcon,
 } from "keep-react";
-import { SidebarComponent } from "../components/Sidebar";
+import { SidebarComponent } from "../components/ui/Sidebar";
 import { BellSimple, HouseSimple, MagnifyingGlass } from "phosphor-react";
 import BGBeranda from "/bg-beranda.webp";
 import PlayStore from "/playstore.png";
 import AppStore from "/appstore.png";
 import IconKehadiran from "/iconkehadiran.png";
-import { BarChartComponent } from "../components/BarChartComponent";
+import { BarChartComponent } from "../components/ui/BarChartComponent";
+import { CircularChartComponent } from "../components/ui/CircularChartComponent";
 
 export default function Home() {
+  const [attendanceData, setAttendanceData] = useState({
+    attendance: 95,
+    holiday: 4,
+    leave: 1,
+    trend: 25,
+  });
+
+  const [departmentData, setDepartmentData] = useState([
+    { department: "IT Development", employees: 90 },
+    { department: "Design Development", employees: 65 },
+    { department: "Keuangan", employees: 58 },
+    { department: "HRD", employees: 62 },
+    { department: "Pemasaran", employees: 38 },
+    { department: "Penjualan", employees: 48 },
+    { department: "Produksi", employees: 52 },
+    { department: "Tata Kelola", employees: 65 },
+  ]);
+
+  // TODO: Replace with actual API calls
+  useEffect(() => {
+    // Fetch attendance data
+    // const fetchAttendanceData = async () => {
+    //   const response = await fetch('/api/attendance');
+    //   const data = await response.json();
+    //   setAttendanceData(data);
+    // };
+    // Fetch department data
+    // const fetchDepartmentData = async () => {
+    //   const response = await fetch('/api/departments');
+    //   const data = await response.json();
+    //   setDepartmentData(data);
+    // };
+    // fetchAttendanceData();
+    // fetchDepartmentData();
+  }, []);
+
   return (
     <div className="flex gap-4 font-poppins p-4">
       <SidebarComponent />
@@ -116,9 +154,9 @@ export default function Home() {
                     <div className="flex justify-between items-center">
                       <CardContent className="flex flex-col gap-5">
                         <CardDescription className="text-base">
-                          Total Karyawan Hadir
+                          Total Karyawan Libur
                         </CardDescription>
-                        <CardTitle className="text-3xl">832</CardTitle>
+                        <CardTitle className="text-3xl">30</CardTitle>
                       </CardContent>
                       <div className="p-6">
                         <img
@@ -133,9 +171,9 @@ export default function Home() {
                     <div className="flex justify-between items-center">
                       <CardContent className="flex flex-col gap-5">
                         <CardDescription className="text-base">
-                          Total Karyawan Hadir
+                          Total Karyawan Cuti
                         </CardDescription>
-                        <CardTitle className="text-3xl">832</CardTitle>
+                        <CardTitle className="text-3xl">12</CardTitle>
                       </CardContent>
                       <div className="p-6">
                         <img
@@ -147,8 +185,13 @@ export default function Home() {
                     </div>
                   </Card>
                 </div>
-                <div className="mt-8">
-                  <BarChartComponent />
+                <div className="mt-8 flex gap-8">
+                  <div className="w-[25%]">
+                    <CircularChartComponent data={attendanceData} />
+                  </div>
+                  <div className="w-[75%]">
+                    <BarChartComponent data={departmentData} />
+                  </div>
                 </div>
               </div>
             </div>
