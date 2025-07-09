@@ -26,26 +26,44 @@ export default function TableKaryawan({
 }) {
   return (
     <div className="space-y-4">
-      <Table className="w-full min-w-[800px]">
+      <Table className="w-full min-w-[1600px]">
         <TableHeader>
           <TableRow>
-            <TableHead className="w-1/5 min-w-[180px] text-[#8897AE]">
-              Nama Karyawan
+            <TableHead className="min-w-[150px] text-[#8897AE]">Nama</TableHead>
+            <TableHead className="min-w-[120px] text-[#8897AE]">
+              Jenis Kelamin
             </TableHead>
-            <TableHead className="w-1/6 min-w-[120px] text-[#8897AE]">
-              ID / NIK
+            <TableHead className="min-w-[80px] text-[#8897AE]">Warga</TableHead>
+            <TableHead className="min-w-[100px] text-[#8897AE]">
+              Identitas
             </TableHead>
-            <TableHead className="w-1/6 min-w-[120px] text-[#8897AE]">
-              Posisi
+            <TableHead className="min-w-[120px] text-[#8897AE]">
+              ID/NIK
             </TableHead>
-            <TableHead className="w-1/6 min-w-[120px] text-[#8897AE]">
-              Departemen
+            <TableHead className="min-w-[120px] text-[#8897AE]">
+              Tempat Lahir
             </TableHead>
-            <TableHead className="w-1/6 min-w-[100px] text-[#8897AE]">
-              Status
+            <TableHead className="min-w-[120px] text-[#8897AE]">
+              Tanggal Lahir
             </TableHead>
-            <TableHead className="w-1/6 min-w-[120px] text-[#8897AE] text-center">
-              Action
+            <TableHead className="min-w-[130px] text-[#8897AE]">
+              Status Perkawinan
+            </TableHead>
+            <TableHead className="min-w-[80px] text-[#8897AE]">Agama</TableHead>
+            <TableHead className="min-w-[120px] text-[#8897AE]">
+              Golongan Darah
+            </TableHead>
+            <TableHead className="min-w-[140px] text-[#8897AE]">
+              Pendidikan Terakhir
+            </TableHead>
+            <TableHead className="min-w-[100px] text-[#8897AE]">
+              Divisi
+            </TableHead>
+            <TableHead className="min-w-[130px] text-[#8897AE]">
+              Status Karyawan
+            </TableHead>
+            <TableHead className="min-w-[80px] text-[#8897AE] text-center">
+              Aksi
             </TableHead>
           </TableRow>
         </TableHeader>
@@ -55,33 +73,34 @@ export default function TableKaryawan({
               <TableRow key={employee.id} className="hover:bg-gray-50">
                 <TableCell className="font-medium">
                   <div className="flex items-center gap-3">
-                    <Avatar className="w-8 h-8">
+                    <Avatar className="w-6 h-6">
                       <AvatarImage src={employee.avatar} alt={employee.name} />
                     </Avatar>
-                    <div className="flex flex-col">
-                      <span className="font-medium text-gray-900">
-                        {employee.name}
-                      </span>
-                      <span className="text-xs text-gray-500">
-                        {employee.gender}
-                      </span>
-                    </div>
+                    <span className="font-medium text-gray-900">
+                      {employee.name}
+                    </span>
                   </div>
                 </TableCell>
+                <TableCell>{employee.gender}</TableCell>
+                <TableCell>{employee.citizenship}</TableCell>
+                <TableCell>{employee.identity}</TableCell>
                 <TableCell>
                   <div className="flex flex-col">
-                    <span className="font-medium">{employee.id}</span>
+                    <span className="font-medium">{employee.idNumber}</span>
                     <span className="text-xs text-gray-500">
                       {employee.nik}
                     </span>
                   </div>
                 </TableCell>
+                <TableCell>{employee.birthPlace}</TableCell>
+                <TableCell>{employee.birthDate}</TableCell>
+                <TableCell>{employee.maritalStatus}</TableCell>
+                <TableCell>{employee.religion}</TableCell>
                 <TableCell>
-                  <span className="font-medium">{employee.position}</span>
+                  <span className="font-medium">{employee.bloodType}</span>
                 </TableCell>
-                <TableCell>
-                  <span className="text-gray-700">{employee.department}</span>
-                </TableCell>
+                <TableCell>{employee.education}</TableCell>
+                <TableCell>{employee.division}</TableCell>
                 <TableCell>
                   <Badge variant="base" color={employee.statusColor}>
                     {employee.status}
@@ -93,28 +112,28 @@ export default function TableKaryawan({
                       size="sm"
                       variant="outline"
                       color="secondary"
-                      className="p-2 h-8 w-8"
+                      className="p-1 h-6 w-6"
                       title="Edit"
                     >
-                      <PencilSimple size={14} />
+                      <PencilSimple size={12} />
                     </Button>
                     <Button
                       size="sm"
                       variant="outline"
                       color="error"
-                      className="p-2 h-8 w-8"
+                      className="p-1 h-6 w-6"
                       title="Delete"
                     >
-                      <Trash size={14} />
+                      <Trash size={12} />
                     </Button>
                     <Button
                       size="sm"
                       variant="outline"
                       color="secondary"
-                      className="p-2 h-8 w-8"
+                      className="p-1 h-6 w-6"
                       title="More"
                     >
-                      <DotsThree size={14} />
+                      <DotsThree size={12} />
                     </Button>
                   </div>
                 </TableCell>
@@ -122,7 +141,7 @@ export default function TableKaryawan({
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={6} className="text-center py-8">
+              <TableCell colSpan={14} className="text-center py-8">
                 <div className="flex flex-col items-center gap-2">
                   <div className="text-gray-400">
                     <svg

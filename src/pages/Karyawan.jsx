@@ -1,16 +1,52 @@
 import { useState } from "react";
 import { SidebarComponent } from "../components/layout/Sidebar";
-import SearchHome from "../components/ui/search/SearchHome";
 import NotificationHome from "../components/ui/notification/NotificationHome";
 import TableKaryawan from "../components/ui/table/TableKaryawan";
 import FilterDropdown from "../components/ui/dropdown/FilterDropdown";
-import { Button } from "keep-react";
-import { Plus } from "phosphor-react";
+import { Button, Input, InputIcon } from "keep-react";
+import { Plus, MagnifyingGlass, House } from "phosphor-react";
 
-// Dummy employee data
+// Dummy employee data with all required fields
 const generateEmployeeData = () => {
-  const positions = ["Manager", "Staff", "Supervisor", "Operator", "Admin"];
-  const departments = ["Bendahara", "Marketing", "Dev team", "Operations"];
+  const names = [
+    "John Hassan",
+    "Eleanor Prince",
+    "Guy Hawkins",
+    "Kousar Pol",
+    "Jenny Wilson",
+    "Ariana McCoy",
+    "Kristin Watson",
+    "Michel Franklin",
+    "Belkissa Armenians",
+    "Dummy Employee",
+    "Andi Setiawan",
+    "Budi Santoso",
+    "Citra Dewi",
+    "Dian Pratama",
+    "Eka Sari",
+    "Fajar Rahman",
+    "Gita Permata",
+    "Hendra Wijaya",
+    "Indah Lestari",
+    "Joko Susilo",
+  ];
+
+  const genders = ["Laki - Laki", "Perempuan"];
+  const citizenships = ["WNI", "WNA"];
+  const identities = ["KTP", "SIM", "Passport"];
+  const birthPlaces = [
+    "Bandung",
+    "Jakarta",
+    "Surabaya",
+    "Medan",
+    "Semarang",
+    "Yogyakarta",
+  ];
+  const maritalStatuses = ["Belum Menikah", "Menikah", "Janda", "Duda"];
+  const religions = ["Islam", "Kristen", "Katolik", "Hindu", "Buddha"];
+  const bloodTypes = ["A", "B", "AB", "O"];
+  const educations = ["SMA", "D3", "S1", "S2", "S3"];
+  const divisions = ["Bendahara", "Marketing", "Dev team", "Operations", "HR"];
   const statuses = ["Tetap", "Kontrak", "Freelance"];
   const statusColors = {
     Tetap: "success",
@@ -19,46 +55,30 @@ const generateEmployeeData = () => {
   };
 
   return Array.from({ length: 20 }, (_, i) => ({
-    id: `1484 - ${String(i + 1).padStart(3, "0")}`,
-    name: [
-      "John Doe",
-      "Jane Smith",
-      "Michael Johnson",
-      "Emily Davis",
-      "David Wilson",
-      "Sarah Brown",
-      "James Jones",
-      "Lisa Garcia",
-      "Robert Miller",
-      "Jennifer Taylor",
-      "William Anderson",
-      "Ashley Thomas",
-      "Christopher Jackson",
-      "Amanda White",
-      "Matthew Harris",
-      "Jessica Martin",
-      "Daniel Thompson",
-      "Laura Garcia",
-      "Andrew Martinez",
-      "Stephanie Robinson",
-    ][i],
-    position: positions[i % positions.length],
-    department: departments[i % departments.length],
+    id: i + 1,
+    name: names[i],
+    gender: genders[i % 2],
+    citizenship: citizenships[i % 2],
+    identity: identities[i % 3],
+    idNumber: `1484 - ${String(i + 1).padStart(3, "0")}`,
     nik: `1234567${String(i + 890).padStart(3, "0")}`,
+    birthPlace: birthPlaces[i % birthPlaces.length],
+    birthDate: `0${(i % 9) + 1}/0${(i % 9) + 1}/200${i % 4}`,
+    maritalStatus: maritalStatuses[i % maritalStatuses.length],
+    religion: religions[i % religions.length],
+    bloodType: bloodTypes[i % bloodTypes.length],
+    education: educations[i % educations.length],
+    division: divisions[i % divisions.length],
     status: statuses[i % statuses.length],
     statusColor: statusColors[statuses[i % statuses.length]],
     avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${i + 1}&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`,
-    startDate: `01/01/202${(i % 4) + 1}`,
-    gender: i % 2 === 0 ? "Laki-laki" : "Perempuan",
-    birthDate: `${String(Math.floor(Math.random() * 28) + 1).padStart(2, "0")}/${String(Math.floor(Math.random() * 12) + 1).padStart(2, "0")}/199${Math.floor(Math.random() * 5) + 0}`,
   }));
 };
 
 export default function Karyawan() {
   const [employees] = useState(generateEmployeeData());
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedDepartment, setSelectedDepartment] =
-    useState("Semua Departemen");
+  const [selectedDivision, setSelectedDivision] = useState("Semua Divisi");
   const [selectedStatus, setSelectedStatus] = useState("Semua Status");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -67,17 +87,17 @@ export default function Karyawan() {
   const filteredEmployees = employees.filter((employee) => {
     const matchesSearch =
       employee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      employee.position.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      employee.id.toLowerCase().includes(searchTerm.toLowerCase());
+      employee.idNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      employee.nik.toLowerCase().includes(searchTerm.toLowerCase());
 
-    const matchesDepartment =
-      selectedDepartment === "Semua Departemen" ||
-      employee.department === selectedDepartment;
+    const matchesDivision =
+      selectedDivision === "Semua Divisi" ||
+      employee.division === selectedDivision;
 
     const matchesStatus =
       selectedStatus === "Semua Status" || employee.status === selectedStatus;
 
-    return matchesSearch && matchesDepartment && matchesStatus;
+    return matchesSearch && matchesDivision && matchesStatus;
   });
 
   // Pagination
@@ -99,12 +119,13 @@ export default function Karyawan() {
     setCurrentPage(1);
   };
 
-  const departments = [
-    "Semua Departemen",
+  const divisions = [
+    "Semua Divisi",
     "Bendahara",
     "Marketing",
     "Dev team",
     "Operations",
+    "HR",
   ];
   const statuses = ["Semua Status", "Tetap", "Kontrak", "Freelance"];
 
@@ -115,36 +136,34 @@ export default function Karyawan() {
       </div>
       <div className="p-2 lg:p-4 w-full flex-1 overflow-hidden">
         <div className="flex flex-col gap-4 lg:gap-6">
-          {/* Header */}
+          {/* Header with search and notification */}
           <div className="flex flex-row gap-2 lg:gap-[10px] justify-between">
             <div className="w-[80%] sm:flex-1">
               <fieldset className="relative w-full">
-                <input
-                  type="text"
-                  placeholder="Cari karyawan..."
-                  className="w-full px-4 py-2 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                <Input
+                  placeholder="Search Anything"
+                  className="ps-11"
                   value={searchTerm}
                   onChange={handleSearchChange}
                 />
-                <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <path d="m21 21-4.35-4.35"></path>
-                  </svg>
-                </div>
+                <InputIcon>
+                  <MagnifyingGlass size={19} color="#2d3643" weight="bold" />
+                </InputIcon>
               </fieldset>
             </div>
             <div className="w-[20%] sm:w-auto">
               <NotificationHome />
             </div>
           </div>
+
+          {/* Breadcrumb */}
+          <nav className="text-sm text-gray-500">
+            <div className="flex items-center gap-2">
+              <House size={16} />
+              <span>/</span>
+              <span className="text-gray-900 font-medium">Karyawan</span>
+            </div>
+          </nav>
 
           {/* Page Title */}
           <div>
@@ -161,16 +180,13 @@ export default function Karyawan() {
                 <h2 className="text-lg font-semibold text-gray-700">
                   Data Karyawan
                 </h2>
-                <span className="text-sm text-gray-500">
-                  {filteredEmployees.length} dari {employees.length} karyawan
-                </span>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-2 lg:gap-4">
                 <FilterDropdown
-                  value={selectedDepartment}
-                  options={departments}
-                  onChange={handleFilterChange(setSelectedDepartment)}
+                  value={selectedDivision}
+                  options={divisions}
+                  onChange={handleFilterChange(setSelectedDivision)}
                 />
                 <FilterDropdown
                   value={selectedStatus}
