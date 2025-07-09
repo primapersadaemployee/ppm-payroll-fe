@@ -96,7 +96,9 @@ export const SidebarComponent = () => {
     <>
       <Sidebar
         className={`${
-          open ? "w-[300px] px-5 py-5" : "w-[50px] py-5 px-1"
+          open
+            ? "w-[80px] lg:w-[300px] px-2 lg:px-5 py-5"
+            : "w-[50px] py-5 px-1"
         } h-[96dvh] bg-[#F5F5F5] transition-all duration-300 ease-in-out sticky top-3 z-50 lg:z-10 shrink-0`}
       >
         <SidebarBody>
@@ -131,7 +133,11 @@ export const SidebarComponent = () => {
                   }`}
                 >
                   {item.icon}
-                  {open && <span className="font-medium">{item.name}</span>}
+                  {open && (
+                    <span className="font-medium hidden lg:inline">
+                      {item.name}
+                    </span>
+                  )}
                 </SidebarItem>
               </Link>
             ))}
@@ -146,11 +152,15 @@ export const SidebarComponent = () => {
           <SidebarList className="space-y-1">
             <SidebarItem className="text-[#455468] hover:bg-[#3629b7] hover:text-white">
               <BuildingOfficeIcon size={20} weight="bold" />
-              {open && <span className="font-medium">PT PPM</span>}
+              {open && (
+                <span className="font-medium hidden lg:inline">PT PPM</span>
+              )}
             </SidebarItem>
             <SidebarItem className="text-[#455468] hover:bg-[#3629b7] hover:text-white">
               <Globe size={20} weight="bold" />
-              {open && <span className="font-medium">Indonesia</span>}
+              {open && (
+                <span className="font-medium hidden lg:inline">Indonesia</span>
+              )}
             </SidebarItem>
           </SidebarList>
           <SidebarFooter>
@@ -162,7 +172,7 @@ export const SidebarComponent = () => {
                       <AvatarFallback>KR</AvatarFallback>
                     </Avatar>
                     {open && (
-                      <div>
+                      <div className="hidden lg:block">
                         <p className="text-xs text-start font-medium text-[#455468]">
                           Dummy User
                         </p>
