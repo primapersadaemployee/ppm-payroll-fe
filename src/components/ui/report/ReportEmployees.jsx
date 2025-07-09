@@ -154,8 +154,8 @@ export default function ReportEmployees() {
         </span>
       </div>
       <div className="p-3 border border-gray-200 rounded-b-lg">
-        <div className="mt-8 flex gap-8">
-          <div className="w-[25%]">
+        <div className="mt-4 lg:mt-8 flex flex-col lg:flex-row gap-4 lg:gap-8">
+          <div className="w-full lg:w-[25%]">
             <CircularChartComponent
               title="Status Karyawan"
               filterValue={employeeFilter}
@@ -165,7 +165,7 @@ export default function ReportEmployees() {
               trend={employeeData.trend}
             />
           </div>
-          <div className="w-[75%]">
+          <div className="w-full lg:w-[75%]">
             <div className="border border-gray-200 rounded-lg">
               <div className="p-4 border-b border-gray-200">
                 <div className="flex items-center justify-between mb-4">
@@ -180,7 +180,7 @@ export default function ReportEmployees() {
                   />
                 </div>
 
-                <div className="w-64">
+                <div className="w-full sm:w-64">
                   <fieldset className="relative">
                     <Input
                       placeholder="Search Anything"
@@ -236,19 +236,25 @@ export default function ReportEmployees() {
                             size="sm"
                             variant="outline"
                             color="secondary"
-                            className="text-xs"
+                            className="text-xs whitespace-nowrap"
                           >
                             <PencilSimple size={14} />
-                            Perpanjang Kontrak
+                            <span className="hidden sm:inline">
+                              Perpanjang Kontrak
+                            </span>
+                            <span className="sm:hidden">Perpanjang</span>
                           </Button>
                           <Button
                             size="sm"
                             variant="outline"
                             color="secondary"
-                            className="text-xs"
+                            className="text-xs whitespace-nowrap"
                           >
                             <Trash size={14} />
-                            Terminasi Kontrak
+                            <span className="hidden sm:inline">
+                              Terminasi Kontrak
+                            </span>
+                            <span className="sm:hidden">Terminasi</span>
                           </Button>
                         </div>
                       </TableCell>
