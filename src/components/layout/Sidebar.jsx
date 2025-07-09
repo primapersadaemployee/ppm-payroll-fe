@@ -36,7 +36,7 @@ export const SidebarComponent = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsOpen(window.innerWidth >= 640);
+      setIsOpen(window.innerWidth >= 1024);
     };
 
     // Set initial state based on screen size
@@ -97,7 +97,7 @@ export const SidebarComponent = () => {
       <Sidebar
         className={`${
           open ? "w-[300px] px-5 py-5" : "w-[50px] py-5 px-1"
-        } h-[96dvh] bg-[#F5F5F5] transition-all duration-300 ease-in-out sticky top-3`}
+        } h-[96dvh] bg-[#F5F5F5] transition-all duration-300 ease-in-out sticky top-3 z-50 lg:z-10 shrink-0`}
       >
         <SidebarBody>
           <div

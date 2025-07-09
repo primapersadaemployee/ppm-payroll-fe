@@ -8,9 +8,11 @@ import ReportEmployees from "../components/ui/report/ReportEmployees";
 
 export default function Home() {
   return (
-    <div className="flex flex-col lg:flex-row gap-2 lg:gap-4 font-poppins p-2 lg:p-4">
-      <SidebarComponent />
-      <div className="p-2 lg:p-4 w-full lg:w-screen">
+    <div className="flex flex-col lg:flex-row gap-2 lg:gap-4 font-poppins p-2 lg:p-4 min-h-screen">
+      <div className="lg:sticky lg:top-0 lg:h-screen">
+        <SidebarComponent />
+      </div>
+      <div className="p-2 lg:p-4 w-full flex-1 overflow-hidden">
         <div className="flex flex-col gap-4 lg:gap-8">
           <div className="flex flex-col sm:flex-row gap-2 lg:gap-[10px] justify-between">
             <div className="w-full sm:flex-1">
