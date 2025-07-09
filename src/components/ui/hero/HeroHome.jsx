@@ -11,7 +11,7 @@ import AppStore from "/appstore.png";
 
 export default function HeroHome() {
   return (
-    <div className="w-full h-auto bg-[#3629B7] rounded-lg">
+    <div className="w-full h-auto bg-[#3629B7] rounded-lg overflow-hidden">
       <div className="flex flex-col lg:flex-row">
         <div className="w-full lg:w-[45%] p-4 lg:p-10 flex flex-col gap-4 lg:gap-8">
           <Breadcrumb>
@@ -29,25 +29,25 @@ export default function HeroHome() {
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
-          <div className="flex flex-col justify-between h-full gap-4 lg:gap-0">
-            <span className="font-semibold text-2xl lg:text-4xl text-white">
+          <div className="flex flex-col justify-between h-full gap-4 2xl:gap-0">
+            <span className="font-semibold text-lg md:text-xl xl:text-2xl 2xl:text-4xl text-white">
               Good Morning , <br /> PT Prima Persada Multimedia
             </span>
-            <div className="flex flex-col sm:flex-row gap-3 lg:gap-5">
+            <div className="flex flex-row gap-3 lg:gap-5">
               <img
                 src={PlayStore}
                 alt="Play Store"
-                className="w-32 lg:w-40 h-auto"
+                className="w-24 md:w-32 2xl:w-40 h-auto"
               />
               <img
                 src={AppStore}
                 alt="App Store"
-                className="w-32 lg:w-40 h-auto"
+                className="w-24 md:w-32 2xl:w-40 h-auto"
               />
             </div>
           </div>
         </div>
-        <div className="w-full lg:w-[55%] h-48 lg:h-auto">
+        <div className="w-full lg:w-[55%] lg:h-auto">
           <img
             src={BGBeranda}
             alt="BG Beranda"

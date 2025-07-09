@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardTitle } from "keep-react";
 import IconKehadiran from "/iconkehadiran.png";
-import { BarChartComponent } from "../chart/BarChartComponent";
-import { CircularChartComponent } from "../chart/CircularChartComponent";
+import BarChart from "../chart/BarChart";
+import CircularChart from "../chart/CircularChart";
 import { useState, useEffect } from "react";
 
 export default function ReportAttendance() {
@@ -87,36 +87,41 @@ export default function ReportAttendance() {
   return (
     <div className="flex flex-col">
       <div className="p-3 border border-gray-200 rounded-t-lg">
-        <span className="text-lg text-[#455468] font-medium">
+        <span className="text-sm lg:text-lg text-[#455468] font-medium">
           Laporan Kehadiran
         </span>
       </div>
       <div className="p-3 border border-gray-200 rounded-b-lg">
         <div className="flex flex-col gap-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
             {report.map((item) => (
-              <Card key={item.id} className="max-w-lg bg-[#DDE5FF]">
+              <Card
+                key={item.id}
+                className="max-w-2xl lg:max-w-lg bg-[#DDE5FF]"
+              >
                 <div className="flex justify-between items-center">
                   <CardContent className="flex flex-col gap-5">
-                    <CardDescription className="text-base">
+                    <CardDescription className="text-sm lg:text-base">
                       {item.title}
                     </CardDescription>
-                    <CardTitle className="text-3xl">{item.total}</CardTitle>
+                    <CardTitle className="text-2xl lg:text-3xl">
+                      {item.total}
+                    </CardTitle>
                   </CardContent>
                   <div className="p-6">
                     <img
                       src={IconKehadiran}
                       alt="Icon Kehadiran"
-                      className="w-[72px] h-[72px]"
+                      className="w-14 h-14 xl:w-[72px] xl:h-[72px]"
                     />
                   </div>
                 </div>
               </Card>
             ))}
           </div>
-          <div className="mt-4 lg:mt-8 flex flex-col lg:flex-row gap-4 lg:gap-8">
-            <div className="w-full lg:w-[25%]">
-              <CircularChartComponent
+          <div className="mt-4 xl:mt-8 flex flex-col xl:flex-row gap-12 xl:gap-8">
+            <div className="w-full xl:w-[30%]  2xl:w-[25%]">
+              <CircularChart
                 title="Insights Kehadiran"
                 filterValue={attendanceFilter}
                 filterOptions={attendanceOptions}
@@ -125,8 +130,8 @@ export default function ReportAttendance() {
                 trend={attendanceData.trend}
               />
             </div>
-            <div className="w-full lg:w-[75%]">
-              <BarChartComponent
+            <div className="w-full xl:w-[70%] 2xl:w-[75%]">
+              <BarChart
                 data={departmentData}
                 dropdownValue={employeeFilter}
                 dropdownOptions={employeeOptions}
@@ -135,6 +140,7 @@ export default function ReportAttendance() {
                 title="Total Karyawan Hadir per Divisi"
                 dataKey="employees"
                 yAxisTicks={[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]}
+                sizeChart="h-[250px] sm:h-[320px] md:h-[370px] 2xl:h-[480px] 3xl:h-[600px]"
               />
             </div>
           </div>

@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardTitle } from "keep-react";
 import IconSallary from "/iconsallary.png";
 import { useState, useEffect } from "react";
-import { BarChartComponent } from "../chart/BarChartComponent";
+import BarChart from "../chart/BarChart";
 
 export default function ReportSallary() {
   const [sallaryData, setSallaryData] = useState([
@@ -77,22 +77,22 @@ export default function ReportSallary() {
               <Card key={item.id} className="max-w-none bg-[#DDE5FF]">
                 <div className="flex justify-between items-center">
                   <CardContent className="flex flex-col gap-5">
-                    <CardDescription className="text-base">
+                    <CardDescription className="text-sm lg:text-base">
                       {item.title}
                     </CardDescription>
                     <div className="flex gap-2 items-center">
-                      <CardTitle className="text-3xl">
+                      <CardTitle className="text-2xl lg:text-3xl">
                         {formatRupiah(item.total)}
                       </CardTitle>
                       <span className="text-white text-xs py-1 px-2 rounded-full bg-[#22C55E]">
                         +{item.percentage}%
                       </span>
                     </div>
-                    <CardDescription className="text-base">
+                    <CardDescription className="text-sm lg:text-base">
                       Dari bulan sebelumnya
                     </CardDescription>
                   </CardContent>
-                  <div className="p-6">
+                  <div className="p-6 hidden sm:block lg:hidden xl:block">
                     <img
                       src={IconSallary}
                       alt="Icon Sallary"
@@ -105,7 +105,7 @@ export default function ReportSallary() {
           </div>
           <div className="mt-8">
             <div className="w-full">
-              <BarChartComponent
+              <BarChart
                 data={sallaryData}
                 dropdownValue={sallaryFilter}
                 dropdownOptions={sallaryOptions}
@@ -118,6 +118,7 @@ export default function ReportSallary() {
                   7000000, 8000000, 9000000, 10000000,
                 ]}
                 yAxisFormatter={formatRupiah}
+                sizeChart="h-[250px] sm:h-[320px] md:h-[370px] xl:h-[480px] 2xl:h-[600px] 3xl:h-[700px]"
               />
             </div>
           </div>

@@ -14,11 +14,11 @@ export default function Home() {
       </div>
       <div className="p-2 lg:p-4 w-full flex-1 overflow-hidden">
         <div className="flex flex-col gap-4 lg:gap-8">
-          <div className="flex flex-col sm:flex-row gap-2 lg:gap-[10px] justify-between">
-            <div className="w-full sm:flex-1">
+          <div className="flex flex-row gap-2 lg:gap-[10px] justify-between">
+            <div className="w-[80%] sm:flex-1">
               <SearchHome />
             </div>
-            <div className="w-full sm:w-auto">
+            <div className="w-[20%] sm:w-auto">
               <NotificationHome />
             </div>
           </div>

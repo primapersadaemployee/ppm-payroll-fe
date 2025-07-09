@@ -1,43 +1,13 @@
-import { Button, Popover, PopoverAction, PopoverContent } from "keep-react";
+import FilterDropdown from "../dropdown/FilterDropdown";
 
-const FilterDropdown = ({ value, options, onChange }) => {
-  return (
-    <Popover>
-      <PopoverAction asChild>
-        <Button
-          variant="outline"
-          color="secondary"
-          className="w-32 justify-between text-sm"
-        >
-          {value}
-          <span className="ml-2">▼</span>
-        </Button>
-      </PopoverAction>
-      <PopoverContent className="w-40 p-1">
-        <div className="flex flex-col">
-          {options.map((option) => (
-            <button
-              key={option}
-              className="px-3 py-2 text-sm text-left hover:bg-gray-100 rounded"
-              onClick={() => onChange(option)}
-            >
-              {option}
-            </button>
-          ))}
-        </div>
-      </PopoverContent>
-    </Popover>
-  );
-};
-
-export const CircularChartComponent = ({
+export default function CircularChart({
   title = "Insights",
   filterValue,
   filterOptions = [],
   onFilterChange,
   data = [], // Array: [{ label, value, color }]
   trend = 0,
-}) => {
+}) {
   const radius = 70;
   const circumference = 2 * Math.PI * radius;
 
@@ -46,7 +16,7 @@ export const CircularChartComponent = ({
   const CircularProgress = () => {
     return (
       <div className="flex flex-col items-center gap-4">
-        <div className="relative w-72 h-72">
+        <div className="relative w-56 h-56 2xl:w-72 2xl:h-72">
           <svg
             className="w-full h-full transform -rotate-90"
             viewBox="0 0 160 160"
@@ -119,7 +89,7 @@ export const CircularChartComponent = ({
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-medium text-gray-700">{title}</h3>
+        <h3 className="lg:text-lg font-medium text-gray-700">{title}</h3>
         <FilterDropdown
           value={filterValue}
           options={filterOptions}
@@ -131,4 +101,4 @@ export const CircularChartComponent = ({
       </div>
     </div>
   );
-};
+}
