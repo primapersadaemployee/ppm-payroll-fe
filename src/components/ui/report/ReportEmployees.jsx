@@ -221,7 +221,7 @@ export default function ReportEmployees() {
                         <TableCell>{employee.contractStart}</TableCell>
                         <TableCell>{employee.contractEnd}</TableCell>
                         <TableCell>
-                          <Badge color={employee.statusColor} variant="soft">
+                          <Badge color={employee.statusColor}>
                             {employee.status}
                           </Badge>
                         </TableCell>
