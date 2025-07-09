@@ -9,9 +9,14 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-  Pagination,
 } from "keep-react";
-import { PencilSimple, Trash, DotsThree } from "phosphor-react";
+import {
+  PencilSimple,
+  Trash,
+  DotsThree,
+  CaretLeft,
+  CaretRight,
+} from "phosphor-react";
 
 export default function TableKaryawan({
   employees,
@@ -148,12 +153,17 @@ export default function TableKaryawan({
           <div className="text-sm text-gray-500">
             Halaman {currentPage} dari {totalPages}
           </div>
-          <Pagination>
-            <Pagination.Navigator
-              prev
+          <div className="flex items-center gap-1">
+            <Button
+              size="sm"
+              variant="outline"
+              color="secondary"
               onClick={() => onPageChange(Math.max(1, currentPage - 1))}
               disabled={currentPage === 1}
-            />
+              className="p-2"
+            >
+              <CaretLeft size={14} />
+            </Button>
 
             {Array.from({ length: totalPages }, (_, i) => i + 1)
               .filter((page) => {
@@ -173,24 +183,32 @@ export default function TableKaryawan({
                     {showEllipsis && (
                       <span className="px-2 text-gray-400">...</span>
                     )}
-                    <Pagination.Item
-                      active={currentPage === page}
+                    <Button
+                      size="sm"
+                      variant={currentPage === page ? "softBg" : "outline"}
+                      color={currentPage === page ? "primary" : "secondary"}
                       onClick={() => onPageChange(page)}
+                      className="min-w-[32px] h-8"
                     >
                       {page}
-                    </Pagination.Item>
+                    </Button>
                   </div>
                 );
               })}
 
-            <Pagination.Navigator
-              next
+            <Button
+              size="sm"
+              variant="outline"
+              color="secondary"
               onClick={() =>
                 onPageChange(Math.min(totalPages, currentPage + 1))
               }
               disabled={currentPage === totalPages}
-            />
-          </Pagination>
+              className="p-2"
+            >
+              <CaretRight size={14} />
+            </Button>
+          </div>
         </div>
       )}
     </div>
