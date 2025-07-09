@@ -93,7 +93,7 @@ export default function ReportAttendance() {
       </div>
       <div className="p-3 border border-gray-200 rounded-b-lg">
         <div className="flex flex-col gap-4">
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {report.map((item) => (
               <Card key={item.id} className="max-w-lg bg-[#DDE5FF]">
                 <div className="flex justify-between items-center">
@@ -114,8 +114,8 @@ export default function ReportAttendance() {
               </Card>
             ))}
           </div>
-          <div className="mt-8 flex gap-8">
-            <div className="w-[25%]">
+          <div className="mt-4 lg:mt-8 flex flex-col lg:flex-row gap-4 lg:gap-8">
+            <div className="w-full lg:w-[25%]">
               <CircularChartComponent
                 title="Insights Kehadiran"
                 filterValue={attendanceFilter}
@@ -125,7 +125,7 @@ export default function ReportAttendance() {
                 trend={attendanceData.trend}
               />
             </div>
-            <div className="w-[75%]">
+            <div className="w-full lg:w-[75%]">
               <BarChartComponent
                 data={departmentData}
                 dropdownValue={employeeFilter}
