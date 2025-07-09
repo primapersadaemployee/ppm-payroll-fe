@@ -2,7 +2,7 @@ import { Eye, EyeSlash, LockSimple, CheckCircle, Info } from "phosphor-react";
 import AuthLayout from "../../components/layout/AuthLayout";
 import { Input, Label, toast } from "keep-react";
 import { useState } from "react";
-import ButtonAuth from "../../components/ui/ButtonAuth";
+import ButtonAuth from "../../components/ui/button/ButtonAuth";
 
 export default function ResetPassword() {
   const [newPassword, setNewPassword] = useState("");

@@ -2,7 +2,7 @@ import { Envelope } from "phosphor-react";
 import AuthLayout from "../../components/layout/AuthLayout";
 import { Input, InputIcon, Label, toast } from "keep-react";
 import { useEffect, useState } from "react";
-import ButtonAuth from "../../components/ui/ButtonAuth";
+import ButtonAuth from "../../components/ui/button/ButtonAuth";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");

@@ -24,7 +24,6 @@ import {
   DropdownAction,
   DropdownContent,
   DropdownItem,
-  TooltipArrow,
 } from "keep-react";
 import { Link, useLocation } from "react-router-dom";
 import { BuildingOfficeIcon } from "@phosphor-icons/react";
@@ -34,20 +33,20 @@ import { useState, useEffect } from "react";
 export const SidebarComponent = () => {
   const [open, setIsOpen] = useState(false);
   const location = useLocation().pathname;
-  
+
   useEffect(() => {
     const handleResize = () => {
       setIsOpen(window.innerWidth >= 640);
     };
-    
+
     // Set initial state based on screen size
     handleResize();
-    
+
     // Add event listener for window resize
-    window.addEventListener('resize', handleResize);
-    
+    window.addEventListener("resize", handleResize);
+
     // Clean up event listener
-    return () => window.removeEventListener('resize', handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const sidebarMenus = [

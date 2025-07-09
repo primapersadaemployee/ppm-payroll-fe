@@ -3,7 +3,7 @@ import { Envelope, LockSimple } from "phosphor-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import AuthLayout from "../../components/layout/AuthLayout";
-import ButtonAuth from "../../components/ui/ButtonAuth";
+import ButtonAuth from "../../components/ui/button/ButtonAuth";
 
 export default function Login() {
   const [email, setEmail] = useState("");

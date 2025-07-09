@@ -18,6 +18,7 @@ const FilterDropdown = ({ value, options, onChange }) => {
       <PopoverAction asChild>
         <Button
           variant="outline"
+          color="secondary"
           className="w-32 justify-between text-sm"
           onClick={() => setIsOpen(!isOpen)}
         >
@@ -45,41 +46,32 @@ const FilterDropdown = ({ value, options, onChange }) => {
   );
 };
 
-export const BarChartComponent = ({ data }) => {
-  const [employeeFilter, setEmployeeFilter] = useState("Last 2 week");
-
-  const employeeOptions = [
-    "Last 1 week",
-    "Last 2 week",
-    "Last 3 week",
-    "Last 4 week",
-  ];
-
-  const chartConfig = {
-    employees: {
-      label: "Employees",
-      color: "#22C55E",
-    },
-  };
-
+export const BarChartComponent = ({
+  data,
+  dropdownValue,
+  dropdownOptions,
+  dropDownOnChange,
+  chartConfig,
+  title,
+  dataKey,
+  yAxisFormatter,
+  yAxisTicks,
+}) => {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-medium text-gray-700">
-          Total Karyawan Hadir per Divisi
-        </h3>
+        <h3 className="text-lg font-medium text-gray-700">{title}</h3>
         <FilterDropdown
-          value={employeeFilter}
-          options={employeeOptions}
-          onChange={setEmployeeFilter}
+          value={dropdownValue}
+          options={dropdownOptions}
+          onChange={dropDownOnChange}
         />
       </div>
-
       <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
         <BarChart
           accessibilityLayer
           data={data}
-          margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+          margin={{ top: 20, right: 30, left: 60, bottom: 5 }}
         >
           <CartesianGrid
             vertical={false}
@@ -88,7 +80,9 @@ export const BarChartComponent = ({ data }) => {
           />
           <YAxis
             tickLine={false}
-            ticks={[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]}
+            tickCount={10}
+            ticks={yAxisTicks}
+            tickFormatter={yAxisFormatter}
             tickMargin={10}
             axisLine={false}
             tick={{ fontSize: 12, fill: "#6B7280" }}
@@ -106,7 +100,7 @@ export const BarChartComponent = ({ data }) => {
             content={<ChartTooltipContent />}
             cursor={{ fill: "rgba(34, 197, 94, 0.1)" }}
           />
-          <Bar dataKey="employees" radius={[6, 6, 6, 6]} barSize={100}>
+          <Bar dataKey={dataKey} radius={[6, 6, 6, 6]} barSize={100}>
             {data?.map((entry, index) => (
               <Cell key={`cell-${index}`} fill="#22C55E" />
             ))}
