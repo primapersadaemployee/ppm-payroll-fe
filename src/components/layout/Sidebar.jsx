@@ -114,7 +114,7 @@ export const SidebarComponent = () => {
               </div>
             )}
             <SidebarSimple
-              className="cursor-pointer hover:scale-110 transition-all duration-300 ease-in-out hidden sm:block"
+              className="cursor-pointer hover:scale-110 transition-all duration-300 ease-in-out hidden md:block"
               size={20}
               color="#8897AE"
               weight="bold"
