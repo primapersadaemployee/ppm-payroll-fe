@@ -166,90 +166,96 @@ export default function ReportEmployees() {
             />
           </div>
           <div className="w-[75%]">
-            <div className="flex flex-col gap-4">
-              <div className="flex items-center justify-between">
-                <h3 className="text-lg font-medium text-gray-700">
-                  Data Karyawan
-                </h3>
-                <FilterDropdown
-                  value={tableFilter}
-                  options={tableFilterOptions}
-                  onChange={setTableFilter}
-                  placeholder="Select Period"
-                />
-              </div>
-
-              <div className="w-64">
-                <fieldset className="relative">
-                  <Input
-                    placeholder="Search Anything"
-                    className="ps-11"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+            <div className="border border-gray-200 rounded-lg">
+              <div className="p-4 border-b border-gray-200">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-medium text-gray-700">
+                    Data Karyawan
+                  </h3>
+                  <FilterDropdown
+                    value={tableFilter}
+                    options={tableFilterOptions}
+                    onChange={setTableFilter}
+                    placeholder="Select Period"
                   />
-                  <InputIcon>
-                    <MagnifyingGlass size={19} color="#2d3643" weight="bold" />
-                  </InputIcon>
-                </fieldset>
+                </div>
+
+                <div className="w-64">
+                  <fieldset className="relative">
+                    <Input
+                      placeholder="Search Anything"
+                      className="ps-11"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                    <InputIcon>
+                      <MagnifyingGlass
+                        size={19}
+                        color="#2d3643"
+                        weight="bold"
+                      />
+                    </InputIcon>
+                  </fieldset>
+                </div>
               </div>
 
-              <div className="border border-gray-200 rounded-lg">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Nama Karyawan</TableHead>
-                      <TableHead>Tanggal Kontrak</TableHead>
-                      <TableHead>Akhir Kontrak</TableHead>
-                      <TableHead>Status Karyawan</TableHead>
-                      <TableHead>Action</TableHead>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Nama Karyawan</TableHead>
+                    <TableHead>Tanggal Kontrak</TableHead>
+                    <TableHead>Akhir Kontrak</TableHead>
+                    <TableHead>Status Karyawan</TableHead>
+                    <TableHead>Action</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {filteredEmployees.map((employee) => (
+                    <TableRow key={employee.id}>
+                      <TableCell className="font-medium">
+                        <div className="flex items-center gap-3">
+                          <Avatar className="w-10 h-10">
+                            <AvatarImage
+                              src={employee.avatar}
+                              alt={employee.name}
+                            />
+                          </Avatar>
+                          <span>{employee.name}</span>
+                        </div>
+                      </TableCell>
+                      <TableCell>{employee.contractStart}</TableCell>
+                      <TableCell>{employee.contractEnd}</TableCell>
+                      <TableCell>
+                        <Badge color={employee.statusColor}>
+                          {employee.status}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex flex-col gap-2">
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            color="secondary"
+                            className="text-xs"
+                          >
+                            <PencilSimple size={14} />
+                            Perpanjang Kontrak
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            color="secondary"
+                            className="text-xs"
+                          >
+                            <Trash size={14} />
+                            Terminasi Kontrak
+                          </Button>
+                        </div>
+                      </TableCell>
                     </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {filteredEmployees.map((employee) => (
-                      <TableRow key={employee.id}>
-                        <TableCell className="font-medium">
-                          <div className="flex items-center gap-3">
-                            <Avatar className="w-10 h-10">
-                              <AvatarImage
-                                src={employee.avatar}
-                                alt={employee.name}
-                              />
-                            </Avatar>
-                            <span>{employee.name}</span>
-                          </div>
-                        </TableCell>
-                        <TableCell>{employee.contractStart}</TableCell>
-                        <TableCell>{employee.contractEnd}</TableCell>
-                        <TableCell>
-                          <Badge color={employee.statusColor}>
-                            {employee.status}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex items-center gap-2">
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              color="secondary"
-                            >
-                              <PencilSimple size={16} />
-                              Perpanjang Kontrak
-                            </Button>
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              color="secondary"
-                            >
-                              <Trash size={16} />
-                              Terminasi Kontrak
-                            </Button>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
+                  ))}
+                </TableBody>
+              </Table>
             </div>
           </div>
         </div>
