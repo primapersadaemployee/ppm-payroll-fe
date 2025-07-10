@@ -1,7 +1,25 @@
-import { Badge, Button } from "keep-react";
-import { Trash } from "phosphor-react";
+import { Badge, Button } from 'keep-react';
+import { Trash } from 'phosphor-react';
 
-export default function TableRekening({ rekeningData }) {
+export default function TableRekening({
+  rekeningData,
+  setRekeningData,
+  setFormData,
+}) {
+  const handleDeleteRekening = (id) => {
+    const newRekeningData = rekeningData.filter(
+      (rekening) => rekening.id !== id
+    );
+    setRekeningData(newRekeningData);
+    setFormData((prev) => ({
+      ...prev,
+      namaBank: '',
+      cabangBank: '',
+      namaPemilikRekening: '',
+      nomorRekening: '',
+    }));
+  };
+
   return (
     <div className="space-y-4">
       <table className="w-full min-w-full border-collapse">
@@ -47,7 +65,7 @@ export default function TableRekening({ rekeningData }) {
                   <Badge
                     variant="base"
                     color={
-                      rekening.status === "Terverifikasi" ? "success" : "error"
+                      rekening.status === 'Terverifikasi' ? 'success' : 'error'
                     }
                   >
                     {rekening.status}
@@ -58,6 +76,7 @@ export default function TableRekening({ rekeningData }) {
                     size="sm"
                     className="py-[2px] px-4 bg-[#F5F5F5] text-[#455468] font-medium hover:bg-white hover:text-[#455468]"
                     title="Hapus"
+                    onClick={() => handleDeleteRekening(rekening.id)}
                   >
                     <Trash size={19} />
                     <span>Hapus</span>
