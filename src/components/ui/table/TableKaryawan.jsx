@@ -10,13 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "keep-react";
-import {
-  PencilSimple,
-  Trash,
-  DotsThree,
-  CaretLeft,
-  CaretRight,
-} from "phosphor-react";
+import { CaretLeft, CaretRight, Eye, NotePencil } from "phosphor-react";
 
 export default function TableKaryawan({
   employees,
@@ -26,43 +20,49 @@ export default function TableKaryawan({
 }) {
   return (
     <div className="space-y-4">
-      <Table className="w-full min-w-[1600px]">
+      <Table className="w-full min-w-[1600px] rounded-t-none">
         <TableHeader>
           <TableRow>
-            <TableHead className="min-w-[150px] text-[#8897AE]">Nama</TableHead>
-            <TableHead className="min-w-[120px] text-[#8897AE]">
+            <TableHead className="min-w-[190px] text-[#8897AE] bg-[#F9FAFB]">
+              Nama
+            </TableHead>
+            <TableHead className="min-w-[150px] text-[#8897AE] bg-[#F9FAFB]">
               Jenis Kelamin
             </TableHead>
-            <TableHead className="min-w-[80px] text-[#8897AE]">Warga</TableHead>
-            <TableHead className="min-w-[100px] text-[#8897AE]">
+            <TableHead className="min-w-[80px] text-[#8897AE] bg-[#F9FAFB] text-center">
+              Warga
+            </TableHead>
+            <TableHead className="min-w-[100px] text-[#8897AE] bg-[#F9FAFB] text-center">
               Identitas
             </TableHead>
-            <TableHead className="min-w-[120px] text-[#8897AE]">
+            <TableHead className="min-w-[120px] text-[#8897AE] bg-[#F9FAFB] text-center">
               ID/NIK
             </TableHead>
-            <TableHead className="min-w-[120px] text-[#8897AE]">
+            <TableHead className="min-w-[150px] text-[#8897AE] bg-[#F9FAFB] text-center">
               Tempat Lahir
             </TableHead>
-            <TableHead className="min-w-[120px] text-[#8897AE]">
+            <TableHead className="min-w-[150px] text-[#8897AE] bg-[#F9FAFB] text-center">
               Tanggal Lahir
             </TableHead>
-            <TableHead className="min-w-[130px] text-[#8897AE]">
+            <TableHead className="min-w-[180px] text-[#8897AE] bg-[#F9FAFB] text-center">
               Status Perkawinan
             </TableHead>
-            <TableHead className="min-w-[80px] text-[#8897AE]">Agama</TableHead>
-            <TableHead className="min-w-[120px] text-[#8897AE]">
+            <TableHead className="min-w-[80px] text-[#8897AE] bg-[#F9FAFB] text-center">
+              Agama
+            </TableHead>
+            <TableHead className="min-w-[180px] text-[#8897AE] bg-[#F9FAFB] text-center">
               Golongan Darah
             </TableHead>
-            <TableHead className="min-w-[140px] text-[#8897AE]">
+            <TableHead className="min-w-[190px] text-[#8897AE] bg-[#F9FAFB] text-center">
               Pendidikan Terakhir
             </TableHead>
-            <TableHead className="min-w-[100px] text-[#8897AE]">
+            <TableHead className="min-w-[100px] text-[#8897AE] bg-[#F9FAFB] text-center">
               Divisi
             </TableHead>
-            <TableHead className="min-w-[130px] text-[#8897AE]">
+            <TableHead className="min-w-[170px] text-[#8897AE] bg-[#F9FAFB] text-center">
               Status Karyawan
             </TableHead>
-            <TableHead className="min-w-[80px] text-[#8897AE] text-center">
+            <TableHead className="min-w-[80px] text-[#8897AE] bg-[#F9FAFB] text-center">
               Aksi
             </TableHead>
           </TableRow>
@@ -70,70 +70,72 @@ export default function TableKaryawan({
         <TableBody>
           {employees.length > 0 ? (
             employees.map((employee) => (
-              <TableRow key={employee.id} className="hover:bg-gray-50">
-                <TableCell className="font-medium">
+              <TableRow
+                key={employee.id}
+                className="hover:bg-gray-50 font-medium"
+              >
+                <TableCell>
                   <div className="flex items-center gap-3">
                     <Avatar className="w-6 h-6">
                       <AvatarImage src={employee.avatar} alt={employee.name} />
                     </Avatar>
-                    <span className="font-medium text-gray-900">
-                      {employee.name}
-                    </span>
+                    <span className="truncate">{employee.name}</span>
                   </div>
                 </TableCell>
-                <TableCell>{employee.gender}</TableCell>
-                <TableCell>{employee.citizenship}</TableCell>
-                <TableCell>{employee.identity}</TableCell>
-                <TableCell>
+                <TableCell className="text-center">{employee.gender}</TableCell>
+                <TableCell className="text-center">
+                  {employee.citizenship}
+                </TableCell>
+                <TableCell className="text-center">
+                  {employee.identity}
+                </TableCell>
+                <TableCell className="text-center">
                   <div className="flex flex-col">
-                    <span className="font-medium">{employee.idNumber}</span>
-                    <span className="text-xs text-gray-500">
-                      {employee.nik}
-                    </span>
+                    <span>{employee.nik}</span>
                   </div>
                 </TableCell>
-                <TableCell>{employee.birthPlace}</TableCell>
-                <TableCell>{employee.birthDate}</TableCell>
-                <TableCell>{employee.maritalStatus}</TableCell>
-                <TableCell>{employee.religion}</TableCell>
-                <TableCell>
-                  <span className="font-medium">{employee.bloodType}</span>
+                <TableCell className="text-center">
+                  {employee.birthPlace}
                 </TableCell>
-                <TableCell>{employee.education}</TableCell>
-                <TableCell>{employee.division}</TableCell>
-                <TableCell>
+                <TableCell className="text-center">
+                  {employee.birthDate}
+                </TableCell>
+                <TableCell className="text-center">
+                  {employee.maritalStatus}
+                </TableCell>
+                <TableCell className="text-center">
+                  {employee.religion}
+                </TableCell>
+                <TableCell className="text-center">
+                  <span>{employee.bloodType}</span>
+                </TableCell>
+                <TableCell className="text-center">
+                  {employee.education}
+                </TableCell>
+                <TableCell className="text-center">
+                  {employee.division}
+                </TableCell>
+                <TableCell className="text-center">
                   <Badge variant="base" color={employee.statusColor}>
                     {employee.status}
                   </Badge>
                 </TableCell>
                 <TableCell>
-                  <div className="flex items-center justify-center gap-1">
+                  <div className="flex items-center justify-center gap-1 text-sm">
                     <Button
                       size="sm"
-                      variant="outline"
-                      color="secondary"
-                      className="p-1 h-6 w-6"
+                      className="py-[2px] px-4 bg-[#F5F5F5] text-[#455468] font-medium hover:bg-white hover:text-[#455468]"
+                      title="View"
+                    >
+                      <Eye size={19} />
+                      <span>View</span>
+                    </Button>
+                    <Button
+                      size="sm"
+                      className="py-[2px] px-2 bg-[#F5F5F5] text-[#455468] font-medium hover:bg-white hover:text-[#455468]"
                       title="Edit"
                     >
-                      <PencilSimple size={12} />
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      color="error"
-                      className="p-1 h-6 w-6"
-                      title="Delete"
-                    >
-                      <Trash size={12} />
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      color="secondary"
-                      className="p-1 h-6 w-6"
-                      title="More"
-                    >
-                      <DotsThree size={12} />
+                      <NotePencil size={19} />
                     </Button>
                   </div>
                 </TableCell>
@@ -143,20 +145,8 @@ export default function TableKaryawan({
             <TableRow>
               <TableCell colSpan={14} className="text-center py-8">
                 <div className="flex flex-col items-center gap-2">
-                  <div className="text-gray-400">
-                    <svg
-                      width="48"
-                      height="48"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                    >
-                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-                    </svg>
-                  </div>
-                  <p className="text-gray-500 font-medium">
-                    Tidak ada data karyawan
-                  </p>
-                  <p className="text-gray-400 text-sm">
+                  <p className="font-medium">Tidak ada data karyawan</p>
+                  <p className="text-sm">
                     Coba ubah filter atau kata kunci pencarian
                   </p>
                 </div>
@@ -168,52 +158,56 @@ export default function TableKaryawan({
 
       {/* Pagination */}
       {totalPages > 1 && (
-        <div className="flex justify-between items-center mt-6">
-          <div className="text-sm text-gray-500">
-            Halaman {currentPage} dari {totalPages}
-          </div>
-          <div className="flex items-center gap-1">
+        <div className="mt-6 px-4 lg:px-6">
+          <div className="flex items-center justify-between gap-1">
             <Button
               size="sm"
               variant="outline"
               color="secondary"
               onClick={() => onPageChange(Math.max(1, currentPage - 1))}
               disabled={currentPage === 1}
-              className="p-2"
+              className="p-2 flex items-center"
             >
               <CaretLeft size={14} />
+              <span>Previous</span>
             </Button>
 
-            {Array.from({ length: totalPages }, (_, i) => i + 1)
-              .filter((page) => {
-                // Show first page, last page, current page, and pages around current
-                return (
-                  page === 1 ||
-                  page === totalPages ||
-                  Math.abs(page - currentPage) <= 1
-                );
-              })
-              .map((page, index, array) => {
-                // Add ellipsis if there's a gap
-                const showEllipsis = index > 0 && page - array[index - 1] > 1;
+            <div className="flex gap-2">
+              {Array.from({ length: totalPages }, (_, i) => i + 1)
+                .filter((page) => {
+                  // Show first page, last page, current page, and pages around current
+                  return (
+                    page === 1 ||
+                    page === totalPages ||
+                    Math.abs(page - currentPage) <= 1
+                  );
+                })
+                .map((page, index, array) => {
+                  // Add ellipsis if there's a gap
+                  const showEllipsis = index > 0 && page - array[index - 1] > 1;
 
-                return (
-                  <div key={page} className="flex items-center">
-                    {showEllipsis && (
-                      <span className="px-2 text-gray-400">...</span>
-                    )}
-                    <Button
-                      size="sm"
-                      variant={currentPage === page ? "softBg" : "outline"}
-                      color={currentPage === page ? "primary" : "secondary"}
-                      onClick={() => onPageChange(page)}
-                      className="min-w-[32px] h-8"
-                    >
-                      {page}
-                    </Button>
-                  </div>
-                );
-              })}
+                  return (
+                    <div key={page} className="flex items-center">
+                      {showEllipsis && (
+                        <span className="px-2 text-gray-400">...</span>
+                      )}
+                      <Button
+                        size="sm"
+                        // variant={currentPage === page ? "softBg" : "link"}
+                        // color={currentPage === page ? "primary" : "secondary"}
+                        onClick={() => onPageChange(page)}
+                        className={`min-w-[32px] h-8 rounded-full ${
+                          currentPage === page
+                            ? "bg-[#5E718D] text-white hover:bg-[#5E718D]"
+                            : "text-[#455468] bg-transparent hover:bg-[#5E718D] hover:text-white"
+                        }`}
+                      >
+                        {page}
+                      </Button>
+                    </div>
+                  );
+                })}
+            </div>
 
             <Button
               size="sm"
@@ -223,8 +217,9 @@ export default function TableKaryawan({
                 onPageChange(Math.min(totalPages, currentPage + 1))
               }
               disabled={currentPage === totalPages}
-              className="p-2"
+              className="p-2 flex items-center"
             >
+              <span>Next</span>
               <CaretRight size={14} />
             </Button>
           </div>

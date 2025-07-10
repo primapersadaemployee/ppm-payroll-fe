@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { SidebarComponent } from "../components/layout/Sidebar";
-import NotificationHome from "../components/ui/notification/NotificationHome";
-import TableKaryawan from "../components/ui/table/TableKaryawan";
-import FilterDropdown from "../components/ui/dropdown/FilterDropdown";
+import { SidebarComponent } from "../../components/layout/Sidebar";
+import NotificationHome from "../../components/ui/notification/NotificationHome";
+import TableKaryawan from "../../components/ui/table/TableKaryawan";
+import FilterDropdown from "../../components/ui/dropdown/FilterDropdown";
 import { Button, Input, InputIcon } from "keep-react";
-import { Plus, MagnifyingGlass, House } from "phosphor-react";
+import { Plus, MagnifyingGlass, House, Users } from "phosphor-react";
+import { Link } from "react-router-dom";
 
 // Dummy employee data with all required fields
 const generateEmployeeData = () => {
@@ -46,12 +47,22 @@ const generateEmployeeData = () => {
   const religions = ["Islam", "Kristen", "Katolik", "Hindu", "Buddha"];
   const bloodTypes = ["A", "B", "AB", "O"];
   const educations = ["SMA", "D3", "S1", "S2", "S3"];
-  const divisions = ["Bendahara", "Marketing", "Dev team", "Operations", "HR"];
-  const statuses = ["Tetap", "Kontrak", "Freelance"];
+  const divisions = [
+    "IT Development",
+    "Design Development",
+    "Keuangan",
+    "HRD",
+    "Pemasaran",
+    "Penjualan",
+    "Produksi",
+    "Tata Kelola",
+  ];
+  const statuses = ["Tetap", "PKWT", "Resign", "Percobaan"];
   const statusColors = {
     Tetap: "success",
-    Kontrak: "warning",
-    Freelance: "error",
+    PKWT: "secondary",
+    Resign: "error",
+    Percobaan: "warning",
   };
 
   return Array.from({ length: 20 }, (_, i) => ({
@@ -71,7 +82,9 @@ const generateEmployeeData = () => {
     division: divisions[i % divisions.length],
     status: statuses[i % statuses.length],
     statusColor: statusColors[statuses[i % statuses.length]],
-    avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${i + 1}&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`,
+    avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${
+      i + 1
+    }&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`,
   }));
 };
 
@@ -105,7 +118,7 @@ export default function Karyawan() {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedEmployees = filteredEmployees.slice(
     startIndex,
-    startIndex + itemsPerPage,
+    startIndex + itemsPerPage
   );
 
   // Reset to first page when filters change
@@ -121,68 +134,69 @@ export default function Karyawan() {
 
   const divisions = [
     "Semua Divisi",
-    "Bendahara",
-    "Marketing",
-    "Dev team",
-    "Operations",
-    "HR",
+    "IT Development",
+    "Design Development",
+    "Keuangan",
+    "HRD",
+    "Pemasaran",
+    "Penjualan",
+    "Produksi",
+    "Tata Kelola",
   ];
-  const statuses = ["Semua Status", "Tetap", "Kontrak", "Freelance"];
+  const statuses = ["Semua Status", "Tetap", "Resign", "PKWT", "Percobaan"];
 
   return (
-    <div className="flex gap-2 lg:gap-4 font-poppins p-2 lg:p-4 min-h-screen">
+    <div className="flex gap-2 lg:gap-4 font-poppins p-2 lg:p-4 min-h-screen text-[#455468]">
       <div className="sticky top-2 lg:top-0 h-fit lg:h-screen shrink-0">
         <SidebarComponent />
       </div>
       <div className="p-2 lg:p-4 w-full flex-1 overflow-hidden">
         <div className="flex flex-col gap-4 lg:gap-6">
-          {/* Header with search and notification */}
-          <div className="flex flex-row gap-2 lg:gap-[10px] justify-between">
-            <div className="w-[80%] sm:flex-1">
-              <fieldset className="relative w-full">
-                <Input
-                  placeholder="Search Anything"
-                  className="ps-11"
-                  value={searchTerm}
-                  onChange={handleSearchChange}
-                />
-                <InputIcon>
-                  <MagnifyingGlass size={19} color="#2d3643" weight="bold" />
-                </InputIcon>
-              </fieldset>
+          {/* Breadcrumb */}
+          <nav className="text-sm">
+            <div className="flex items-center gap-2">
+              <Users size={16} weight="fill" />
+              <span>/</span>
+              <span className="font-medium">Karyawan</span>
             </div>
+          </nav>
+
+          {/* Page Title */}
+          <div className="flex justify-between items-center">
+            <h1 className="text-2xl lg:text-3xl font-medium">Karyawan</h1>
             <div className="w-[20%] sm:w-auto">
               <NotificationHome />
             </div>
           </div>
 
-          {/* Breadcrumb */}
-          <nav className="text-sm text-gray-500">
-            <div className="flex items-center gap-2">
-              <House size={16} />
-              <span>/</span>
-              <span className="text-gray-900 font-medium">Karyawan</span>
-            </div>
-          </nav>
-
-          {/* Page Title */}
-          <div>
-            <h1 className="text-2xl lg:text-3xl font-semibold text-gray-800">
-              Karyawan
-            </h1>
-          </div>
-
           {/* Data Karyawan Section */}
-          <div className="bg-white rounded-lg p-4 lg:p-6 shadow-sm">
+          <div className="bg-white rounded-2xl py-4 lg:py-6 shadow-sm border border-gray-100">
             {/* Section Header with Filters */}
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
-              <div className="flex items-center gap-4">
-                <h2 className="text-lg font-semibold text-gray-700">
-                  Data Karyawan
-                </h2>
+            <div className="flex flex-col xl:flex-row xl:items-center lg:justify-between gap-4 mb-6">
+              <div className="flex items-center gap-4 px-4 lg:px-6">
+                <h2 className="text-lg font-medium">Daftar Karyawan</h2>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-2 lg:gap-4">
+              <div className="flex flex-col sm:flex-row gap-2 lg:gap-4 px-4 lg:px-6">
+                <fieldset className="relative w-full">
+                  <Input
+                    type="text"
+                    placeholder="Cari"
+                    name="search"
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                    className="flex-1 ps-11"
+                  />
+                  <InputIcon>
+                    <MagnifyingGlass size={19} color="#2d3643" weight="bold" />
+                  </InputIcon>
+                </fieldset>
+                <Link to="/karyawan/tambah-karyawan">
+                  <Button className="flex items-center gap-2 whitespace-nowrap bg-[#3629B7] hover:bg-[#2e23a0] text-white">
+                    <Plus size={16} />
+                    Tambah Karyawan
+                  </Button>
+                </Link>
                 <FilterDropdown
                   value={selectedDivision}
                   options={divisions}
@@ -193,14 +207,6 @@ export default function Karyawan() {
                   options={statuses}
                   onChange={handleFilterChange(setSelectedStatus)}
                 />
-                <Button
-                  variant="softBg"
-                  color="primary"
-                  className="flex items-center gap-2 whitespace-nowrap"
-                >
-                  <Plus size={16} />
-                  Tambah Karyawan
-                </Button>
               </div>
             </div>
 

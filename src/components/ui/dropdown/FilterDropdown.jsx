@@ -7,7 +7,7 @@ export default function FilterDropdown({ value, options, onChange }) {
         <Button
           variant="outline"
           color="secondary"
-          className="w-32 justify-between text-xs lg:text-sm"
+          className="w-32 lg:w-36 justify-between text-xs lg:text-sm"
         >
           {value}
           <span className="ml-2">▼</span>

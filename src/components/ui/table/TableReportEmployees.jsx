@@ -14,22 +14,22 @@ import { PencilSimple, Trash } from "phosphor-react";
 
 export default function TableReportEmployees({ filteredEmployees }) {
   return (
-    <Table className="w-full min-w-[600px]">
+    <Table className="w-full min-w-[600px] rounded-t-none">
       <TableHeader>
         <TableRow>
-          <TableHead className="w-1/4 min-w-[150px] text-[#8897AE]">
+          <TableHead className="w-1/4 min-w-[150px] text-[#8897AE] bg-[#F9FAFB]">
             Nama Karyawan
           </TableHead>
-          <TableHead className="w-1/4 min-w-[150px] text-[#8897AE]">
+          <TableHead className="w-1/4 min-w-[150px] text-[#8897AE] bg-[#F9FAFB]">
             Tanggal Kontrak
           </TableHead>
-          <TableHead className="w-1/4 min-w-[150px] text-[#8897AE]">
+          <TableHead className="w-1/4 min-w-[150px] text-[#8897AE] bg-[#F9FAFB]">
             Akhir Kontrak
           </TableHead>
-          <TableHead className="w-1/6 min-w-[100px] text-[#8897AE]">
+          <TableHead className="w-1/6 min-w-[100px] text-[#8897AE] bg-[#F9FAFB]">
             Status Karyawan
           </TableHead>
-          <TableHead className="w-1/6 min-w-[120px] text-[#8897AE] text-center">
+          <TableHead className="w-1/6 min-w-[120px] text-[#8897AE] bg-[#F9FAFB] text-center">
             Action
           </TableHead>
         </TableRow>
