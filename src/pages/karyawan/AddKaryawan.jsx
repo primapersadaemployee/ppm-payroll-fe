@@ -6,12 +6,12 @@ import {
   Plus,
   CaretRight,
   Check,
-} from "phosphor-react";
-import { SidebarComponent } from "../../components/layout/Sidebar";
-import NotificationHome from "../../components/ui/notification/NotificationHome";
-import BGPersonal from "/bg-personal.png";
-import BGKepegawaian from "/bg-kepegawaian.png";
-import BGPayroll from "/bg-payroll.png";
+} from 'phosphor-react';
+import { SidebarComponent } from '../../components/layout/Sidebar';
+import NotificationHome from '../../components/ui/notification/NotificationHome';
+import BGPersonal from '/bg-personal.png';
+import BGKepegawaian from '/bg-kepegawaian.png';
+import BGPayroll from '/bg-payroll.png';
 import {
   Button,
   Input,
@@ -29,11 +29,12 @@ import {
   ModalDescription,
   ModalTitle,
   ModalFooter,
-} from "keep-react";
-import { useState } from "react";
-import InputDate from "../../components/ui/input/InputDate";
-import TableRekening from "../../components/ui/table/TableRekening";
-import { Link } from "react-router-dom";
+} from 'keep-react';
+import { useState } from 'react';
+import InputDate from '../../components/ui/input/InputDate';
+import TableRekening from '../../components/ui/table/TableRekening';
+import { Link } from 'react-router-dom';
+import { format } from 'date-fns';
 
 const rekeningData = [];
 
@@ -43,74 +44,74 @@ export default function AddKaryawan() {
   const [isSecondModalOpen, setIsSecondModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     // Personal Data
-    idKaryawan: "",
-    namaLengkap: "",
-    tempatLahir: "",
-    tanggalLahir: "",
-    jenisKelamin: "",
-    statusPerkawinan: "",
-    golonganDarah: "",
-    agama: "",
-    kewarganegaraan: "",
-    tipeIdentitas: "",
-    idKartuIdentitas: "",
-    email: "",
-    noHp: "",
-    noTelp: "",
-    alamatKartuIdentitas: "",
-    negara: "",
-    provinsi: "",
-    kota: "",
-    alamatDomisili: "",
-    negaraDomisili: "",
-    provinsiDomisili: "",
-    kotaDomisili: "",
-    namaKontakDarurat: "",
-    noTelpKontakDarurat: "",
-    pendidikanTerakhir: "",
-    namaInstitusiPendidikan: "",
-    programStudi: "",
+    idKaryawan: '',
+    namaLengkap: '',
+    tempatLahir: '',
+    tanggalLahir: '',
+    jenisKelamin: '',
+    statusPerkawinan: '',
+    golonganDarah: '',
+    agama: '',
+    kewarganegaraan: '',
+    tipeIdentitas: '',
+    idKartuIdentitas: '',
+    email: '',
+    noHp: '',
+    noTelp: '',
+    alamatKartuIdentitas: '',
+    negara: '',
+    provinsi: '',
+    kota: '',
+    alamatDomisili: '',
+    negaraDomisili: '',
+    provinsiDomisili: '',
+    kotaDomisili: '',
+    namaKontakDarurat: '',
+    noTelpKontakDarurat: '',
+    pendidikanTerakhir: '',
+    namaInstitusiPendidikan: '',
+    programStudi: '',
 
     // Employment Data
-    statusKaryawan: "",
-    tanggalBergabung: "",
-    organisasi: "",
-    jabatan: "",
-    pangkat: "",
-    jadwal: "",
-    tanggalMasaAkhirKerja: "",
+    statusKaryawan: '',
+    tanggalBergabung: '',
+    organisasi: '',
+    jabatan: '',
+    pangkat: '',
+    jadwal: '',
+    tanggalMasaAkhirKerja: '',
 
     // Payroll Data
-    npwp: "",
-    npwpPemotong: "",
-    noBpjsKetenagakerjaan: "",
-    tanggalEfektifBpjsKetenagakerjaan: "",
-    noBpjsKesehatan: "",
-    tanggalEfektifBpjsKesehatan: "",
-    jumlahAngsuranKeluarga: "",
-    namaBank: "",
-    cabangBank: "",
-    namaPemilikRekening: "",
-    nomorRekening: "",
+    npwp: '',
+    npwpPemotong: '',
+    noBpjsKetenagakerjaan: '',
+    tanggalEfektifBpjsKetenagakerjaan: '',
+    noBpjsKesehatan: '',
+    tanggalEfektifBpjsKesehatan: '',
+    jumlahAngsuranKeluarga: '',
+    namaBank: '',
+    cabangBank: '',
+    namaPemilikRekening: '',
+    nomorRekening: '',
   });
   const [rekenings, setRekenings] = useState(rekeningData);
 
   const steps = [
     {
       id: 1,
-      title: "Personal",
+      title: 'Personal',
       isComplete: currentStep > 1,
       image: BGPersonal,
     },
     {
       id: 2,
-      title: "Kepegawaian",
+      title: 'Kepegawaian',
       isComplete: currentStep > 2,
       image: BGKepegawaian,
     },
     {
       id: 3,
-      title: "Payroll",
+      title: 'Payroll',
       isComplete: currentStep > 3,
       image: BGPayroll,
     },
@@ -126,7 +127,7 @@ export default function AddKaryawan() {
   const handleDateChange = (fieldName, date) => {
     setFormData((prev) => ({
       ...prev,
-      [fieldName]: date ? date.toISOString() : "",
+      [fieldName]: date ? format(date, 'yyyy-MM-dd') : '',
     }));
   };
 
@@ -143,7 +144,7 @@ export default function AddKaryawan() {
   };
 
   const handleSubmit = () => {
-    console.log("Form submitted:", { ...formData, rekenings });
+    console.log('Form submitted:', { ...formData, rekenings });
     // Handle form submission
   };
 
@@ -155,7 +156,7 @@ export default function AddKaryawan() {
       !formData.namaPemilikRekening.trim() ||
       !formData.nomorRekening.trim()
     ) {
-      alert("Semua field wajib diisi!");
+      alert('Semua field wajib diisi!');
       return;
     }
 
@@ -166,18 +167,18 @@ export default function AddKaryawan() {
       cabang: formData.cabangBank,
       namaPemilik: formData.namaPemilikRekening,
       nomorRekening: formData.nomorRekening,
-      status: "Belum Terverifikasi", // Status default, bisa diubah sesuai kebutuhan
+      status: 'Belum Terverifikasi', // Status default, bisa diubah sesuai kebutuhan
     };
     setRekenings((prev) => [...prev, newRekening]);
 
     // Reset field rekening di formData
-    setFormData((prev) => ({
-      ...prev,
-      namaBank: "",
-      cabangBank: "",
-      namaPemilikRekening: "",
-      nomorRekening: "",
-    }));
+    // setFormData((prev) => ({
+    //   ...prev,
+    //   namaBank: '',
+    //   cabangBank: '',
+    //   namaPemilikRekening: '',
+    //   nomorRekening: '',
+    // }));
 
     // Tutup modal pertama dan buka modal kedua
     setIsFirstModalOpen(false);
@@ -206,10 +207,10 @@ export default function AddKaryawan() {
               <span>/</span>
               <span className="text-gray-400">
                 {currentStep === 1
-                  ? "Personal"
+                  ? 'Personal'
                   : currentStep === 2
-                  ? "Kepegawaian"
-                  : "Payroll"}
+                  ? 'Kepegawaian'
+                  : 'Payroll'}
               </span>
             </div>
           </nav>
@@ -232,8 +233,8 @@ export default function AddKaryawan() {
                       <div
                         className={`w-8 h-8 rounded-full flex items-center justify-center font-medium text-lg ${
                           currentStep === step.id
-                            ? "bg-[#3629B7] text-white"
-                            : "bg-[#F0F3F9]"
+                            ? 'bg-[#3629B7] text-white'
+                            : 'bg-[#F0F3F9]'
                         }`}
                       >
                         {step.id}
@@ -243,8 +244,8 @@ export default function AddKaryawan() {
                       <div
                         className={`w-full mx-1 h-0.5 ${
                           currentStep === step.id
-                            ? "bg-[#3629B7]"
-                            : "bg-[#F0F3F9]"
+                            ? 'bg-[#3629B7]'
+                            : 'bg-[#F0F3F9]'
                         }`}
                       />
                     )}
@@ -252,8 +253,8 @@ export default function AddKaryawan() {
                   <div
                     className={`border rounded-3xl w-[90%] p-6 shadow-sm h-[250px] ${
                       currentStep === step.id
-                        ? "border-[#3629B7] bg-[#DDE5FF]"
-                        : "border-gray-100 bg-transparent"
+                        ? 'border-[#3629B7] bg-[#DDE5FF]'
+                        : 'border-gray-100 bg-transparent'
                     }`}
                   >
                     <div className="flex gap-1 h-full">
@@ -347,7 +348,7 @@ export default function AddKaryawan() {
                           placeholder="ID Karyawan"
                           value={formData.idKaryawan}
                           onChange={(e) =>
-                            handleInputChange("idKaryawan", e.target.value)
+                            handleInputChange('idKaryawan', e.target.value)
                           }
                         />
                       </div>
@@ -360,7 +361,7 @@ export default function AddKaryawan() {
                           placeholder="Nama Lengkap"
                           value={formData.namaLengkap}
                           onChange={(e) =>
-                            handleInputChange("namaLengkap", e.target.value)
+                            handleInputChange('namaLengkap', e.target.value)
                           }
                         />
                       </div>
@@ -375,7 +376,7 @@ export default function AddKaryawan() {
                           placeholder="Tempat Lahir"
                           value={formData.tempatLahir}
                           onChange={(e) =>
-                            handleInputChange("tempatLahir", e.target.value)
+                            handleInputChange('tempatLahir', e.target.value)
                           }
                         />
                       </div>
@@ -394,15 +395,15 @@ export default function AddKaryawan() {
                         <div className="flex gap-4">
                           <label className="flex items-center gap-2">
                             <Checkbox
-                              checked={formData.jenisKelamin === "Laki-laki"}
+                              checked={formData.jenisKelamin === 'Laki-laki'}
                               onCheckedChange={(checked) => {
                                 if (checked) {
                                   handleInputChange(
-                                    "jenisKelamin",
-                                    "Laki-laki"
+                                    'jenisKelamin',
+                                    'Laki-laki'
                                   );
                                 } else {
-                                  handleInputChange("jenisKelamin", "");
+                                  handleInputChange('jenisKelamin', '');
                                 }
                               }}
                               className="w-4 h-4 text-[#3629B7]"
@@ -411,15 +412,15 @@ export default function AddKaryawan() {
                           </label>
                           <label className="flex items-center gap-2">
                             <Checkbox
-                              checked={formData.jenisKelamin === "Perempuan"}
+                              checked={formData.jenisKelamin === 'Perempuan'}
                               onCheckedChange={(checked) => {
                                 if (checked) {
                                   handleInputChange(
-                                    "jenisKelamin",
-                                    "Perempuan"
+                                    'jenisKelamin',
+                                    'Perempuan'
                                   );
                                 } else {
-                                  handleInputChange("jenisKelamin", "");
+                                  handleInputChange('jenisKelamin', '');
                                 }
                               }}
                               className="w-4 h-4 text-[#3629B7]"
@@ -431,10 +432,15 @@ export default function AddKaryawan() {
 
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Status Perkawinan{" "}
+                          Status Perkawinan{' '}
                           <span className="text-red-500">*</span>
                         </label>
-                        <Select>
+                        <Select
+                          value={formData.statusPerkawinan}
+                          onValueChange={(value) =>
+                            handleInputChange('statusPerkawinan', value)
+                          }
+                        >
                           <SelectAction>
                             <SelectValue placeholder="Status Perkawinan..." />
                           </SelectAction>
@@ -456,7 +462,7 @@ export default function AddKaryawan() {
                           placeholder="Golongan Darah"
                           value={formData.golonganDarah}
                           onChange={(e) =>
-                            handleInputChange("golonganDarah", e.target.value)
+                            handleInputChange('golonganDarah', e.target.value)
                           }
                         />
                       </div>
@@ -468,16 +474,21 @@ export default function AddKaryawan() {
                           placeholder="Agama"
                           value={formData.agama}
                           onChange={(e) =>
-                            handleInputChange("agama", e.target.value)
+                            handleInputChange('agama', e.target.value)
                           }
                         />
                       </div>
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Kewarganegaraan{" "}
+                          Kewarganegaraan{' '}
                           <span className="text-red-500">*</span>
                         </label>
-                        <Select>
+                        <Select
+                          value={formData.kewarganegaraan}
+                          onValueChange={(value) =>
+                            handleInputChange('kewarganegaraan', value)
+                          }
+                        >
                           <SelectAction>
                             <SelectValue placeholder="Kewarganegaraan..." />
                           </SelectAction>
@@ -500,10 +511,15 @@ export default function AddKaryawan() {
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          Tipe Kartu Identitas{" "}
+                          Tipe Kartu Identitas{' '}
                           <span className="text-red-500">*</span>
                         </label>
-                        <Select>
+                        <Select
+                          value={formData.tipeIdentitas}
+                          onValueChange={(value) =>
+                            handleInputChange('tipeIdentitas', value)
+                          }
+                        >
                           <SelectAction>
                             <SelectValue placeholder="Tipe Kartu Identitas..." />
                           </SelectAction>
@@ -516,7 +532,7 @@ export default function AddKaryawan() {
 
                       <div>
                         <label className="block text-sm font-medium mb-2">
-                          ID Kartu Identitas{" "}
+                          ID Kartu Identitas{' '}
                           <span className="text-red-500">*</span>
                         </label>
                         <Input
@@ -524,7 +540,7 @@ export default function AddKaryawan() {
                           value={formData.idKartuIdentitas}
                           onChange={(e) =>
                             handleInputChange(
-                              "idKartuIdentitas",
+                              'idKartuIdentitas',
                               e.target.value
                             )
                           }
@@ -542,7 +558,7 @@ export default function AddKaryawan() {
                           placeholder="Email"
                           value={formData.email}
                           onChange={(e) =>
-                            handleInputChange("email", e.target.value)
+                            handleInputChange('email', e.target.value)
                           }
                         />
                       </div>
@@ -559,7 +575,7 @@ export default function AddKaryawan() {
                           placeholder="No. HP"
                           value={formData.noHp}
                           onChange={(e) =>
-                            handleInputChange("noHp", e.target.value)
+                            handleInputChange('noHp', e.target.value)
                           }
                         />
                       </div>
@@ -573,7 +589,7 @@ export default function AddKaryawan() {
                           placeholder="No. Telepon"
                           value={formData.noTelp}
                           onChange={(e) =>
-                            handleInputChange("noTelp", e.target.value)
+                            handleInputChange('noTelp', e.target.value)
                           }
                         />
                       </div>
@@ -591,7 +607,7 @@ export default function AddKaryawan() {
                           value={formData.alamatKartuIdentitas}
                           onChange={(e) =>
                             handleInputChange(
-                              "alamatKartuIdentitas",
+                              'alamatKartuIdentitas',
                               e.target.value
                             )
                           }
@@ -609,7 +625,7 @@ export default function AddKaryawan() {
                           placeholder="Negara"
                           value={formData.negara}
                           onChange={(e) =>
-                            handleInputChange("negara", e.target.value)
+                            handleInputChange('negara', e.target.value)
                           }
                         />
                       </div>
@@ -625,7 +641,7 @@ export default function AddKaryawan() {
                           placeholder="Provinsi"
                           value={formData.provinsi}
                           onChange={(e) =>
-                            handleInputChange("provinsi", e.target.value)
+                            handleInputChange('provinsi', e.target.value)
                           }
                         />
                       </div>
@@ -638,10 +654,78 @@ export default function AddKaryawan() {
                           placeholder="Kota"
                           value={formData.kota}
                           onChange={(e) =>
-                            handleInputChange("kota", e.target.value)
+                            handleInputChange('kota', e.target.value)
                           }
                         />
                       </div>
+                    </div>
+
+                    <div className="mt-4 grid grid-cols-1">
+                      <div>
+                        <label className="block text-sm font-medium mb-2">
+                          Alamat Domisili
+                          <span className="text-red-500">*</span>
+                        </label>
+                        <Textarea
+                          rows={8}
+                          placeholder="Alamat Domisili"
+                          value={formData.alamatDomisili}
+                          onChange={(e) =>
+                            handleInputChange('alamatDomisili', e.target.value)
+                          }
+                        />
+                      </div>
+                    </div>
+
+                    <div className="mt-4 grid grid-cols-1">
+                      <div>
+                        <label className="block text-sm font-medium mb-2">
+                          Negara Domisili
+                          <span className="text-red-500">*</span>
+                        </label>
+                        <Input
+                          placeholder="Negara Domisili"
+                          value={formData.negaraDomisili}
+                          onChange={(e) =>
+                            handleInputChange('negaraDomisili', e.target.value)
+                          }
+                        />
+                      </div>
+                    </div>
+
+                    <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium mb-2">
+                          Provinsi Domisili
+                          <span className="text-red-500">*</span>
+                        </label>
+                        <Input
+                          placeholder="Provinsi Domisili"
+                          value={formData.provinsiDomisili}
+                          onChange={(e) =>
+                            handleInputChange(
+                              'provinsiDomisili',
+                              e.target.value
+                            )
+                          }
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium mb-2">
+                          Kota Domisili
+                          <span className="text-red-500">*</span>
+                        </label>
+                        <Input
+                          placeholder="Kota Domisili"
+                          value={formData.kotaDomisili}
+                          onChange={(e) =>
+                            handleInputChange('kotaDomisili', e.target.value)
+                          }
+                        />
+                      </div>
+                    </div>
+
+                    <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium mb-2">
                           Nama Kontak Darurat
@@ -652,7 +736,7 @@ export default function AddKaryawan() {
                           value={formData.namaKontakDarurat}
                           onChange={(e) =>
                             handleInputChange(
-                              "namaKontakDarurat",
+                              'namaKontakDarurat',
                               e.target.value
                             )
                           }
@@ -669,7 +753,7 @@ export default function AddKaryawan() {
                           value={formData.noTelpKontakDarurat}
                           onChange={(e) =>
                             handleInputChange(
-                              "noTelpKontakDarurat",
+                              'noTelpKontakDarurat',
                               e.target.value
                             )
                           }
@@ -691,7 +775,12 @@ export default function AddKaryawan() {
                           Jenjang Pendidikan Terakhir
                           <span className="text-red-500">*</span>
                         </label>
-                        <Select>
+                        <Select
+                          value={formData.pendidikanTerakhir}
+                          onValueChange={(value) =>
+                            handleInputChange('pendidikanTerakhir', value)
+                          }
+                        >
                           <SelectAction>
                             <SelectValue placeholder="Jenjang Pendidikan" />
                           </SelectAction>
@@ -719,7 +808,7 @@ export default function AddKaryawan() {
                           value={formData.namaInstitusiPendidikan}
                           onChange={(e) =>
                             handleInputChange(
-                              "namaInstitusiPendidikan",
+                              'namaInstitusiPendidikan',
                               e.target.value
                             )
                           }
@@ -734,7 +823,7 @@ export default function AddKaryawan() {
                           placeholder="Program Studi"
                           value={formData.programStudi}
                           onChange={(e) =>
-                            handleInputChange("programStudi", e.target.value)
+                            handleInputChange('programStudi', e.target.value)
                           }
                         />
                       </div>
@@ -752,7 +841,12 @@ export default function AddKaryawan() {
                       <label className="block text-sm font-medium mb-2">
                         Status Karyawan <span className="text-red-500">*</span>
                       </label>
-                      <Select>
+                      <Select
+                        value={formData.statusKaryawan}
+                        onValueChange={(value) =>
+                          handleInputChange('statusKaryawan', value)
+                        }
+                      >
                         <SelectAction>
                           <SelectValue placeholder="Status Karyawan..." />
                         </SelectAction>
@@ -775,7 +869,12 @@ export default function AddKaryawan() {
                       <label className="block text-sm font-medium mb-2">
                         Organisasi <span className="text-red-500">*</span>
                       </label>
-                      <Select>
+                      <Select
+                        value={formData.organisasi}
+                        onValueChange={(value) =>
+                          handleInputChange('organisasi', value)
+                        }
+                      >
                         <SelectAction>
                           <SelectValue placeholder="Pilih Organisasi..." />
                         </SelectAction>
@@ -793,7 +892,12 @@ export default function AddKaryawan() {
                       <label className="block text-sm font-medium mb-2">
                         Jabatan <span className="text-red-500">*</span>
                       </label>
-                      <Select>
+                      <Select
+                        value={formData.jabatan}
+                        onValueChange={(value) =>
+                          handleInputChange('jabatan', value)
+                        }
+                      >
                         <SelectAction>
                           <SelectValue placeholder="Pilih Jabatan..." />
                         </SelectAction>
@@ -809,7 +913,12 @@ export default function AddKaryawan() {
                       <label className="block text-sm font-medium mb-2">
                         Pangkat <span className="text-red-500">*</span>
                       </label>
-                      <Select>
+                      <Select
+                        value={formData.pangkat}
+                        onValueChange={(value) =>
+                          handleInputChange('pangkat', value)
+                        }
+                      >
                         <SelectAction>
                           <SelectValue placeholder="Pilih Pangkat..." />
                         </SelectAction>
@@ -825,7 +934,12 @@ export default function AddKaryawan() {
                       <label className="block text-sm font-medium mb-2">
                         Jadwal <span className="text-red-500">*</span>
                       </label>
-                      <Select>
+                      <Select
+                        value={formData.jadwal}
+                        onValueChange={(value) =>
+                          handleInputChange('jadwal', value)
+                        }
+                      >
                         <SelectAction>
                           <SelectValue placeholder="Pilih Jadwal..." />
                         </SelectAction>
@@ -869,20 +983,20 @@ export default function AddKaryawan() {
                             placeholder="No NPWP"
                             value={formData.npwp}
                             onChange={(e) =>
-                              handleInputChange("npwp", e.target.value)
+                              handleInputChange('npwp', e.target.value)
                             }
                           />
                         </div>
                         <div>
                           <label className="block text-sm font-medium mb-2">
-                            NPWP Pemotong{" "}
+                            NPWP Pemotong{' '}
                             <span className="text-red-500">*</span>
                           </label>
                           <Input
                             placeholder="No NPWP"
                             value={formData.npwpPemotong}
                             onChange={(e) =>
-                              handleInputChange("npwpPemotong", e.target.value)
+                              handleInputChange('npwpPemotong', e.target.value)
                             }
                           />
                         </div>
@@ -902,7 +1016,7 @@ export default function AddKaryawan() {
                             value={formData.noBpjsKetenagakerjaan}
                             onChange={(e) =>
                               handleInputChange(
-                                "noBpjsKetenagakerjaan",
+                                'noBpjsKetenagakerjaan',
                                 e.target.value
                               )
                             }
@@ -923,7 +1037,7 @@ export default function AddKaryawan() {
                             value={formData.noBpjsKesehatan}
                             onChange={(e) =>
                               handleInputChange(
-                                "noBpjsKesehatan",
+                                'noBpjsKesehatan',
                                 e.target.value
                               )
                             }
@@ -944,7 +1058,7 @@ export default function AddKaryawan() {
                             value={formData.jumlahAngsuranKeluarga}
                             onChange={(e) =>
                               handleInputChange(
-                                "jumlahAngsuranKeluarga",
+                                'jumlahAngsuranKeluarga',
                                 e.target.value
                               )
                             }
@@ -1005,7 +1119,7 @@ export default function AddKaryawan() {
                               <div className="p-6 rounded-3xl border text-[#455468] border-gray-100 flex flex-col gap-5 font-poppins">
                                 <div>
                                   <label className="block text-sm font-medium mb-2">
-                                    Nama Bank{" "}
+                                    Nama Bank{' '}
                                     <span className="text-red-500">*</span>
                                   </label>
                                   <Input
@@ -1014,7 +1128,7 @@ export default function AddKaryawan() {
                                     value={formData.namaBank}
                                     onChange={(e) =>
                                       handleInputChange(
-                                        "namaBank",
+                                        'namaBank',
                                         e.target.value
                                       )
                                     }
@@ -1022,7 +1136,7 @@ export default function AddKaryawan() {
                                 </div>
                                 <div>
                                   <label className="block text-sm font-medium mb-2">
-                                    Cabang Bank{" "}
+                                    Cabang Bank{' '}
                                     <span className="text-red-500">*</span>
                                   </label>
                                   <Input
@@ -1031,7 +1145,7 @@ export default function AddKaryawan() {
                                     value={formData.cabangBank}
                                     onChange={(e) =>
                                       handleInputChange(
-                                        "cabangBank",
+                                        'cabangBank',
                                         e.target.value
                                       )
                                     }
@@ -1039,7 +1153,7 @@ export default function AddKaryawan() {
                                 </div>
                                 <div>
                                   <label className="block text-sm font-medium mb-2">
-                                    Nama Pemilik Rekening{" "}
+                                    Nama Pemilik Rekening{' '}
                                     <span className="text-red-500">*</span>
                                   </label>
                                   <Input
@@ -1048,7 +1162,7 @@ export default function AddKaryawan() {
                                     value={formData.namaPemilikRekening}
                                     onChange={(e) =>
                                       handleInputChange(
-                                        "namaPemilikRekening",
+                                        'namaPemilikRekening',
                                         e.target.value
                                       )
                                     }
@@ -1056,7 +1170,7 @@ export default function AddKaryawan() {
                                 </div>
                                 <div>
                                   <label className="block text-sm font-medium mb-2">
-                                    Nomor Rekening Bank{" "}
+                                    Nomor Rekening Bank{' '}
                                     <span className="text-red-500">*</span>
                                   </label>
                                   <Input
@@ -1066,7 +1180,7 @@ export default function AddKaryawan() {
                                     value={formData.nomorRekening}
                                     onChange={(e) =>
                                       handleInputChange(
-                                        "nomorRekening",
+                                        'nomorRekening',
                                         e.target.value
                                       )
                                     }

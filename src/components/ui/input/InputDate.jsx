@@ -1,8 +1,8 @@
-import { Popover, PopoverAction, PopoverContent } from "keep-react";
-import { CalendarBlank } from "@phosphor-icons/react";
-import { DatePicker } from "keep-react";
-import { Button } from "keep-react";
-import { format } from "date-fns";
+import { Popover, PopoverAction, PopoverContent } from 'keep-react';
+import { CalendarBlank } from '@phosphor-icons/react';
+import { DatePicker } from 'keep-react';
+import { Button } from 'keep-react';
+import { format } from 'date-fns';
 
 export default function InputDate({ label, fieldName, value, onChange }) {
   const selectedDate = value ? new Date(value) : null;
@@ -21,7 +21,7 @@ export default function InputDate({ label, fieldName, value, onChange }) {
             variant="outline"
           >
             {selectedDate ? (
-              format(selectedDate, "dd/MM/yyyy")
+              format(selectedDate, 'dd/MM/yyyy')
             ) : (
               <span className="text-[#8897AE]/30 text-sm">{label}</span>
             )}
@@ -36,7 +36,20 @@ export default function InputDate({ label, fieldName, value, onChange }) {
             mode="single"
             selected={selectedDate}
             onSelect={(date) => onChange(fieldName, date)}
-            showOutsideDays={true}
+            // showOutsideDays={true}
+            captionLayout="dropdown"
+            fromYear={1950}
+            toYear={2030}
+            classNames={{
+              caption: 'relative',
+              caption_label: 'hidden',
+              caption_dropdowns:
+                'flex gap-4 items-center w-full justify-center',
+              dropdown_month: 'min-w-[120px] text-sm',
+              dropdown_year: 'min-w-[100px] text-sm',
+              dropdown:
+                'px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500',
+            }}
           />
         </PopoverContent>
       </Popover>
