@@ -12,11 +12,15 @@ import {
   SelectContent,
   SelectItem,
   SelectValue,
-} from "keep-react";
-import InputDate from "../input/InputDate";
-import { FloppyDisk } from "phosphor-react";
+} from 'keep-react';
+import InputDate from '../input/InputDate';
+import { FloppyDisk } from 'phosphor-react';
+import { useEffect, useState } from 'react';
+import { DetailKehadiranData } from '../../../data/DetailKehadiranData';
 
 export default function EditKehadiranHarianModal({
+  id,
+  attendances,
   isFirstModalOpen,
   setIsFirstModalOpen,
   setIsSecondModalOpen,
@@ -25,6 +29,13 @@ export default function EditKehadiranHarianModal({
     setIsFirstModalOpen(false);
     setIsSecondModalOpen(true);
   };
+
+  const [kehadiran, setKehadiran] = useState(null);
+
+  useEffect(() => {
+    const kehadiranData = attendances.find((kehadiran) => kehadiran.id === id);
+    setKehadiran(kehadiranData);
+  }, [attendances, id]);
 
   return (
     <Modal
@@ -69,9 +80,11 @@ export default function EditKehadiranHarianModal({
             <div>
               <InputDate
                 label="Tanggal"
+                placeHolder={kehadiran?.tanggal}
                 htmlFor="tanggal"
                 fieldName="tanggal"
                 hideAsterisk={true}
+
                 // value={formData.tanggal}
                 // onChange={(e) => handleDateChange("tanggal", e.target.value)}
               />
@@ -82,6 +95,7 @@ export default function EditKehadiranHarianModal({
               </label>
               <Select
                 name="shift"
+                defaultValue={kehadiran?.shift}
                 // value={formData.statusPerkawinan}
                 // onValueChange={(value) =>
                 //   handleInputChange("statusPerkawinan", value)
@@ -106,6 +120,7 @@ export default function EditKehadiranHarianModal({
               </label>
               <Select
                 name="status"
+                defaultValue={kehadiran?.status}
                 // value={formData.statusPerkawinan}
                 // onValueChange={(value) =>
                 //   handleInputChange("statusPerkawinan", value)
@@ -129,6 +144,7 @@ export default function EditKehadiranHarianModal({
                 id="masuk"
                 name="masuk"
                 placeholder="08:00"
+                defaultValue={kehadiran?.masuk}
                 // value={formData.namaPemilikRekening}
                 // onChange={(e) =>
                 //   handleInputChange("namaPemilikRekening", e.target.value)
@@ -146,6 +162,7 @@ export default function EditKehadiranHarianModal({
                 id="keluar"
                 name="keluar"
                 placeholder="17:00"
+                defaultValue={kehadiran?.keluar}
                 // value={formData.namaPemilikRekening}
                 // onChange={(e) =>
                 //   handleInputChange("namaPemilikRekening", e.target.value)
@@ -161,6 +178,7 @@ export default function EditKehadiranHarianModal({
               </label>
               <Select
                 name="terlambat"
+                defaultValue={kehadiran?.terlambat}
                 // value={formData.statusPerkawinan}
                 // onValueChange={(value) =>
                 //   handleInputChange("statusPerkawinan", value)
@@ -177,15 +195,16 @@ export default function EditKehadiranHarianModal({
             </div>
             <div>
               <label
-                htmlFor="durasiTerlambat"
+                htmlFor="durasiKeterlambantan"
                 className="block text-sm font-medium mb-2"
               >
                 Durasi Terlambat
               </label>
               <Input
-                id="durasiTerlambat"
-                name="durasiTerlambat"
+                id="durasiKeterlambantan"
+                name="durasiKeterlambatan"
                 placeholder="17:00"
+                defaultValue={kehadiran?.durasiKeterlambatan}
                 // value={formData.namaPemilikRekening}
                 // onChange={(e) =>
                 //   handleInputChange("namaPemilikRekening", e.target.value)

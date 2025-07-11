@@ -1,10 +1,10 @@
-import { Plus } from "phosphor-react";
-import { Button, Input } from "keep-react";
-import InputDate from "../input/InputDate";
-import TableRekening from "../table/TableRekening";
-import { useAddKaryawanStore } from "../../../store/AddKaryawanStore";
-import AddRekeningModal from "../modal/AddRekeningModal";
-import ConfirmRekeningModal from "../modal/ConfirmRekeningModal";
+import { Plus } from 'phosphor-react';
+import { Button, Input } from 'keep-react';
+import InputDate from '../input/InputDate';
+import TableRekening from '../table/TableRekening';
+import { useAddKaryawanStore } from '../../../store/AddKaryawanStore';
+import AddRekeningModal from '../modal/AddRekeningModal';
+import ConfirmRekeningModal from '../modal/ConfirmRekeningModal';
 
 export default function PayrollStep() {
   const {
@@ -12,8 +12,6 @@ export default function PayrollStep() {
     rekenings,
     setRekenings,
     setIsFirstModalOpen,
-    isFirstModalOpen,
-    isSecondModalOpen,
     handleInputChange,
     handleDateChange,
   } = useAddKaryawanStore();
@@ -33,7 +31,7 @@ export default function PayrollStep() {
                 name="npwp"
                 placeholder="No NPWP"
                 value={formData.npwp}
-                onChange={(e) => handleInputChange("npwp", e.target.value)}
+                onChange={(e) => handleInputChange('npwp', e.target.value)}
               />
             </div>
             <div>
@@ -49,7 +47,7 @@ export default function PayrollStep() {
                 placeholder="No NPWP"
                 value={formData.npwpPemotong}
                 onChange={(e) =>
-                  handleInputChange("npwpPemotong", e.target.value)
+                  handleInputChange('npwpPemotong', e.target.value)
                 }
               />
             </div>
@@ -71,13 +69,14 @@ export default function PayrollStep() {
                 placeholder="Masukan No/Nomor bpjs"
                 value={formData.noBpjsKetenagakerjaan}
                 onChange={(e) =>
-                  handleInputChange("noBpjsKetenagakerjaan", e.target.value)
+                  handleInputChange('noBpjsKetenagakerjaan', e.target.value)
                 }
               />
             </div>
             <InputDate
               label="Tanggal Efektif BPJS Ketenagakerjaan (Opsional)"
               htmlFor="tanggalEfektifBpjsKetenagakerjaan"
+              placeHolder="Tanggal Efektif BPJS Ketenagakerjaan"
               fieldName="tanggalEfektifBpjsKetenagakerjaan"
               value={formData.tanggalEfektifBpjsKetenagakerjaan}
               onChange={handleDateChange}
@@ -96,13 +95,14 @@ export default function PayrollStep() {
                 placeholder="No BPJS Kesehatan"
                 value={formData.noBpjsKesehatan}
                 onChange={(e) =>
-                  handleInputChange("noBpjsKesehatan", e.target.value)
+                  handleInputChange('noBpjsKesehatan', e.target.value)
                 }
               />
             </div>
             <InputDate
               label="Tanggal Efektif BPJS Kesehatan (Opsional)"
               htmlFor="tanggalEfektifBpjsKesehatan"
+              placeHolder="Tanggal Efektif BPJS Kesehatan"
               fieldName="tanggalEfektifBpjsKesehatan"
               value={formData.tanggalEfektifBpjsKesehatan}
               onChange={handleDateChange}
@@ -121,7 +121,7 @@ export default function PayrollStep() {
                 placeholder="Anggota Keluarga"
                 value={formData.jumlahAngsuranKeluarga}
                 onChange={(e) =>
-                  handleInputChange("jumlahAngsuranKeluarga", e.target.value)
+                  handleInputChange('jumlahAngsuranKeluarga', e.target.value)
                 }
               />
             </div>

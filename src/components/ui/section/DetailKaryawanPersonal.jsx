@@ -1,7 +1,7 @@
-import { Button } from "keep-react";
-import { useState } from "react";
+import { Button } from 'keep-react';
+import { useState } from 'react';
 
-export default function DetailKaryawanPersonal() {
+export default function DetailKaryawanPersonal({ karyawan }) {
   const [option, setOption] = useState(1);
 
   return (
@@ -10,7 +10,7 @@ export default function DetailKaryawanPersonal() {
       <div className="relative w-full lg:w-3/4 xl:w-1/2 h-6 sm:h-8 lg:h-10 bg-[#F5F5F5] rounded-lg p-1 flex items-center font-medium text-[#455468]">
         <div
           className={`absolute top-1 left-1 h-4 sm:h-6 lg:h-8 w-[calc(50%-4px)] bg-white rounded-lg shadow transition-all duration-300 ease-in-out ${
-            option === 2 ? "translate-x-full" : "translate-x-0"
+            option === 2 ? 'translate-x-full' : 'translate-x-0'
           }`}
         ></div>
 
@@ -36,15 +36,15 @@ export default function DetailKaryawanPersonal() {
         <div className="flex flex-col lg:flex-row gap-4 lg:justify-between">
           <div className="flex gap-5">
             <img
-              src="/profil5.png"
+              src={karyawan?.image ?? '/profil5.png'}
               alt="profil"
               className="w-14 h-14 lg:w-[100px] lg:h-[100px] object-cover object-center rounded-xl"
             />
             <div className="flex flex-col justify-between">
-              <span className="font-medium text-black">Jakir Hossen</span>
+              <span className="font-medium text-black">{karyawan?.nama}</span>
               <div className="flex flex-col text-sm">
-                <span>Tetap Permanen</span>
-                <span>Product Designer</span>
+                <span>{karyawan?.statusKaryawan}</span>
+                <span>{karyawan?.divisi}</span>
               </div>
             </div>
           </div>
@@ -62,39 +62,51 @@ export default function DetailKaryawanPersonal() {
                 <div className="flex flex-col gap-4">
                   <div className="w-full flex flex-col lg:flex-row justify-between">
                     <span>ID Karyawan</span>
-                    <span className="text-black">002</span>
+                    <span className="text-black">{karyawan?.id}</span>
                   </div>
                   <div className="w-full flex justify-between flex-col lg:flex-row">
                     <span>Jenis Kelamin</span>
-                    <span className="text-black">Laki-laki</span>
+                    <span className="text-black">{karyawan?.jenisKelamin}</span>
                   </div>
                   <div className="w-full flex justify-between flex-col lg:flex-row">
                     <span>Kewarganegaraan</span>
-                    <span className="text-black">WNI</span>
+                    <span className="text-black">
+                      {karyawan?.kewarganegaraan}
+                    </span>
                   </div>
                   <div className="w-full flex justify-between flex-col lg:flex-row">
                     <span>Identitas</span>
-                    <span className="text-black">KTP 3273251103030009</span>
+                    <span className="text-black">
+                      {karyawan?.identitas} {karyawan?.idKartuIdentitas}
+                    </span>
                   </div>
                   <div className="w-full flex justify-between flex-col lg:flex-row">
                     <span>Alamat</span>
-                    <span className="text-black">Jl. Cibodas Utara No.18</span>
+                    <span className="text-black">
+                      {karyawan?.alamatDomisili}
+                    </span>
                   </div>
                   <div className="w-full flex justify-between flex-col lg:flex-row">
                     <span>Tempat, Tanggal Lahir</span>
-                    <span className="text-black">Bandung, 11 Maret 2000</span>
+                    <span className="text-black">
+                      {karyawan?.tempatLahir}, {karyawan?.tanggalLahir}
+                    </span>
                   </div>
                   <div className="w-full flex justify-between flex-col lg:flex-row">
                     <span>Status Perkawinan</span>
-                    <span className="text-black">Belum Menikah</span>
+                    <span className="text-black">
+                      {karyawan?.statusPerkawinan}
+                    </span>
                   </div>
                   <div className="w-full flex justify-between flex-col lg:flex-row">
                     <span>Agama</span>
-                    <span className="text-black">Islam</span>
+                    <span className="text-black">{karyawan?.agama}</span>
                   </div>
                   <div className="w-full flex justify-between flex-col lg:flex-row">
                     <span>Golongan Darah</span>
-                    <span className="text-black">A</span>
+                    <span className="text-black">
+                      {karyawan?.golonganDarah}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -107,24 +119,25 @@ export default function DetailKaryawanPersonal() {
                 <div className="flex flex-col gap-4">
                   <div className="w-full flex justify-between flex-col lg:flex-row">
                     <span>No. HP</span>
-                    <span className="text-black">0897213712371</span>
+                    <span className="text-black">{karyawan?.noHp}</span>
                   </div>
                   <div className="w-full flex justify-between flex-col lg:flex-row">
                     <span>Email</span>
-                    <span className="text-black">jakirhosen@gmail.com</span>
+                    <span className="text-black">{karyawan?.email}</span>
                   </div>
                   <div className="w-full flex justify-between flex-col lg:flex-row">
                     <span>Alamat Kartu Identitas</span>
-                    <span className="text-black">Jl. Cibodas Utara No.18</span>
-                  </div>
-                  <div className="w-full flex justify-between flex-col lg:flex-row">
-                    <span>Alamat Domisili</span>
-                    <span className="text-black">Jl. Cibodas Utara No.18</span>
+                    <span className="text-black">
+                      {karyawan?.alamatKartuIdentitas}
+                    </span>
                   </div>
                   <div className="w-full flex justify-between flex-col lg:flex-row">
                     <span>Kontak Darurat</span>
                     <span>
-                      Iqbal <span className="text-black">0857712377887</span>
+                      {karyawan?.namaKontakDarurat}{' '}
+                      <span className="text-black">
+                        {karyawan?.noHpKontakDarurat}
+                      </span>
                     </span>
                   </div>
                 </div>
@@ -138,11 +151,15 @@ export default function DetailKaryawanPersonal() {
                 <div className="flex flex-col gap-4">
                   <div className="w-full flex justify-between flex-col lg:flex-row">
                     <span>Jenjang Pendidikan Terakhir</span>
-                    <span className="text-black">SMK</span>
+                    <span className="text-black">
+                      {karyawan?.pendidikanTerakhir}
+                    </span>
                   </div>
                   <div className="w-full flex justify-between flex-col lg:flex-row">
                     <span>Nama Institusi Pendidikan</span>
-                    <span className="text-black">SMK Negeri 1 Bandung</span>
+                    <span className="text-black">
+                      {karyawan?.namaInstitusiPendidikan}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -159,15 +176,15 @@ export default function DetailKaryawanPersonal() {
                 <div className="flex flex-col gap-4">
                   <div className="w-full flex justify-between flex-col lg:flex-row">
                     <span>Mulai Kerja</span>
-                    <span className="text-black">04/06/2025</span>
+                    <span className="text-black">{karyawan?.mulaiKerja}</span>
                   </div>
                   <div className="w-full flex justify-between flex-col lg:flex-row">
                     <span>Masa Kerja</span>
-                    <span className="text-black">5 Hari</span>
+                    <span className="text-black">{karyawan?.masaKerja}</span>
                   </div>
                   <div className="w-full flex justify-between flex-col lg:flex-row">
                     <span>Akhir Kerja</span>
-                    <span className="text-black">04/06/2026</span>
+                    <span className="text-black">{karyawan?.akhirKerja}</span>
                   </div>
                 </div>
               </div>
@@ -179,11 +196,11 @@ export default function DetailKaryawanPersonal() {
                 <div className="flex flex-col gap-4">
                   <div className="w-full flex justify-between flex-col lg:flex-row">
                     <span>Nomor NPWP</span>
-                    <span className="text-black">88129391239</span>
+                    <span className="text-black">{karyawan?.npwp}</span>
                   </div>
                   <div className="w-full flex justify-between flex-col lg:flex-row">
                     <span>NPWP Pemotong</span>
-                    <span className="text-black">PT PPM</span>
+                    <span className="text-black">{karyawan?.npwpPemotong}</span>
                   </div>
                 </div>
               </div>
@@ -195,11 +212,15 @@ export default function DetailKaryawanPersonal() {
                 <div className="flex flex-col gap-4">
                   <div className="w-full flex justify-between">
                     <span>No BPJS Ketenagakerjaan</span>
-                    <span className="text-black">19239128312</span>
+                    <span className="text-black">
+                      {karyawan?.noBpjsKetenagakerjaan}
+                    </span>
                   </div>
                   <div className="w-full flex justify-between">
                     <span>No BPJS Kesehatan</span>
-                    <span className="text-black">812938908129</span>
+                    <span className="text-black">
+                      {karyawan?.noBpjsKesehatan}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -209,9 +230,9 @@ export default function DetailKaryawanPersonal() {
               <div className="flex flex-col gap-5 font-medium">
                 <h4 className="text-black">Rekening Bank</h4>
                 <div className="w-full flex justify-between flex-col lg:flex-row">
-                  <span>BCA</span>
+                  <span>{karyawan?.namaBank}</span>
                   <span className="text-black">
-                    2832192381 a/n Jakir Hossen
+                    {karyawan?.noRekening} a/n {karyawan?.namaRekening}
                   </span>
                 </div>
               </div>

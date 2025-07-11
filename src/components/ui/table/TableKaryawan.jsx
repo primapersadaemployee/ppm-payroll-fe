@@ -9,9 +9,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "keep-react";
-import { CaretLeft, CaretRight, Eye, NotePencil } from "phosphor-react";
-import { Link } from "react-router-dom";
+} from 'keep-react';
+import { CaretLeft, CaretRight, Eye, NotePencil } from 'phosphor-react';
+import { Link } from 'react-router-dom';
 
 export default function TableKaryawan({
   employees,
@@ -78,52 +78,61 @@ export default function TableKaryawan({
                 <TableCell>
                   <div className="flex items-center gap-3">
                     <Avatar className="w-6 h-6">
-                      <AvatarImage src={employee.avatar} alt={employee.name} />
+                      <AvatarImage src={employee.image} alt={employee.nama} />
                     </Avatar>
-                    <span className="truncate">{employee.name}</span>
+                    <span className="truncate">{employee.nama}</span>
                   </div>
                 </TableCell>
-                <TableCell className="text-center">{employee.gender}</TableCell>
                 <TableCell className="text-center">
-                  {employee.citizenship}
+                  {employee.jenisKelamin}
                 </TableCell>
                 <TableCell className="text-center">
-                  {employee.identity}
+                  {employee.kewarganegaraan}
+                </TableCell>
+                <TableCell className="text-center">
+                  {employee.identitas}
                 </TableCell>
                 <TableCell className="text-center">
                   <div className="flex flex-col">
-                    <span>{employee.nik}</span>
+                    <span>{employee.idKartuIdentitas}</span>
                   </div>
                 </TableCell>
                 <TableCell className="text-center">
-                  {employee.birthPlace}
+                  {employee.tempatLahir}
                 </TableCell>
                 <TableCell className="text-center">
-                  {employee.birthDate}
+                  {employee.tanggalLahir}
                 </TableCell>
                 <TableCell className="text-center">
-                  {employee.maritalStatus}
+                  {employee.statusPerkawinan}
+                </TableCell>
+                <TableCell className="text-center">{employee.agama}</TableCell>
+                <TableCell className="text-center">
+                  <span>{employee.golonganDarah}</span>
                 </TableCell>
                 <TableCell className="text-center">
-                  {employee.religion}
+                  {employee.pendidikanTerakhir}
                 </TableCell>
+                <TableCell className="text-center">{employee.divisi}</TableCell>
                 <TableCell className="text-center">
-                  <span>{employee.bloodType}</span>
-                </TableCell>
-                <TableCell className="text-center">
-                  {employee.education}
-                </TableCell>
-                <TableCell className="text-center">
-                  {employee.division}
-                </TableCell>
-                <TableCell className="text-center">
-                  <Badge variant="base" color={employee.statusColor}>
-                    {employee.status}
+                  <Badge
+                    variant="base"
+                    color={
+                      employee.statusKaryawan === 'Tetap'
+                        ? 'success'
+                        : employee.statusKaryawan === 'PKWT'
+                        ? 'secondary'
+                        : employee.statusKaryawan === 'Resign'
+                        ? 'error'
+                        : 'warning'
+                    }
+                  >
+                    {employee.statusKaryawan}
                   </Badge>
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center justify-center gap-1 text-sm">
-                    <Link to="/karyawan/detail-karyawan">
+                    <Link to={`/karyawan/detail-karyawan/${employee.id}`}>
                       <Button
                         size="sm"
                         className="py-[2px] px-4 bg-[#F5F5F5] text-[#455468] font-medium hover:bg-white hover:text-[#455468]"
@@ -201,8 +210,8 @@ export default function TableKaryawan({
                         onClick={() => onPageChange(page)}
                         className={`min-w-[32px] h-8 rounded-full ${
                           currentPage === page
-                            ? "bg-[#5E718D] text-white hover:bg-[#5E718D]"
-                            : "text-[#455468] bg-transparent hover:bg-[#5E718D] hover:text-white"
+                            ? 'bg-[#5E718D] text-white hover:bg-[#5E718D]'
+                            : 'text-[#455468] bg-transparent hover:bg-[#5E718D] hover:text-white'
                         }`}
                       >
                         {page}

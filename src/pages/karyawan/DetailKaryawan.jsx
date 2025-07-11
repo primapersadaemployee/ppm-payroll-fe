@@ -1,32 +1,42 @@
-import { useState } from "react";
-import NotificationHome from "../../components/ui/notification/NotificationHome";
-import { Clock, Money, Receipt, UserCircle, Users } from "phosphor-react";
-import { SidebarComponent } from "../../components/layout/Sidebar";
-import DetailKaryawanPersonal from "../../components/ui/section/DetailKaryawanPersonal";
-import DetailKaryawanKehadiran from "../../components/ui/section/DetailKaryawanKehadiran";
+import { useState } from 'react';
+import NotificationHome from '../../components/ui/notification/NotificationHome';
+import { Clock, Money, Receipt, UserCircle, Users } from 'phosphor-react';
+import { SidebarComponent } from '../../components/layout/Sidebar';
+import DetailKaryawanPersonal from '../../components/ui/section/DetailKaryawanPersonal';
+import DetailKaryawanKehadiran from '../../components/ui/section/DetailKaryawanKehadiran';
+import { useParams } from 'react-router-dom';
+import { KaryawanData } from '../../data/KaryawanData';
+import { useEffect } from 'react';
 
 export default function DetailKaryawan() {
   const [currentTab, setCurrentTab] = useState(1);
+  const { id } = useParams();
+  const [karyawan, setKaryawan] = useState(null);
+
+  useEffect(() => {
+    const karyawan = KaryawanData.find((karyawan) => karyawan.id == id);
+    setKaryawan(karyawan);
+  }, [id]);
 
   const tab = [
     {
       id: 1,
-      name: "Personal",
+      name: 'Personal',
       icon: <UserCircle size={22} />,
     },
     {
       id: 2,
-      name: "Kehadiran",
+      name: 'Kehadiran',
       icon: <Clock size={22} />,
     },
     {
       id: 3,
-      name: "Payroll",
+      name: 'Payroll',
       icon: <Money size={22} />,
     },
     {
       id: 4,
-      name: "Riwayat Gaji",
+      name: 'Riwayat Gaji',
       icon: <Receipt size={22} />,
     },
   ];
@@ -48,12 +58,12 @@ export default function DetailKaryawan() {
               <span>/</span>
               <span className="text-gray-400">
                 {currentTab === 1
-                  ? "Personal"
+                  ? 'Personal'
                   : currentTab === 2
-                  ? "Kehadiran"
+                  ? 'Kehadiran'
                   : currentTab === 3
-                  ? "Payroll"
-                  : "Riwayat Gaji"}
+                  ? 'Payroll'
+                  : 'Riwayat Gaji'}
               </span>
             </div>
           </nav>
@@ -75,8 +85,8 @@ export default function DetailKaryawan() {
                   key={item.id}
                   className={`py-1 lg:py-[6px] px-1 lg:px-4 rounded-lg cursor-pointer ${
                     item.id === currentTab
-                      ? "bg-secondary"
-                      : "bg-transparent hover:bg-secondary"
+                      ? 'bg-secondary'
+                      : 'bg-transparent hover:bg-secondary'
                   }`}
                   onClick={() => setCurrentTab(item.id)}
                 >
@@ -90,8 +100,12 @@ export default function DetailKaryawan() {
               ))}
             </div>
             <div className="w-full bg-white rounded-2xl p-2 sm:p-4 lg:p-6 shadow-sm border border-gray-100">
-              {currentTab === 1 && <DetailKaryawanPersonal />}
-              {currentTab === 2 && <DetailKaryawanKehadiran />}
+              {currentTab === 1 && (
+                <DetailKaryawanPersonal karyawan={karyawan} />
+              )}
+              {currentTab === 2 && (
+                <DetailKaryawanKehadiran karyawan={karyawan} />
+              )}
             </div>
           </div>
         </div>

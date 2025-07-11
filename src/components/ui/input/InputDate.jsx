@@ -1,11 +1,12 @@
-import { Popover, PopoverAction, PopoverContent } from "keep-react";
-import { CalendarBlank } from "@phosphor-icons/react";
-import { DatePicker } from "keep-react";
-import { Button } from "keep-react";
-import { format } from "date-fns";
+import { Popover, PopoverAction, PopoverContent } from 'keep-react';
+import { CalendarBlank } from '@phosphor-icons/react';
+import { DatePicker } from 'keep-react';
+import { Button } from 'keep-react';
+import { format } from 'date-fns';
 
 export default function InputDate({
   label,
+  placeHolder,
   htmlFor,
   fieldName,
   value,
@@ -20,8 +21,8 @@ export default function InputDate({
         htmlFor={htmlFor}
         className="block text-sm font-medium text-[#455468] mb-2"
       >
-        {label}{" "}
-        <span className={`text-red-500 ${hideAsterisk && "hidden"}`}>*</span>
+        {label}{' '}
+        <span className={`text-red-500 ${hideAsterisk && 'hidden'}`}>*</span>
       </label>
       <Popover className="w-full">
         <PopoverAction asChild>
@@ -34,9 +35,9 @@ export default function InputDate({
             variant="outline"
           >
             {selectedDate ? (
-              format(selectedDate, "dd/MM/yyyy")
+              format(selectedDate, 'dd/MM/yyyy')
             ) : (
-              <span className="text-[#8897AE]/30 text-sm">{label}</span>
+              <span className="text-[#8897AE]/30 text-sm">{placeHolder}</span>
             )}
             <CalendarBlank
               size={20}
@@ -49,19 +50,18 @@ export default function InputDate({
             mode="single"
             selected={selectedDate}
             onSelect={(date) => onChange(fieldName, date)}
-            // showOutsideDays={true}
             captionLayout="dropdown"
             fromYear={1950}
             toYear={2030}
             classNames={{
-              caption: "relative",
-              caption_label: "hidden",
+              caption: 'relative',
+              caption_label: 'hidden',
               caption_dropdowns:
-                "flex gap-4 items-center w-full justify-center",
-              dropdown_month: "min-w-[120px] text-sm",
-              dropdown_year: "min-w-[100px] text-sm",
+                'flex gap-4 items-center w-full justify-center',
+              dropdown_month: 'min-w-[120px] text-sm',
+              dropdown_year: 'min-w-[100px] text-sm',
               dropdown:
-                "px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500",
+                'px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500',
             }}
           />
         </PopoverContent>

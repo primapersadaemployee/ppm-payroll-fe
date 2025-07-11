@@ -1,114 +1,36 @@
-import { useState } from "react";
-import { SidebarComponent } from "../../components/layout/Sidebar";
-import NotificationHome from "../../components/ui/notification/NotificationHome";
-import TableKaryawan from "../../components/ui/table/TableKaryawan";
-import FilterDropdown from "../../components/ui/dropdown/FilterDropdown";
-import { Button, Input, InputIcon } from "keep-react";
-import { Plus, MagnifyingGlass, House, Users } from "phosphor-react";
-import { Link } from "react-router-dom";
-
-// Dummy employee data with all required fields
-const generateEmployeeData = () => {
-  const names = [
-    "John Hassan",
-    "Eleanor Prince",
-    "Guy Hawkins",
-    "Kousar Pol",
-    "Jenny Wilson",
-    "Ariana McCoy",
-    "Kristin Watson",
-    "Michel Franklin",
-    "Belkissa Armenians",
-    "Dummy Employee",
-    "Andi Setiawan",
-    "Budi Santoso",
-    "Citra Dewi",
-    "Dian Pratama",
-    "Eka Sari",
-    "Fajar Rahman",
-    "Gita Permata",
-    "Hendra Wijaya",
-    "Indah Lestari",
-    "Joko Susilo",
-  ];
-
-  const genders = ["Laki - Laki", "Perempuan"];
-  const citizenships = ["WNI", "WNA"];
-  const identities = ["KTP", "SIM", "Passport"];
-  const birthPlaces = [
-    "Bandung",
-    "Jakarta",
-    "Surabaya",
-    "Medan",
-    "Semarang",
-    "Yogyakarta",
-  ];
-  const maritalStatuses = ["Belum Menikah", "Menikah", "Janda", "Duda"];
-  const religions = ["Islam", "Kristen", "Katolik", "Hindu", "Buddha"];
-  const bloodTypes = ["A", "B", "AB", "O"];
-  const educations = ["SMA", "D3", "S1", "S2", "S3"];
-  const divisions = [
-    "IT Development",
-    "Design Development",
-    "Keuangan",
-    "HRD",
-    "Pemasaran",
-    "Penjualan",
-    "Produksi",
-    "Tata Kelola",
-  ];
-  const statuses = ["Tetap", "PKWT", "Resign", "Percobaan"];
-  const statusColors = {
-    Tetap: "success",
-    PKWT: "secondary",
-    Resign: "error",
-    Percobaan: "warning",
-  };
-
-  return Array.from({ length: 20 }, (_, i) => ({
-    id: i + 1,
-    name: names[i],
-    gender: genders[i % 2],
-    citizenship: citizenships[i % 2],
-    identity: identities[i % 3],
-    idNumber: `1484 - ${String(i + 1).padStart(3, "0")}`,
-    nik: `1234567${String(i + 890).padStart(3, "0")}`,
-    birthPlace: birthPlaces[i % birthPlaces.length],
-    birthDate: `0${(i % 9) + 1}/0${(i % 9) + 1}/200${i % 4}`,
-    maritalStatus: maritalStatuses[i % maritalStatuses.length],
-    religion: religions[i % religions.length],
-    bloodType: bloodTypes[i % bloodTypes.length],
-    education: educations[i % educations.length],
-    division: divisions[i % divisions.length],
-    status: statuses[i % statuses.length],
-    statusColor: statusColors[statuses[i % statuses.length]],
-    avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${
-      i + 1
-    }&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`,
-  }));
-};
+import { useState } from 'react';
+import { SidebarComponent } from '../../components/layout/Sidebar';
+import NotificationHome from '../../components/ui/notification/NotificationHome';
+import TableKaryawan from '../../components/ui/table/TableKaryawan';
+import FilterDropdown from '../../components/ui/dropdown/FilterDropdown';
+import { Button, Input, InputIcon } from 'keep-react';
+import { Plus, MagnifyingGlass, House, Users } from 'phosphor-react';
+import { Link } from 'react-router-dom';
+import { KaryawanData } from '../../data/KaryawanData';
 
 export default function Karyawan() {
-  const [employees] = useState(generateEmployeeData());
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedDivision, setSelectedDivision] = useState("Semua Divisi");
-  const [selectedStatus, setSelectedStatus] = useState("Semua Status");
+  const [employees] = useState(KaryawanData);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedDivision, setSelectedDivision] = useState('Semua Divisi');
+  const [selectedStatus, setSelectedStatus] = useState('Semua Status');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
   // Filter employees based on search and filters
   const filteredEmployees = employees.filter((employee) => {
     const matchesSearch =
-      employee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      employee.idNumber.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      employee.nik.toLowerCase().includes(searchTerm.toLowerCase());
+      employee.nama.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      employee.idKartuIdentitas
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
 
     const matchesDivision =
-      selectedDivision === "Semua Divisi" ||
-      employee.division === selectedDivision;
+      selectedDivision === 'Semua Divisi' ||
+      employee.divisi === selectedDivision;
 
     const matchesStatus =
-      selectedStatus === "Semua Status" || employee.status === selectedStatus;
+      selectedStatus === 'Semua Status' ||
+      employee.statusKaryawan === selectedStatus;
 
     return matchesSearch && matchesDivision && matchesStatus;
   });
@@ -133,17 +55,17 @@ export default function Karyawan() {
   };
 
   const divisions = [
-    "Semua Divisi",
-    "IT Development",
-    "Design Development",
-    "Keuangan",
-    "HRD",
-    "Pemasaran",
-    "Penjualan",
-    "Produksi",
-    "Tata Kelola",
+    'Semua Divisi',
+    'IT',
+    'Design',
+    'Keuangan',
+    'HRD',
+    'Pemasaran',
+    'Penjualan',
+    'Produksi',
+    'Tata Kelola',
   ];
-  const statuses = ["Semua Status", "Tetap", "Resign", "PKWT", "Percobaan"];
+  const statuses = ['Semua Status', 'Tetap', 'Resign', 'PKWT', 'Percobaan'];
 
   return (
     <div className="flex gap-2 lg:gap-4 font-poppins p-2 lg:p-4 min-h-screen text-[#455468]">
