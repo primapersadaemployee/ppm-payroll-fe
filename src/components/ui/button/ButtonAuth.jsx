@@ -4,7 +4,7 @@ export default function ButtonAuth({ type, isLoading, text }) {
   return (
     <button
       type={type}
-      className="w-full p-2.5 bg-[#3629B7] hover:bg-[#3629B7]/90 transition-colors rounded-lg text-white text-sm"
+      className="w-full p-2.5 bg-primary hover:bg-primary/90 transition-colors rounded-lg text-white text-sm"
     >
       {isLoading ? (
         <div className="flex justify-center items-center">

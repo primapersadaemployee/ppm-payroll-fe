@@ -75,7 +75,7 @@ export default function ForgotPassword() {
                     className={`font-medium ${
                       resendCountdown > 0
                         ? "text-gray-400 cursor-not-allowed"
-                        : "text-[#3629B7] hover:underline"
+                        : "text-primary hover:underline"
                     }`}
                   >
                     {resendCountdown > 0

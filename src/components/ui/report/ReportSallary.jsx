@@ -74,7 +74,7 @@ export default function ReportSallary() {
         <div className="flex flex-col gap-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {report.map((item) => (
-              <Card key={item.id} className="max-w-none bg-[#DDE5FF]">
+              <Card key={item.id} className="max-w-none bg-secondary">
                 <div className="flex justify-between items-center">
                   <CardContent className="flex flex-col gap-5">
                     <CardDescription className="text-sm lg:text-base">

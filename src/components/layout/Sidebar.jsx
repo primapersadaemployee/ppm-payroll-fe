@@ -127,9 +127,13 @@ export const SidebarComponent = () => {
               <Link key={item.name} to={item.link}>
                 <SidebarItem
                   className={`${
-                    location === item.link
-                      ? "bg-[#3629b7] text-white"
-                      : "text-[#455468] hover:bg-[#3629b7] hover:text-white"
+                    item.link === "/"
+                      ? location === "/"
+                        ? "bg-primary text-white hover:bg-primary hover:text-white"
+                        : "text-[#455468] hover:bg-primary hover:text-white"
+                      : location.startsWith(item.link)
+                      ? "bg-primary text-white hover:bg-primary hover:text-white"
+                      : "text-[#455468] hover:bg-primary hover:text-white"
                   }`}
                 >
                   {item.icon}
@@ -150,13 +154,13 @@ export const SidebarComponent = () => {
             </span>
           )}
           <SidebarList className="space-y-1">
-            <SidebarItem className="text-[#455468] hover:bg-[#3629b7] hover:text-white">
+            <SidebarItem className="text-[#455468] hover:bg-primary hover:text-white">
               <BuildingOfficeIcon size={20} weight="bold" />
               {open && (
                 <span className="font-medium hidden lg:inline">PT PPM</span>
               )}
             </SidebarItem>
-            <SidebarItem className="text-[#455468] hover:bg-[#3629b7] hover:text-white">
+            <SidebarItem className="text-[#455468] hover:bg-primary hover:text-white">
               <Globe size={20} weight="bold" />
               {open && (
                 <span className="font-medium hidden lg:inline">Indonesia</span>

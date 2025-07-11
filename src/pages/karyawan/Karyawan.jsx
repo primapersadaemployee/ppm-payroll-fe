@@ -192,7 +192,7 @@ export default function Karyawan() {
                   </InputIcon>
                 </fieldset>
                 <Link to="/karyawan/tambah-karyawan">
-                  <Button className="flex items-center gap-2 whitespace-nowrap bg-[#3629B7] hover:bg-[#2e23a0] text-white">
+                  <Button className="flex items-center gap-2 whitespace-nowrap bg-primary hover:bg-primary/90 text-white">
                     <Plus size={16} />
                     Tambah Karyawan
                   </Button>

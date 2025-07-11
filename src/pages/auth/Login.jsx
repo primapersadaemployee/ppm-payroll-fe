@@ -98,7 +98,7 @@ export default function Login() {
             <Link
               to="http://wa.me/6287821104000"
               target="_blank"
-              className="font-medium text-[#3629B7] hover:underline"
+              className="font-medium text-primary hover:underline"
             >
               Hubungi Kami
             </Link>

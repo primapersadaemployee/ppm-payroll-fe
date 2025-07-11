@@ -4,7 +4,7 @@ import Logo from "/logo-with-text.png";
 export default function AuthLayout({ children }) {
   return (
     <div className="flex flex-col lg:flex-row gap-8 lg:gap-2 items-center h-screen p-4 font-poppins">
-      <div className="w-full lg:w-[55%] lg:h-full h-auto bg-[#DDE5FF] rounded-[20px] p-4 lg:p-0">
+      <div className="w-full lg:w-[55%] lg:h-full h-auto bg-secondary rounded-[20px] p-4 lg:p-0">
         <div className="flex flex-col gap-5 justify-center items-center h-full">
           <img
             src={Logo}

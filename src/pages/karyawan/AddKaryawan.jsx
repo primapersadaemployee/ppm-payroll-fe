@@ -6,12 +6,12 @@ import {
   Plus,
   CaretRight,
   Check,
-} from 'phosphor-react';
-import { SidebarComponent } from '../../components/layout/Sidebar';
-import NotificationHome from '../../components/ui/notification/NotificationHome';
-import BGPersonal from '/bg-personal.png';
-import BGKepegawaian from '/bg-kepegawaian.png';
-import BGPayroll from '/bg-payroll.png';
+} from "phosphor-react";
+import { SidebarComponent } from "../../components/layout/Sidebar";
+import NotificationHome from "../../components/ui/notification/NotificationHome";
+import BGPersonal from "/bg-personal.png";
+import BGKepegawaian from "/bg-kepegawaian.png";
+import BGPayroll from "/bg-payroll.png";
 import {
   Button,
   Input,
@@ -29,12 +29,14 @@ import {
   ModalDescription,
   ModalTitle,
   ModalFooter,
-} from 'keep-react';
-import { useState } from 'react';
-import InputDate from '../../components/ui/input/InputDate';
-import TableRekening from '../../components/ui/table/TableRekening';
-import { Link } from 'react-router-dom';
-import { format } from 'date-fns';
+  toast,
+} from "keep-react";
+import { useState } from "react";
+import InputDate from "../../components/ui/input/InputDate";
+import TableRekening from "../../components/ui/table/TableRekening";
+import { Link } from "react-router-dom";
+import { format } from "date-fns";
+import { useNavigate } from "react-router-dom";
 
 const rekeningData = [];
 
@@ -42,74 +44,72 @@ export default function AddKaryawan() {
   const [currentStep, setCurrentStep] = useState(1);
   const [isFirstModalOpen, setIsFirstModalOpen] = useState(false);
   const [isSecondModalOpen, setIsSecondModalOpen] = useState(false);
-  const [error, setError] = useState(null); // State untuk error
-  const [success, setSuccess] = useState(false); // State untuk sukses
   const [formData, setFormData] = useState({
     image: null, // Simpan file gambar, bukan base64
-    idKaryawan: '',
-    namaLengkap: '',
-    tempatLahir: '',
-    tanggalLahir: '',
-    jenisKelamin: '',
-    statusPerkawinan: '',
-    golonganDarah: '',
-    agama: '',
-    kewarganegaraan: '',
-    tipeIdentitas: '',
-    idKartuIdentitas: '',
-    email: '',
-    noHp: '',
-    noTelp: '',
-    alamatKartuIdentitas: '',
-    negara: '',
-    provinsi: '',
-    kota: '',
-    alamatDomisili: '',
-    negaraDomisili: '',
-    provinsiDomisili: '',
-    kotaDomisili: '',
-    namaKontakDarurat: '',
-    noTelpKontakDarurat: '',
-    pendidikanTerakhir: '',
-    namaInstitusiPendidikan: '',
-    programStudi: '',
-    statusKaryawan: '',
-    tanggalBergabung: '',
-    organisasi: '',
-    jabatan: '',
-    pangkat: '',
-    jadwal: '',
-    tanggalMasaAkhirKerja: '',
-    npwp: '',
-    npwpPemotong: '',
-    noBpjsKetenagakerjaan: '',
-    tanggalEfektifBpjsKetenagakerjaan: '',
-    noBpjsKesehatan: '',
-    tanggalEfektifBpjsKesehatan: '',
-    jumlahAngsuranKeluarga: '',
-    namaBank: '',
-    cabangBank: '',
-    namaPemilikRekening: '',
-    nomorRekening: '',
+    idKaryawan: "",
+    namaLengkap: "",
+    tempatLahir: "",
+    tanggalLahir: "",
+    jenisKelamin: "",
+    statusPerkawinan: "",
+    golonganDarah: "",
+    agama: "",
+    kewarganegaraan: "",
+    tipeIdentitas: "",
+    idKartuIdentitas: "",
+    email: "",
+    noHp: "",
+    noTelp: "",
+    alamatKartuIdentitas: "",
+    negara: "",
+    provinsi: "",
+    kota: "",
+    alamatDomisili: "",
+    negaraDomisili: "",
+    provinsiDomisili: "",
+    kotaDomisili: "",
+    namaKontakDarurat: "",
+    noTelpKontakDarurat: "",
+    pendidikanTerakhir: "",
+    namaInstitusiPendidikan: "",
+    programStudi: "",
+    statusKaryawan: "",
+    tanggalBergabung: "",
+    organisasi: "",
+    jabatan: "",
+    pangkat: "",
+    jadwal: "",
+    tanggalMasaAkhirKerja: "",
+    npwp: "",
+    npwpPemotong: "",
+    noBpjsKetenagakerjaan: "",
+    tanggalEfektifBpjsKetenagakerjaan: "",
+    noBpjsKesehatan: "",
+    tanggalEfektifBpjsKesehatan: "",
+    jumlahAngsuranKeluarga: "",
+    namaBank: "",
+    cabangBank: "",
+    namaPemilikRekening: "",
+    nomorRekening: "",
   });
   const [rekenings, setRekenings] = useState(rekeningData);
-
+  const router = useNavigate();
   const steps = [
     {
       id: 1,
-      title: 'Personal',
+      title: "Personal",
       isComplete: currentStep > 1,
       image: BGPersonal,
     },
     {
       id: 2,
-      title: 'Kepegawaian',
+      title: "Kepegawaian",
       isComplete: currentStep > 2,
       image: BGKepegawaian,
     },
     {
       id: 3,
-      title: 'Payroll',
+      title: "Payroll",
       isComplete: currentStep > 3,
       image: BGPayroll,
     },
@@ -137,7 +137,7 @@ export default function AddKaryawan() {
   const handleDateChange = (fieldName, date) => {
     setFormData((prev) => ({
       ...prev,
-      [fieldName]: date ? format(date, 'yyyy-MM-dd') : '',
+      [fieldName]: date ? format(date, "yyyy-MM-dd") : "",
     }));
   };
 
@@ -145,62 +145,73 @@ export default function AddKaryawan() {
   const validateStep = (step) => {
     const requiredFields = {
       1: [
-        'idKaryawan',
-        'namaLengkap',
-        'tempatLahir',
-        'tanggalLahir',
-        'jenisKelamin',
-        'statusPerkawinan',
-        'golonganDarah',
-        'agama',
-        'kewarganegaraan',
-        'tipeIdentitas',
-        'idKartuIdentitas',
-        'email',
-        'noHp',
-        'noTelp',
-        'alamatKartuIdentitas',
-        'negara',
-        'provinsi',
-        'kota',
-        'alamatDomisili',
-        'negaraDomisili',
-        'provinsiDomisili',
-        'kotaDomisili',
-        'namaKontakDarurat',
-        'noTelpKontakDarurat',
-        'pendidikanTerakhir',
-        'namaInstitusiPendidikan',
-        'programStudi',
+        "idKaryawan",
+        "namaLengkap",
+        "tempatLahir",
+        "tanggalLahir",
+        "jenisKelamin",
+        "statusPerkawinan",
+        "golonganDarah",
+        "agama",
+        "kewarganegaraan",
+        "tipeIdentitas",
+        "idKartuIdentitas",
+        "email",
+        "noHp",
+        "noTelp",
+        "alamatKartuIdentitas",
+        "negara",
+        "provinsi",
+        "kota",
+        "alamatDomisili",
+        "negaraDomisili",
+        "provinsiDomisili",
+        "kotaDomisili",
+        "namaKontakDarurat",
+        "noTelpKontakDarurat",
+        "pendidikanTerakhir",
+        "namaInstitusiPendidikan",
+        "programStudi",
       ],
       2: [
-        'statusKaryawan',
-        'tanggalBergabung',
-        'organisasi',
-        'jabatan',
-        'pangkat',
-        'jadwal',
+        "statusKaryawan",
+        "tanggalBergabung",
+        "organisasi",
+        "jabatan",
+        "pangkat",
+        "jadwal",
+        "tanggalMasaAkhirKerja",
       ],
-      3: ['npwp', 'npwpPemotong'],
+      3: [
+        "npwp",
+        "npwpPemotong",
+        "namaBank",
+        "cabangBank",
+        "namaPemilikRekening",
+        "nomorRekening",
+      ],
     };
 
     const missingFields = requiredFields[step]?.filter(
       (field) => !formData[field]
     );
+
     return missingFields?.length > 0
-      ? `Field wajib berikut belum diisi: ${missingFields.join(', ')}`
+      ? `Silahkan isi semua field wajib yang diberi tanda *`
       : null;
   };
 
   // Handle navigasi ke step berikutnya
   const handleNext = () => {
-    const validationError = validateStep(currentStep);
-    if (validationError) {
-      setError(validationError);
-      return;
+    if (currentStep === 1 || currentStep === 2) {
+      const validationError = validateStep(currentStep);
+      if (validationError) {
+        toast.error(validationError);
+        return;
+      }
     }
+
     if (currentStep < 3) {
-      setError(null);
       setCurrentStep(currentStep + 1);
     }
   };
@@ -208,7 +219,6 @@ export default function AddKaryawan() {
   // Handle navigasi ke step sebelumnya
   const handleBack = () => {
     if (currentStep > 1) {
-      setError(null);
       setCurrentStep(currentStep - 1);
     }
   };
@@ -216,29 +226,28 @@ export default function AddKaryawan() {
   // Handle pengiriman form ke backend
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const validationError = validateStep(currentStep);
+    const validationError = validateStep(3);
     if (validationError) {
-      setError(validationError);
+      toast.error(validationError);
       return;
     }
 
-    setError(null);
     const data = new FormData();
 
     // Tambahkan semua field dari formData ke FormData
     Object.keys(formData).forEach((key) => {
-      if (key === 'image' && formData[key]) {
-        data.append('image', formData[key]); // File gambar
+      if (key === "image" && formData[key]) {
+        data.append("image", formData[key]); // File gambar
       } else if (formData[key]) {
         data.append(key, formData[key]); // Field lainnya
       }
     });
 
     // Tambahkan array rekenings
-    data.append('rekenings', JSON.stringify(rekenings));
+    data.append("rekenings", JSON.stringify(rekenings));
 
     // Cetak isi FormData untuk debugging
-    console.log('Isi FormData:');
+    console.log("Isi FormData:");
     for (let [key, value] of data.entries()) {
       console.log(`${key}: ${value instanceof File ? value.name : value}`);
     }
@@ -253,63 +262,63 @@ export default function AddKaryawan() {
       //   const errorData = await response.json();
       //   throw new Error(errorData.message || 'Gagal mengirim data ke server');
       // }
-      console.log(data);
 
       // const result = await response.json();
       // console.log('Data berhasil dikirim:', result);
-      setSuccess(true);
+      toast.success("Berhasil menambahkan data karyawan.");
       setFormData({
         image: null,
-        idKaryawan: '',
-        namaLengkap: '',
-        tempatLahir: '',
-        tanggalLahir: '',
-        jenisKelamin: '',
-        statusPerkawinan: '',
-        golonganDarah: '',
-        agama: '',
-        kewarganegaraan: '',
-        tipeIdentitas: '',
-        idKartuIdentitas: '',
-        email: '',
-        noHp: '',
-        noTelp: '',
-        alamatKartuIdentitas: '',
-        negara: '',
-        provinsi: '',
-        kota: '',
-        alamatDomisili: '',
-        negaraDomisili: '',
-        provinsiDomisili: '',
-        kotaDomisili: '',
-        namaKontakDarurat: '',
-        noTelpKontakDarurat: '',
-        pendidikanTerakhir: '',
-        namaInstitusiPendidikan: '',
-        programStudi: '',
-        statusKaryawan: '',
-        tanggalBergabung: '',
-        organisasi: '',
-        jabatan: '',
-        pangkat: '',
-        jadwal: '',
-        tanggalMasaAkhirKerja: '',
-        npwp: '',
-        npwpPemotong: '',
-        noBpjsKetenagakerjaan: '',
-        tanggalEfektifBpjsKetenagakerjaan: '',
-        noBpjsKesehatan: '',
-        tanggalEfektifBpjsKesehatan: '',
-        jumlahAngsuranKeluarga: '',
-        namaBank: '',
-        cabangBank: '',
-        namaPemilikRekening: '',
-        nomorRekening: '',
+        idKaryawan: "",
+        namaLengkap: "",
+        tempatLahir: "",
+        tanggalLahir: "",
+        jenisKelamin: "",
+        statusPerkawinan: "",
+        golonganDarah: "",
+        agama: "",
+        kewarganegaraan: "",
+        tipeIdentitas: "",
+        idKartuIdentitas: "",
+        email: "",
+        noHp: "",
+        noTelp: "",
+        alamatKartuIdentitas: "",
+        negara: "",
+        provinsi: "",
+        kota: "",
+        alamatDomisili: "",
+        negaraDomisili: "",
+        provinsiDomisili: "",
+        kotaDomisili: "",
+        namaKontakDarurat: "",
+        noTelpKontakDarurat: "",
+        pendidikanTerakhir: "",
+        namaInstitusiPendidikan: "",
+        programStudi: "",
+        statusKaryawan: "",
+        tanggalBergabung: "",
+        organisasi: "",
+        jabatan: "",
+        pangkat: "",
+        jadwal: "",
+        tanggalMasaAkhirKerja: "",
+        npwp: "",
+        npwpPemotong: "",
+        noBpjsKetenagakerjaan: "",
+        tanggalEfektifBpjsKetenagakerjaan: "",
+        noBpjsKesehatan: "",
+        tanggalEfektifBpjsKesehatan: "",
+        jumlahAngsuranKeluarga: "",
+        namaBank: "",
+        cabangBank: "",
+        namaPemilikRekening: "",
+        nomorRekening: "",
       });
       setRekenings([]);
+      router("/karyawan");
     } catch (err) {
-      console.error('Error:', err.message);
-      setError(err.message);
+      console.error("Error:", err.message);
+      toast.error(err.message);
     }
   };
 
@@ -321,7 +330,7 @@ export default function AddKaryawan() {
       !formData.namaPemilikRekening.trim() ||
       !formData.nomorRekening.trim()
     ) {
-      setError('Semua field rekening wajib diisi!');
+      toast.error("Semua field rekening wajib diisi!");
       return;
     }
 
@@ -331,7 +340,7 @@ export default function AddKaryawan() {
       cabang: formData.cabangBank,
       namaPemilik: formData.namaPemilikRekening,
       nomorRekening: formData.nomorRekening,
-      status: 'Belum Terverifikasi',
+      status: "Belum Terverifikasi",
     };
     setRekenings((prev) => [...prev, newRekening]);
     // setFormData((prev) => ({
@@ -366,10 +375,10 @@ export default function AddKaryawan() {
               <span>/</span>
               <span className="text-gray-400">
                 {currentStep === 1
-                  ? 'Personal'
+                  ? "Personal"
                   : currentStep === 2
-                  ? 'Kepegawaian'
-                  : 'Payroll'}
+                  ? "Kepegawaian"
+                  : "Payroll"}
               </span>
             </div>
           </nav>
@@ -381,15 +390,6 @@ export default function AddKaryawan() {
             </div>
           </div>
 
-          {error && (
-            <div className="bg-red-100 text-red-700 p-4 rounded">{error}</div>
-          )}
-          {success && (
-            <div className="bg-green-100 text-green-700 p-4 rounded">
-              Data karyawan berhasil dikirim!
-            </div>
-          )}
-
           <div className="bg-white rounded-2xl p-4 lg:p-6 shadow-sm border border-gray-100">
             <div className="2xl:flex justify-between items-center mb-8 hidden">
               {steps.map((step, index) => (
@@ -399,8 +399,8 @@ export default function AddKaryawan() {
                       <div
                         className={`w-8 h-8 rounded-full flex items-center justify-center font-medium text-lg ${
                           currentStep === step.id
-                            ? 'bg-[#3629B7] text-white'
-                            : 'bg-[#F0F3F9]'
+                            ? "bg-primary text-white"
+                            : "bg-[#F0F3F9]"
                         }`}
                       >
                         {step.id}
@@ -410,8 +410,8 @@ export default function AddKaryawan() {
                       <div
                         className={`w-full mx-1 h-0.5 ${
                           currentStep === step.id
-                            ? 'bg-[#3629B7]'
-                            : 'bg-[#F0F3F9]'
+                            ? "bg-primary"
+                            : "bg-[#F0F3F9]"
                         }`}
                       />
                     )}
@@ -419,15 +419,15 @@ export default function AddKaryawan() {
                   <div
                     className={`border rounded-3xl w-[90%] p-6 shadow-sm h-[250px] ${
                       currentStep === step.id
-                        ? 'border-[#3629B7] bg-[#DDE5FF]'
-                        : 'border-gray-100 bg-transparent'
+                        ? "border-primary bg-[#DDE5FF]"
+                        : "border-gray-100 bg-transparent"
                     }`}
                   >
                     <div className="flex gap-1 h-full">
                       <div className="flex flex-col justify-between">
                         <p className="text-black font-medium">{step.title}</p>
                         {currentStep === step.id && (
-                          <Button className="bg-[#3629B7] hover:bg-[#3629B7]/90">
+                          <Button className="bg-primary hover:bg-primary/90">
                             Mulai Pengisian
                           </Button>
                         )}
@@ -473,8 +473,14 @@ export default function AddKaryawan() {
               ))}
             </div>
 
-            <form onSubmit={handleSubmit} className="mt-8">
+            <form
+              onSubmit={handleSubmit}
+              name="add-karyawan"
+              id="add-karyawan"
+              className="mt-8"
+            >
               <div>
+                {/* Step 1 */}
                 {currentStep === 1 && (
                   <div className="flex flex-col gap-8">
                     <div>
@@ -486,7 +492,7 @@ export default function AddKaryawan() {
                         <div className="flex items-center gap-4">
                           <div
                             className={`w-16 h-16 rounded-full ${
-                              formData.image ? 'bg-transparent' : 'bg-pink-100'
+                              formData.image ? "bg-transparent" : "bg-pink-100"
                             } flex items-center justify-center`}
                           >
                             {formData.image ? (
@@ -507,6 +513,7 @@ export default function AddKaryawan() {
                               Min 600x600, PNG or JPEG
                             </p>
                             <Input
+                              name="image"
                               type="file"
                               accept="image/png,image/jpeg"
                               onChange={handleImageChange}
@@ -524,24 +531,31 @@ export default function AddKaryawan() {
                             ID Karyawan <span className="text-red-500">*</span>
                           </label>
                           <Input
+                            id="idKaryawan"
                             name="idKaryawan"
                             required
                             placeholder="ID Karyawan"
                             value={formData.idKaryawan}
                             onChange={(e) =>
-                              handleInputChange('idKaryawan', e.target.value)
+                              handleInputChange("idKaryawan", e.target.value)
                             }
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium mb-2">
+                          <label
+                            htmlFor="namaLengkap"
+                            className="block text-sm font-medium mb-2"
+                          >
                             Nama Lengkap <span className="text-red-500">*</span>
                           </label>
                           <Input
+                            id="namaLengkap"
+                            name="namaLengkap"
+                            required
                             placeholder="Nama Lengkap"
                             value={formData.namaLengkap}
                             onChange={(e) =>
-                              handleInputChange('namaLengkap', e.target.value)
+                              handleInputChange("namaLengkap", e.target.value)
                             }
                           />
                         </div>
@@ -549,72 +563,103 @@ export default function AddKaryawan() {
 
                       <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-sm font-medium mb-2">
+                          <label
+                            htmlFor="tempatLahir"
+                            className="block text-sm font-medium mb-2"
+                          >
                             Tempat Lahir <span className="text-red-500">*</span>
                           </label>
                           <Input
+                            id="tempatLahir"
+                            name="tempatLahir"
                             placeholder="Tempat Lahir"
                             value={formData.tempatLahir}
                             onChange={(e) =>
-                              handleInputChange('tempatLahir', e.target.value)
+                              handleInputChange("tempatLahir", e.target.value)
                             }
                           />
                         </div>
                         <InputDate
                           label="Tanggal Lahir"
+                          htmlFor="tanggalLahir"
                           fieldName="tanggalLahir"
                           value={formData.tanggalLahir}
                           onChange={handleDateChange}
                         />
                         <div>
-                          <label className="block text-sm font-medium mb-2">
-                            Jenis Kelamin{' '}
+                          <label
+                            htmlFor="jenisKelamin"
+                            className="block text-sm font-medium mb-2"
+                          >
+                            Jenis Kelamin{" "}
                             <span className="text-red-500">*</span>
                           </label>
                           <div className="flex gap-4">
                             <label className="flex items-center gap-2">
                               <Checkbox
-                                checked={formData.jenisKelamin === 'Laki-laki'}
+                                id="jenisKelamin"
+                                name="jenisKelamin"
+                                checked={formData.jenisKelamin === "Laki-laki"}
                                 onCheckedChange={(checked) =>
                                   handleInputChange(
-                                    'jenisKelamin',
-                                    checked ? 'Laki-laki' : ''
+                                    "jenisKelamin",
+                                    checked ? "Laki-laki" : ""
                                   )
                                 }
-                                className="w-4 h-4 text-[#3629B7]"
+                                className={`${
+                                  formData.jenisKelamin === "Laki-laki"
+                                    ? "bg-primary"
+                                    : ""
+                                }`}
                               />
                               <span className="text-sm">Laki - Laki</span>
                             </label>
-                            <label className="flex items-center gap-2">
+                            <label
+                              htmlFor="jenisKelamin"
+                              className="flex items-center gap-2"
+                            >
                               <Checkbox
-                                checked={formData.jenisKelamin === 'Perempuan'}
+                                id="jenisKelamin"
+                                name="jenisKelamin"
+                                checked={formData.jenisKelamin === "Perempuan"}
                                 onCheckedChange={(checked) =>
                                   handleInputChange(
-                                    'jenisKelamin',
-                                    checked ? 'Perempuan' : ''
+                                    "jenisKelamin",
+                                    checked ? "Perempuan" : ""
                                   )
                                 }
-                                className="w-4 h-4 text-[#3629B7]"
+                                className={`${
+                                  formData.jenisKelamin === "Perempuan"
+                                    ? "bg-primary"
+                                    : ""
+                                }`}
                               />
                               <span className="text-sm">Perempuan</span>
                             </label>
                           </div>
                         </div>
                         <div>
-                          <label className="block text-sm font-medium mb-2">
-                            Status Perkawinan{' '}
+                          <label
+                            htmlFor="statusPerkawinan"
+                            className="block text-sm font-medium mb-2"
+                          >
+                            Status Perkawinan{" "}
                             <span className="text-red-500">*</span>
                           </label>
                           <Select
+                            name="statusPerkawinan"
                             value={formData.statusPerkawinan}
                             onValueChange={(value) =>
-                              handleInputChange('statusPerkawinan', value)
+                              handleInputChange("statusPerkawinan", value)
                             }
                           >
-                            <SelectAction>
+                            <SelectAction
+                              id="statusPerkawinan"
+                              name="statusPerkawinan"
+                            >
                               <SelectValue placeholder="Status Perkawinan..." />
                             </SelectAction>
-                            <SelectContent>
+                            <SelectContent id="statusPerkawinan">
                               <SelectItem value="Belum Kawin">
                                 Belum Kawin
                               </SelectItem>
@@ -624,45 +669,62 @@ export default function AddKaryawan() {
                           </Select>
                         </div>
                         <div>
-                          <label className="block text-sm font-medium mb-2">
-                            Golongan Darah{' '}
+                          <label
+                            htmlFor="golonganDarah"
+                            className="block text-sm font-medium mb-2"
+                          >
+                            Golongan Darah{" "}
                             <span className="text-red-500">*</span>
                           </label>
                           <Input
+                            id="golonganDarah"
+                            name="golonganDarah"
                             placeholder="Golongan Darah"
                             value={formData.golonganDarah}
                             onChange={(e) =>
-                              handleInputChange('golonganDarah', e.target.value)
+                              handleInputChange("golonganDarah", e.target.value)
                             }
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium mb-2">
+                          <label
+                            htmlFor="agama"
+                            className="block text-sm font-medium mb-2"
+                          >
                             Agama <span className="text-red-500">*</span>
                           </label>
                           <Input
+                            id="agama"
+                            name="agama"
                             placeholder="Agama"
                             value={formData.agama}
                             onChange={(e) =>
-                              handleInputChange('agama', e.target.value)
+                              handleInputChange("agama", e.target.value)
                             }
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium mb-2">
-                            Kewarganegaraan{' '}
+                          <label
+                            htmlFor="kewarganegaraan"
+                            className="block text-sm font-medium mb-2"
+                          >
+                            Kewarganegaraan{" "}
                             <span className="text-red-500">*</span>
                           </label>
                           <Select
+                            name="kewarganegaraan"
                             value={formData.kewarganegaraan}
                             onValueChange={(value) =>
-                              handleInputChange('kewarganegaraan', value)
+                              handleInputChange("kewarganegaraan", value)
                             }
                           >
-                            <SelectAction>
+                            <SelectAction
+                              id="kewarganegaraan"
+                              name="kewarganegaraan"
+                            >
                               <SelectValue placeholder="Kewarganegaraan..." />
                             </SelectAction>
-                            <SelectContent>
+                            <SelectContent id="kewarganegaraan">
                               <SelectItem value="WNI">WNI</SelectItem>
                               <SelectItem value="WNA">WNA</SelectItem>
                             </SelectContent>
@@ -678,36 +740,48 @@ export default function AddKaryawan() {
                       <hr className="-mx-6 mb-4" />
                       <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-sm font-medium mb-2">
-                            Tipe Kartu Identitas{' '}
+                          <label
+                            htmlFor="tipeIdentitas"
+                            className="block text-sm font-medium mb-2"
+                          >
+                            Tipe Kartu Identitas{" "}
                             <span className="text-red-500">*</span>
                           </label>
                           <Select
+                            name="tipeIdentitas"
                             value={formData.tipeIdentitas}
                             onValueChange={(value) =>
-                              handleInputChange('tipeIdentitas', value)
+                              handleInputChange("tipeIdentitas", value)
                             }
                           >
-                            <SelectAction>
+                            <SelectAction
+                              id="tipeIdentitas"
+                              name="tipeIdentitas"
+                            >
                               <SelectValue placeholder="Tipe Kartu Identitas..." />
                             </SelectAction>
-                            <SelectContent>
+                            <SelectContent id="tipeIdentitas">
                               <SelectItem value="KTP">KTP</SelectItem>
                               <SelectItem value="SIM">SIM</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
                         <div>
-                          <label className="block text-sm font-medium mb-2">
-                            ID Kartu Identitas{' '}
+                          <label
+                            htmlFor="idKartuIdentitas"
+                            className="block text-sm font-medium mb-2"
+                          >
+                            ID Kartu Identitas{" "}
                             <span className="text-red-500">*</span>
                           </label>
                           <Input
+                            id="idKartuIdentitas"
+                            name="idKartuIdentitas"
                             placeholder="ID Kartu Identitas"
                             value={formData.idKartuIdentitas}
                             onChange={(e) =>
                               handleInputChange(
-                                'idKartuIdentitas',
+                                "idKartuIdentitas",
                                 e.target.value
                               )
                             }
@@ -716,59 +790,80 @@ export default function AddKaryawan() {
                       </div>
                       <div className="mt-4 grid grid-cols-1">
                         <div>
-                          <label className="block text-sm font-medium mb-2">
+                          <label
+                            htmlFor="email"
+                            className="block text-sm font-medium mb-2"
+                          >
                             Email <span className="text-red-500">*</span>
                           </label>
                           <Input
+                            autoComplete="off"
+                            id="email"
+                            name="email"
                             placeholder="Email"
                             value={formData.email}
                             onChange={(e) =>
-                              handleInputChange('email', e.target.value)
+                              handleInputChange("email", e.target.value)
                             }
                           />
                         </div>
                       </div>
                       <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-sm font-medium mb-2">
+                          <label
+                            htmlFor="noHp"
+                            className="block text-sm font-medium mb-2"
+                          >
                             No. HP <span className="text-red-500">*</span>
                           </label>
                           <Input
-                            type="tel"
+                            id="noHp"
+                            name="noHp"
+                            type="number"
                             placeholder="No. HP"
                             value={formData.noHp}
                             onChange={(e) =>
-                              handleInputChange('noHp', e.target.value)
+                              handleInputChange("noHp", e.target.value)
                             }
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium mb-2">
+                          <label
+                            htmlFor="noTelp"
+                            className="block text-sm font-medium mb-2"
+                          >
                             No. Telepon <span className="text-red-500">*</span>
                           </label>
                           <Input
-                            type="tel"
+                            id="noTelp"
+                            name="noTelp"
+                            type="number"
                             placeholder="No. Telepon"
                             value={formData.noTelp}
                             onChange={(e) =>
-                              handleInputChange('noTelp', e.target.value)
+                              handleInputChange("noTelp", e.target.value)
                             }
                           />
                         </div>
                       </div>
                       <div className="mt-4 grid grid-cols-1">
                         <div>
-                          <label className="block text-sm font-medium mb-2">
-                            Alamat Kartu Identitas{' '}
+                          <label
+                            htmlFor="alamatKartuIdentitas"
+                            className="block text-sm font-medium mb-2"
+                          >
+                            Alamat Kartu Identitas{" "}
                             <span className="text-red-500">*</span>
                           </label>
                           <Textarea
+                            id="alamatKartuIdentitas"
+                            name="alamatKartuIdentitas"
                             rows={8}
                             placeholder="Alamat Kartu Identitas"
                             value={formData.alamatKartuIdentitas}
                             onChange={(e) =>
                               handleInputChange(
-                                'alamatKartuIdentitas',
+                                "alamatKartuIdentitas",
                                 e.target.value
                               )
                             }
@@ -777,57 +872,77 @@ export default function AddKaryawan() {
                       </div>
                       <div className="mt-4 grid grid-cols-1">
                         <div>
-                          <label className="block text-sm font-medium mb-2">
+                          <label
+                            htmlFor="negara"
+                            className="block text-sm font-medium mb-2"
+                          >
                             Negara <span className="text-red-500">*</span>
                           </label>
                           <Input
+                            id="negara"
+                            name="negara"
                             placeholder="Negara"
                             value={formData.negara}
                             onChange={(e) =>
-                              handleInputChange('negara', e.target.value)
+                              handleInputChange("negara", e.target.value)
                             }
                           />
                         </div>
                       </div>
                       <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-sm font-medium mb-2">
+                          <label
+                            htmlFor="provinsi"
+                            className="block text-sm font-medium mb-2"
+                          >
                             Provinsi <span className="text-red-500">*</span>
                           </label>
                           <Input
+                            id="provinsi"
+                            name="provinsi"
                             placeholder="Provinsi"
                             value={formData.provinsi}
                             onChange={(e) =>
-                              handleInputChange('provinsi', e.target.value)
+                              handleInputChange("provinsi", e.target.value)
                             }
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium mb-2">
+                          <label
+                            htmlFor="kota"
+                            className="block text-sm font-medium mb-2"
+                          >
                             Kota <span className="text-red-500">*</span>
                           </label>
                           <Input
+                            id="kota"
+                            name="kota"
                             placeholder="Kota"
                             value={formData.kota}
                             onChange={(e) =>
-                              handleInputChange('kota', e.target.value)
+                              handleInputChange("kota", e.target.value)
                             }
                           />
                         </div>
                       </div>
                       <div className="mt-4 grid grid-cols-1">
                         <div>
-                          <label className="block text-sm font-medium mb-2">
-                            Alamat Domisili{' '}
+                          <label
+                            htmlFor="alamatDomisili"
+                            className="block text-sm font-medium mb-2"
+                          >
+                            Alamat Domisili{" "}
                             <span className="text-red-500">*</span>
                           </label>
                           <Textarea
+                            id="alamatDomisili"
+                            name="alamatDomisili"
                             rows={8}
                             placeholder="Alamat Domisili"
                             value={formData.alamatDomisili}
                             onChange={(e) =>
                               handleInputChange(
-                                'alamatDomisili',
+                                "alamatDomisili",
                                 e.target.value
                               )
                             }
@@ -836,16 +951,21 @@ export default function AddKaryawan() {
                       </div>
                       <div className="mt-4 grid grid-cols-1">
                         <div>
-                          <label className="block text-sm font-medium mb-2">
-                            Negara Domisili{' '}
+                          <label
+                            htmlFor="negaraDomisili"
+                            className="block text-sm font-medium mb-2"
+                          >
+                            Negara Domisili{" "}
                             <span className="text-red-500">*</span>
                           </label>
                           <Input
+                            id="negaraDomisili"
+                            name="negaraDomisili"
                             placeholder="Negara Domisili"
                             value={formData.negaraDomisili}
                             onChange={(e) =>
                               handleInputChange(
-                                'negaraDomisili',
+                                "negaraDomisili",
                                 e.target.value
                               )
                             }
@@ -854,64 +974,84 @@ export default function AddKaryawan() {
                       </div>
                       <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-sm font-medium mb-2">
-                            Provinsi Domisili{' '}
+                          <label
+                            htmlFor="provinsiDomisili"
+                            className="block text-sm font-medium mb-2"
+                          >
+                            Provinsi Domisili{" "}
                             <span className="text-red-500">*</span>
                           </label>
                           <Input
+                            id="provinsiDomisili"
+                            name="provinsiDomisili"
                             placeholder="Provinsi Domisili"
                             value={formData.provinsiDomisili}
                             onChange={(e) =>
                               handleInputChange(
-                                'provinsiDomisili',
+                                "provinsiDomisili",
                                 e.target.value
                               )
                             }
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium mb-2">
-                            Kota Domisili{' '}
+                          <label
+                            htmlFor="kotaDomisili"
+                            className="block text-sm font-medium mb-2"
+                          >
+                            Kota Domisili{" "}
                             <span className="text-red-500">*</span>
                           </label>
                           <Input
+                            id="kotaDomisili"
+                            name="kotaDomisili"
                             placeholder="Kota Domisili"
                             value={formData.kotaDomisili}
                             onChange={(e) =>
-                              handleInputChange('kotaDomisili', e.target.value)
+                              handleInputChange("kotaDomisili", e.target.value)
                             }
                           />
                         </div>
                       </div>
                       <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-sm font-medium mb-2">
-                            Nama Kontak Darurat{' '}
+                          <label
+                            htmlFor="namaKontakDarurat"
+                            className="block text-sm font-medium mb-2"
+                          >
+                            Nama Kontak Darurat{" "}
                             <span className="text-red-500">*</span>
                           </label>
                           <Input
+                            id="namaKontakDarurat"
+                            name="namaKontakDarurat"
                             placeholder="Nama Kontak Darurat"
                             value={formData.namaKontakDarurat}
                             onChange={(e) =>
                               handleInputChange(
-                                'namaKontakDarurat',
+                                "namaKontakDarurat",
                                 e.target.value
                               )
                             }
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium mb-2">
-                            No. Kontak Darurat{' '}
+                          <label
+                            htmlFor="noTelpKontakDarurat"
+                            className="block text-sm font-medium mb-2"
+                          >
+                            No. Kontak Darurat{" "}
                             <span className="text-red-500">*</span>
                           </label>
                           <Input
-                            type="tel"
+                            id="noTelpKontakDarurat"
+                            name="noTelpKontakDarurat"
+                            type="number"
                             placeholder="No. Kontak Darurat"
                             value={formData.noTelpKontakDarurat}
                             onChange={(e) =>
                               handleInputChange(
-                                'noTelpKontakDarurat',
+                                "noTelpKontakDarurat",
                                 e.target.value
                               )
                             }
@@ -927,20 +1067,27 @@ export default function AddKaryawan() {
                       <hr className="-mx-6 mb-4" />
                       <div className="mt-4 grid grid-cols-1">
                         <div>
-                          <label className="block text-sm font-medium mb-2">
-                            Jenjang Pendidikan Terakhir{' '}
+                          <label
+                            htmlFor="pendidikanTerakhir"
+                            className="block text-sm font-medium mb-2"
+                          >
+                            Jenjang Pendidikan Terakhir{" "}
                             <span className="text-red-500">*</span>
                           </label>
                           <Select
+                            name="pendidikanTerakhir"
                             value={formData.pendidikanTerakhir}
                             onValueChange={(value) =>
-                              handleInputChange('pendidikanTerakhir', value)
+                              handleInputChange("pendidikanTerakhir", value)
                             }
                           >
-                            <SelectAction>
+                            <SelectAction
+                              id="pendidikanTerakhir"
+                              name="pendidikanTerakhir"
+                            >
                               <SelectValue placeholder="Jenjang Pendidikan" />
                             </SelectAction>
-                            <SelectContent>
+                            <SelectContent id="pendidikanTerakhir">
                               <SelectItem value="SD">SD</SelectItem>
                               <SelectItem value="SMP">SMP</SelectItem>
                               <SelectItem value="SMA/SMK">SMA / SMK</SelectItem>
@@ -954,31 +1101,41 @@ export default function AddKaryawan() {
                       </div>
                       <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-sm font-medium mb-2">
-                            Nama Institusi Pendidikan{' '}
+                          <label
+                            htmlFor="namaInstitusiPendidikan"
+                            className="block text-sm font-medium mb-2"
+                          >
+                            Nama Institusi Pendidikan{" "}
                             <span className="text-red-500">*</span>
                           </label>
                           <Input
+                            id="namaInstitusiPendidikan"
+                            name="namaInstitusiPendidikan"
                             placeholder="Nama Institusi Pendidikan"
                             value={formData.namaInstitusiPendidikan}
                             onChange={(e) =>
                               handleInputChange(
-                                'namaInstitusiPendidikan',
+                                "namaInstitusiPendidikan",
                                 e.target.value
                               )
                             }
                           />
                         </div>
                         <div>
-                          <label className="block text-sm font-medium mb-2">
-                            Program Studi{' '}
+                          <label
+                            htmlFor="programStudi"
+                            className="block text-sm font-medium mb-2"
+                          >
+                            Program Studi{" "}
                             <span className="text-red-500">*</span>
                           </label>
                           <Input
+                            id="programStudi"
+                            name="programStudi"
                             placeholder="Program Studi"
                             value={formData.programStudi}
                             onChange={(e) =>
-                              handleInputChange('programStudi', e.target.value)
+                              handleInputChange("programStudi", e.target.value)
                             }
                           />
                         </div>
@@ -986,26 +1143,33 @@ export default function AddKaryawan() {
                     </div>
                   </div>
                 )}
-
+                {/* Step 2 */}
                 {currentStep === 2 && (
                   <div>
                     <h2 className="text-xl font-medium mb-6">Kepegawaian</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium mb-2">
-                          Status Karyawan{' '}
+                        <label
+                          htmlFor="statusKaryawan"
+                          className="block text-sm font-medium mb-2"
+                        >
+                          Status Karyawan{" "}
                           <span className="text-red-500">*</span>
                         </label>
                         <Select
+                          name="statusKaryawan"
                           value={formData.statusKaryawan}
                           onValueChange={(value) =>
-                            handleInputChange('statusKaryawan', value)
+                            handleInputChange("statusKaryawan", value)
                           }
                         >
-                          <SelectAction>
+                          <SelectAction
+                            id="statusKaryawan"
+                            name="statusKaryawan"
+                          >
                             <SelectValue placeholder="Status Karyawan..." />
                           </SelectAction>
-                          <SelectContent>
+                          <SelectContent id="statusKaryawan">
                             <SelectItem value="Tetap">Tetap</SelectItem>
                             <SelectItem value="Kontrak">Kontrak</SelectItem>
                             <SelectItem value="Magang">Magang</SelectItem>
@@ -1014,24 +1178,29 @@ export default function AddKaryawan() {
                       </div>
                       <InputDate
                         label="Tanggal Bergabung"
+                        htmlFor="tanggalBergabung"
                         fieldName="tanggalBergabung"
                         value={formData.tanggalBergabung}
                         onChange={handleDateChange}
                       />
                       <div>
-                        <label className="block text-sm font-medium mb-2">
+                        <label
+                          htmlFor="organisasi"
+                          className="block text-sm font-medium mb-2"
+                        >
                           Organisasi <span className="text-red-500">*</span>
                         </label>
                         <Select
+                          name="organisasi"
                           value={formData.organisasi}
                           onValueChange={(value) =>
-                            handleInputChange('organisasi', value)
+                            handleInputChange("organisasi", value)
                           }
                         >
-                          <SelectAction>
+                          <SelectAction id="organisasi" name="organisasi">
                             <SelectValue placeholder="Pilih Organisasi..." />
                           </SelectAction>
-                          <SelectContent>
+                          <SelectContent id="organisasi">
                             <SelectItem value="IT">IT Department</SelectItem>
                             <SelectItem value="HR">HR Department</SelectItem>
                             <SelectItem value="Finance">
@@ -1041,19 +1210,23 @@ export default function AddKaryawan() {
                         </Select>
                       </div>
                       <div>
-                        <label className="block text-sm font-medium mb-2">
+                        <label
+                          htmlFor="jabatan"
+                          className="block text-sm font-medium mb-2"
+                        >
                           Jabatan <span className="text-red-500">*</span>
                         </label>
                         <Select
+                          name="jabatan"
                           value={formData.jabatan}
                           onValueChange={(value) =>
-                            handleInputChange('jabatan', value)
+                            handleInputChange("jabatan", value)
                           }
                         >
-                          <SelectAction>
+                          <SelectAction id="jabatan" name="jabatan">
                             <SelectValue placeholder="Pilih Jabatan..." />
                           </SelectAction>
-                          <SelectContent>
+                          <SelectContent id="jabatan">
                             <SelectItem value="Manager">Manager</SelectItem>
                             <SelectItem value="Staff">Staff</SelectItem>
                             <SelectItem value="Supervisor">
@@ -1063,19 +1236,23 @@ export default function AddKaryawan() {
                         </Select>
                       </div>
                       <div>
-                        <label className="block text-sm font-medium mb-2">
+                        <label
+                          htmlFor="pangkat"
+                          className="block text-sm font-medium mb-2"
+                        >
                           Pangkat <span className="text-red-500">*</span>
                         </label>
                         <Select
+                          name="pangkat"
                           value={formData.pangkat}
                           onValueChange={(value) =>
-                            handleInputChange('pangkat', value)
+                            handleInputChange("pangkat", value)
                           }
                         >
-                          <SelectAction>
+                          <SelectAction id="pangkat" name="pangkat">
                             <SelectValue placeholder="Pilih Pangkat..." />
                           </SelectAction>
-                          <SelectContent>
+                          <SelectContent id="pangkat">
                             <SelectItem value="I">I</SelectItem>
                             <SelectItem value="II">II</SelectItem>
                             <SelectItem value="III">III</SelectItem>
@@ -1083,19 +1260,23 @@ export default function AddKaryawan() {
                         </Select>
                       </div>
                       <div>
-                        <label className="block text-sm font-medium mb-2">
+                        <label
+                          htmlFor="jadwal"
+                          className="block text-sm font-medium mb-2"
+                        >
                           Jadwal <span className="text-red-500">*</span>
                         </label>
                         <Select
+                          name="jadwal"
                           value={formData.jadwal}
                           onValueChange={(value) =>
-                            handleInputChange('jadwal', value)
+                            handleInputChange("jadwal", value)
                           }
                         >
-                          <SelectAction>
+                          <SelectAction id="jadwal" name="jadwal">
                             <SelectValue placeholder="Pilih Jadwal..." />
                           </SelectAction>
-                          <SelectContent>
+                          <SelectContent id="jadwal">
                             <SelectItem value="Shift 1">
                               Shift 1 (07:00 - 15:00)
                             </SelectItem>
@@ -1110,6 +1291,7 @@ export default function AddKaryawan() {
                       </div>
                       <InputDate
                         label="Tanggal Masa Akhir Kerja"
+                        htmlFor="tanggalMasaAkhirKerja"
                         fieldName="tanggalMasaAkhirKerja"
                         value={formData.tanggalMasaAkhirKerja}
                         onChange={handleDateChange}
@@ -1117,7 +1299,7 @@ export default function AddKaryawan() {
                     </div>
                   </div>
                 )}
-
+                {/* Step 3 */}
                 {currentStep === 3 && (
                   <div>
                     <h2 className="text-xl font-medium mb-6">NPWP</h2>
@@ -1125,28 +1307,38 @@ export default function AddKaryawan() {
                       <div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div>
-                            <label className="block text-sm font-medium mb-2">
+                            <label
+                              htmlFor="npwp"
+                              className="block text-sm font-medium mb-2"
+                            >
                               NPWP <span className="text-red-500">*</span>
                             </label>
                             <Input
+                              id="npwp"
+                              name="npwp"
                               placeholder="No NPWP"
                               value={formData.npwp}
                               onChange={(e) =>
-                                handleInputChange('npwp', e.target.value)
+                                handleInputChange("npwp", e.target.value)
                               }
                             />
                           </div>
                           <div>
-                            <label className="block text-sm font-medium mb-2">
-                              NPWP Pemotong{' '}
+                            <label
+                              htmlFor="npwpPemotong"
+                              className="block text-sm font-medium mb-2"
+                            >
+                              NPWP Pemotong{" "}
                               <span className="text-red-500">*</span>
                             </label>
                             <Input
+                              id="npwpPemotong"
+                              name="npwpPemotong"
                               placeholder="No NPWP"
                               value={formData.npwpPemotong}
                               onChange={(e) =>
                                 handleInputChange(
-                                  'npwpPemotong',
+                                  "npwpPemotong",
                                   e.target.value
                                 )
                               }
@@ -1158,15 +1350,20 @@ export default function AddKaryawan() {
                         <h3 className="font-medium mb-4">BPJS</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div>
-                            <label className="block text-sm font-medium mb-2">
+                            <label
+                              htmlFor="noBpjsKetenagakerjaan"
+                              className="block text-sm font-medium mb-2"
+                            >
                               No BPJS Ketenagakerjaan
                             </label>
                             <Input
+                              id="noBpjsKetenagakerjaan"
+                              name="noBpjsKetenagakerjaan"
                               placeholder="Masukan No/Nomor bpjs"
                               value={formData.noBpjsKetenagakerjaan}
                               onChange={(e) =>
                                 handleInputChange(
-                                  'noBpjsKetenagakerjaan',
+                                  "noBpjsKetenagakerjaan",
                                   e.target.value
                                 )
                               }
@@ -1174,20 +1371,27 @@ export default function AddKaryawan() {
                           </div>
                           <InputDate
                             label="Tanggal Efektif BPJS Ketenagakerjaan (Opsional)"
+                            htmlFor="tanggalEfektifBpjsKetenagakerjaan"
                             fieldName="tanggalEfektifBpjsKetenagakerjaan"
                             value={formData.tanggalEfektifBpjsKetenagakerjaan}
                             onChange={handleDateChange}
+                            hideAsterisk={true}
                           />
                           <div>
-                            <label className="block text-sm font-medium mb-2">
+                            <label
+                              htmlFor="noBpjsKesehatan"
+                              className="block text-sm font-medium mb-2"
+                            >
                               No BPJS Kesehatan
                             </label>
                             <Input
+                              id="noBpjsKesehatan"
+                              name="noBpjsKesehatan"
                               placeholder="No BPJS Kesehatan"
                               value={formData.noBpjsKesehatan}
                               onChange={(e) =>
                                 handleInputChange(
-                                  'noBpjsKesehatan',
+                                  "noBpjsKesehatan",
                                   e.target.value
                                 )
                               }
@@ -1195,20 +1399,27 @@ export default function AddKaryawan() {
                           </div>
                           <InputDate
                             label="Tanggal Efektif BPJS Kesehatan (Opsional)"
+                            htmlFor="tanggalEfektifBpjsKesehatan"
                             fieldName="tanggalEfektifBpjsKesehatan"
                             value={formData.tanggalEfektifBpjsKesehatan}
                             onChange={handleDateChange}
+                            hideAsterisk={true}
                           />
                           <div>
-                            <label className="block text-sm font-medium mb-2">
+                            <label
+                              htmlFor="jumlahAngsuranKeluarga"
+                              className="block text-sm font-medium mb-2"
+                            >
                               Jumlah Anggota Keluarga BPJS Ketenagakerjaan
                             </label>
                             <Input
+                              id="jumlahAngsuranKeluarga"
+                              name="jumlahAngsuranKeluarga"
                               placeholder="Anggota Keluarga"
                               value={formData.jumlahAngsuranKeluarga}
                               onChange={(e) =>
                                 handleInputChange(
-                                  'jumlahAngsuranKeluarga',
+                                  "jumlahAngsuranKeluarga",
                                   e.target.value
                                 )
                               }
@@ -1229,7 +1440,7 @@ export default function AddKaryawan() {
                           </div>
                           <Button
                             type="button"
-                            className="flex items-center gap-2 whitespace-nowrap bg-transparent hover:bg-transparent text-[#3629B7] border border-[#3629B7]"
+                            className="flex items-center gap-2 whitespace-nowrap bg-transparent hover:bg-transparent text-primary border border-primary"
                             onClick={() => setIsFirstModalOpen(true)}
                           >
                             Tambah Nomor Rekening
@@ -1247,6 +1458,9 @@ export default function AddKaryawan() {
                                   <ModalTitle className="xl:text-2xl font-medium text-[#455468] font-poppins">
                                     Tambah Nomor Rekening
                                   </ModalTitle>
+                                  <ModalDescription className="hidden">
+                                    Silahkan isi data rekening dibawah ini.
+                                  </ModalDescription>
                                   <div className="flex gap-2">
                                     <Button
                                       type="button"
@@ -1258,7 +1472,7 @@ export default function AddKaryawan() {
                                     </Button>
                                     <Button
                                       type="button"
-                                      className="flex items-center gap-2 font-poppins whitespace-nowrap bg-[#3629B7] hover:bg-[#3629B7] text-white font-medium"
+                                      className="flex items-center gap-2 font-poppins whitespace-nowrap bg-primary hover:bg-primary text-white font-medium"
                                       onClick={handleAddAccount}
                                     >
                                       Tambahkan
@@ -1267,69 +1481,85 @@ export default function AddKaryawan() {
                                 </div>
                                 <div className="p-6 rounded-3xl border text-[#455468] border-gray-100 flex flex-col gap-5 font-poppins">
                                   <div>
-                                    <label className="block text-sm font-medium mb-2">
-                                      Nama Bank{' '}
+                                    <label
+                                      htmlFor="namaBank"
+                                      className="block text-sm font-medium mb-2"
+                                    >
+                                      Nama Bank{" "}
                                       <span className="text-red-500">*</span>
                                     </label>
                                     <Input
-                                      required
+                                      id="namaBank"
+                                      name="namaBank"
                                       placeholder="Nama Bank"
                                       value={formData.namaBank}
                                       onChange={(e) =>
                                         handleInputChange(
-                                          'namaBank',
+                                          "namaBank",
                                           e.target.value
                                         )
                                       }
                                     />
                                   </div>
                                   <div>
-                                    <label className="block text-sm font-medium mb-2">
-                                      Cabang Bank{' '}
+                                    <label
+                                      htmlFor="cabangBank"
+                                      className="block text-sm font-medium mb-2"
+                                    >
+                                      Cabang Bank{" "}
                                       <span className="text-red-500">*</span>
                                     </label>
                                     <Input
-                                      required
+                                      id="cabangBank"
+                                      name="cabangBank"
                                       placeholder="Cabang Bank"
                                       value={formData.cabangBank}
                                       onChange={(e) =>
                                         handleInputChange(
-                                          'cabangBank',
+                                          "cabangBank",
                                           e.target.value
                                         )
                                       }
                                     />
                                   </div>
                                   <div>
-                                    <label className="block text-sm font-medium mb-2">
-                                      Nama Pemilik Rekening{' '}
+                                    <label
+                                      htmlFor="namaPemilikRekening"
+                                      className="block text-sm font-medium mb-2"
+                                    >
+                                      Nama Pemilik Rekening{" "}
                                       <span className="text-red-500">*</span>
                                     </label>
                                     <Input
-                                      required
+                                      id="namaPemilikRekening"
+                                      name="namaPemilikRekening"
                                       placeholder="Nama Pemilik Rekening"
                                       value={formData.namaPemilikRekening}
                                       onChange={(e) =>
                                         handleInputChange(
-                                          'namaPemilikRekening',
+                                          "namaPemilikRekening",
                                           e.target.value
                                         )
                                       }
                                     />
                                   </div>
                                   <div>
-                                    <label className="block text-sm font-medium mb-2">
-                                      Nomor Rekening Bank{' '}
+                                    <label
+                                      htmlFor="nomorRekening"
+                                      className="block text-sm font-medium mb-2"
+                                    >
+                                      Nomor Rekening Bank{" "}
                                       <span className="text-red-500">*</span>
                                     </label>
                                     <Input
-                                      required
-                                      type="text"
+                                      id="nomorRekening"
+                                      name="nomorRekening"
+                                      type="number"
                                       placeholder="Nomor Rekening Bank"
                                       value={formData.nomorRekening}
                                       onChange={(e) =>
                                         handleInputChange(
-                                          'nomorRekening',
+                                          "nomorRekening",
                                           e.target.value
                                         )
                                       }
@@ -1347,7 +1577,7 @@ export default function AddKaryawan() {
                             <ModalContent className="max-w-[20rem] lg:max-w-[26rem]">
                               <ModalHeader className="mb-6 flex flex-col items-center justify-center space-y-3">
                                 <div className="flex h-14 w-14 items-center justify-center rounded-full border border-metal-100 bg-metal-50 text-metal-600 dark:border-metal-800 dark:bg-metal-800 dark:text-white">
-                                  <div className="h-7 w-7 rounded-full bg-[#3629B7] flex items-center justify-center">
+                                  <div className="h-7 w-7 rounded-full bg-primary flex items-center justify-center">
                                     <Check
                                       size={20}
                                       color="#FFFFFF"
@@ -1368,7 +1598,7 @@ export default function AddKaryawan() {
                                 <Button
                                   type="button"
                                   onClick={handleCloseSecondModal}
-                                  className="flex w-full items-center gap-2 font-poppins whitespace-nowrap bg-[#3629B7] hover:bg-[#3629B7] text-white font-medium"
+                                  className="flex w-full items-center gap-2 font-poppins whitespace-nowrap bg-primary hover:bg-primary text-white font-medium"
                                 >
                                   Confirm
                                 </Button>
@@ -1388,6 +1618,7 @@ export default function AddKaryawan() {
                   </div>
                 )}
               </div>
+              {/* Navigation */}
               <div className="flex justify-end items-center gap-2 mt-8 pt-6 border-t border-gray-200">
                 {currentStep > 1 ? (
                   <Button
@@ -1410,18 +1641,19 @@ export default function AddKaryawan() {
                     <Button
                       type="button"
                       onClick={handleNext}
-                      className="bg-[#3629B7] hover:bg-[#2818A0] px-6"
+                      className="bg-primary hover:bg-primary/90 px-6"
                     >
                       Selanjutnya
                       <CaretRight size={16} />
                     </Button>
                   ) : (
                     <Button
-                      type="submit"
-                      className="bg-[#3629B7] hover:bg-[#2818A0] px-6"
+                      type="button"
+                      onClick={handleSubmit}
+                      className="bg-primary hover:bg-primary/90 px-6"
                     >
-                      Simpan
-                      <Check size={16} />
+                      Selanjutnya
+                      <CaretRight size={16} />
                     </Button>
                   )}
                 </div>

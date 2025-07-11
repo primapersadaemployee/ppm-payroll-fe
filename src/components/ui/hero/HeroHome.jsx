@@ -11,7 +11,7 @@ import AppStore from "/appstore.png";
 
 export default function HeroHome() {
   return (
-    <div className="w-full h-auto bg-[#3629B7] rounded-lg overflow-hidden">
+    <div className="w-full h-auto bg-primary rounded-lg overflow-hidden">
       <div className="flex flex-col lg:flex-row">
         <div className="w-full lg:w-[45%] p-4 lg:p-10 flex flex-col gap-4 lg:gap-8">
           <Breadcrumb>

@@ -97,7 +97,7 @@ export default function ReportAttendance() {
             {report.map((item) => (
               <Card
                 key={item.id}
-                className="max-w-2xl lg:max-w-lg bg-[#DDE5FF]"
+                className="max-w-2xl lg:max-w-lg bg-secondary"
               >
                 <div className="flex justify-between items-center">
                   <CardContent className="flex flex-col gap-5">
