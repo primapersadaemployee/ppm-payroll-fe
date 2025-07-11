@@ -11,6 +11,7 @@ import {
   TableRow,
 } from "keep-react";
 import { CaretLeft, CaretRight, Eye, NotePencil } from "phosphor-react";
+import { Link } from "react-router-dom";
 
 export default function TableKaryawan({
   employees,
@@ -122,14 +123,16 @@ export default function TableKaryawan({
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center justify-center gap-1 text-sm">
-                    <Button
-                      size="sm"
-                      className="py-[2px] px-4 bg-[#F5F5F5] text-[#455468] font-medium hover:bg-white hover:text-[#455468]"
-                      title="View"
-                    >
-                      <Eye size={19} />
-                      <span>View</span>
-                    </Button>
+                    <Link to="/karyawan/detail-karyawan">
+                      <Button
+                        size="sm"
+                        className="py-[2px] px-4 bg-[#F5F5F5] text-[#455468] font-medium hover:bg-white hover:text-[#455468]"
+                        title="View"
+                      >
+                        <Eye size={19} />
+                        <span>View</span>
+                      </Button>
+                    </Link>
                     <Button
                       size="sm"
                       className="py-[2px] px-2 bg-[#F5F5F5] text-[#455468] font-medium hover:bg-white hover:text-[#455468]"
