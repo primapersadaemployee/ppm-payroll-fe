@@ -3,6 +3,7 @@ import { Button } from "keep-react";
 import { Link, useNavigate } from "react-router-dom";
 import { SidebarComponent } from "../../components/layout/Sidebar";
 import NotificationHome from "../../components/ui/notification/NotificationHome";
+import StepsIndicator from "../../components/ui/steps/StepsIndicator";
 import PersonalStep from "../../components/ui/steps/PersonalStep";
 import KepegawaianStep from "../../components/ui/steps/KepegawaianStep";
 import PayrollStep from "../../components/ui/steps/PayrollStep";
@@ -70,6 +71,9 @@ export default function AddKaryawan() {
 
           {/* Main Content */}
           <div className="bg-white rounded-2xl p-4 lg:p-6 shadow-sm border border-gray-100">
+            {/* Steps Indicator */}
+            <StepsIndicator />
+
             <form
               onSubmit={(e) => handleSubmit(e, router)}
               name="add-karyawan"
