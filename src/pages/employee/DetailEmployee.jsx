@@ -1,42 +1,44 @@
-import { useState } from 'react';
-import NotificationHome from '../../components/ui/notification/NotificationHome';
-import { Clock, Money, Receipt, UserCircle, Users } from 'phosphor-react';
-import { SidebarComponent } from '../../components/layout/Sidebar';
-import DetailKaryawanPersonal from '../../components/ui/section/DetailKaryawanPersonal';
-import DetailKaryawanKehadiran from '../../components/ui/section/DetailKaryawanKehadiran';
-import { useParams } from 'react-router-dom';
-import { KaryawanData } from '../../data/KaryawanData';
-import { useEffect } from 'react';
+import { useState } from "react";
+import NotificationDashboard from "../../components/ui/notification/NotificationDashboard";
+import { Clock, Money, Receipt, UserCircle, Users } from "phosphor-react";
+import { SidebarComponent } from "../../components/layout/Sidebar";
+import DetailEmployeePersonal from "../../components/ui/section/DetailEmployeePersonal";
+import DetailEmployeeAttendance from "../../components/ui/section/DetailEmployeeAttendance";
+import { useParams } from "react-router-dom";
+import { EmployeeData } from "../../data/EmployeeData";
+import { useEffect } from "react";
+import DetailEmployeePayroll from "../../components/ui/section/DetailEmployeePayroll";
+import DetailEmployeeSalaryHistory from "../../components/ui/section/DetailEmployeeSalaryHistory";
 
-export default function DetailKaryawan() {
+export default function DetailEmployee() {
   const [currentTab, setCurrentTab] = useState(1);
   const { id } = useParams();
   const [karyawan, setKaryawan] = useState(null);
 
   useEffect(() => {
-    const karyawan = KaryawanData.find((karyawan) => karyawan.id == id);
+    const karyawan = EmployeeData.find((karyawan) => karyawan.id == id);
     setKaryawan(karyawan);
   }, [id]);
 
   const tab = [
     {
       id: 1,
-      name: 'Personal',
+      name: "Personal",
       icon: <UserCircle size={22} />,
     },
     {
       id: 2,
-      name: 'Kehadiran',
+      name: "Kehadiran",
       icon: <Clock size={22} />,
     },
     {
       id: 3,
-      name: 'Payroll',
+      name: "Payroll",
       icon: <Money size={22} />,
     },
     {
       id: 4,
-      name: 'Riwayat Gaji',
+      name: "Riwayat Gaji",
       icon: <Receipt size={22} />,
     },
   ];
@@ -58,12 +60,12 @@ export default function DetailKaryawan() {
               <span>/</span>
               <span className="text-gray-400">
                 {currentTab === 1
-                  ? 'Personal'
+                  ? "Personal"
                   : currentTab === 2
-                  ? 'Kehadiran'
+                  ? "Kehadiran"
                   : currentTab === 3
-                  ? 'Payroll'
-                  : 'Riwayat Gaji'}
+                  ? "Payroll"
+                  : "Riwayat Gaji"}
               </span>
             </div>
           </nav>
@@ -72,7 +74,7 @@ export default function DetailKaryawan() {
           <div className="flex justify-between items-center">
             <h1 className="text-2xl lg:text-3xl font-medium">Karyawan</h1>
             <div className="w-[20%] sm:w-auto">
-              <NotificationHome />
+              <NotificationDashboard />
             </div>
           </div>
 
@@ -85,8 +87,8 @@ export default function DetailKaryawan() {
                   key={item.id}
                   className={`py-1 lg:py-[6px] px-1 lg:px-4 rounded-lg cursor-pointer ${
                     item.id === currentTab
-                      ? 'bg-secondary'
-                      : 'bg-transparent hover:bg-secondary'
+                      ? "bg-secondary"
+                      : "bg-transparent hover:bg-secondary"
                   }`}
                   onClick={() => setCurrentTab(item.id)}
                 >
@@ -101,10 +103,16 @@ export default function DetailKaryawan() {
             </div>
             <div className="w-full bg-white rounded-2xl p-2 sm:p-4 lg:p-6 shadow-sm border border-gray-100">
               {currentTab === 1 && (
-                <DetailKaryawanPersonal karyawan={karyawan} />
+                <DetailEmployeePersonal karyawan={karyawan} />
               )}
               {currentTab === 2 && (
-                <DetailKaryawanKehadiran karyawan={karyawan} />
+                <DetailEmployeeAttendance karyawan={karyawan} />
+              )}
+              {currentTab === 3 && (
+                <DetailEmployeePayroll karyawan={karyawan} />
+              )}
+              {currentTab === 4 && (
+                <DetailEmployeeSalaryHistory karyawan={karyawan} />
               )}
             </div>
           </div>

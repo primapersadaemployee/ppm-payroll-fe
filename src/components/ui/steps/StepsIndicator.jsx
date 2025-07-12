@@ -1,9 +1,9 @@
 import { CheckCircle, HourglassMedium } from "phosphor-react";
 import { Button } from "keep-react";
-import { useAddKaryawanStore } from "../../../store/AddKaryawanStore";
+import { useAddEmployeeStore } from "../../../store/AddEmployeStore";
 
 export default function StepsIndicator() {
-  const { currentStep, getSteps } = useAddKaryawanStore();
+  const { currentStep, getSteps } = useAddEmployeeStore();
   const steps = getSteps();
 
   return (

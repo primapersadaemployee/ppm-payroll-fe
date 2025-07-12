@@ -1,7 +1,7 @@
 import { Input, InputIcon } from "keep-react";
 import { MagnifyingGlass } from "phosphor-react";
 
-export default function SearchHome() {
+export default function SearchDashboard() {
   return (
     <fieldset className="relative w-full">
       <Input placeholder="Search Anything" className="ps-11" />

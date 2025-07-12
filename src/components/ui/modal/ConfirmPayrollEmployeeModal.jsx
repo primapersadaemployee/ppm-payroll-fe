@@ -8,10 +8,11 @@ import {
   ModalTitle,
   ModalFooter,
 } from "keep-react";
-import { useAddKaryawanStore } from "../../../store/AddKaryawanStore";
+import { useAddPayrollEmployeStore } from "../../../store/AddPayrollEmployeStore";
 
-export default function ConfirmRekeningModal() {
-  const { isSecondModalOpen, handleCloseSecondModal } = useAddKaryawanStore();
+export default function ConfirmPayrollEmployeeModal() {
+  const { isSecondModalOpen, handleCloseSecondModal } =
+    useAddPayrollEmployeStore();
 
   return (
     <Modal
@@ -28,10 +29,10 @@ export default function ConfirmRekeningModal() {
           </div>
           <div className="space-y-1 text-center font-poppins">
             <ModalTitle className="text-xl font-medium">
-              Tambah Rekening Berhasil
+              Tambah Payroll Berhasil
             </ModalTitle>
             <ModalDescription className="text-sm text-[#455468]">
-              Rekening Karyawan berhasil ditambahkan
+              Payroll Karyawan berhasil ditambahkan
             </ModalDescription>
           </div>
         </ModalHeader>

@@ -2,16 +2,16 @@ import { Users, CaretRight } from "phosphor-react";
 import { Button } from "keep-react";
 import { Link, useNavigate } from "react-router-dom";
 import { SidebarComponent } from "../../components/layout/Sidebar";
-import NotificationHome from "../../components/ui/notification/NotificationHome";
+import NotificationDashboard from "../../components/ui/notification/NotificationDashboard";
 import StepsIndicator from "../../components/ui/steps/StepsIndicator";
 import PersonalStep from "../../components/ui/steps/PersonalStep";
-import KepegawaianStep from "../../components/ui/steps/KepegawaianStep";
+import StaffingStep from "../../components/ui/steps/StaffingStep";
 import PayrollStep from "../../components/ui/steps/PayrollStep";
-import { useAddKaryawanStore } from "../../store/AddKaryawanStore";
+import { useAddEmployeeStore } from "../../store/AddEmployeStore";
 
-export default function AddKaryawan() {
+export default function AddEmployee() {
   const { currentStep, handleNext, handleBack, handleSubmit } =
-    useAddKaryawanStore();
+    useAddEmployeeStore();
 
   const router = useNavigate();
 
@@ -33,7 +33,7 @@ export default function AddKaryawan() {
       case 1:
         return <PersonalStep />;
       case 2:
-        return <KepegawaianStep />;
+        return <StaffingStep />;
       case 3:
         return <PayrollStep />;
       default:
@@ -65,7 +65,7 @@ export default function AddKaryawan() {
           <div className="flex justify-between items-center">
             <h1 className="text-2xl lg:text-3xl font-medium">Karyawan</h1>
             <div className="w-[20%] sm:w-auto">
-              <NotificationHome />
+              <NotificationDashboard />
             </div>
           </div>
 
@@ -97,7 +97,7 @@ export default function AddKaryawan() {
                     Kembali
                   </Button>
                 ) : (
-                  <Link to="/karyawan">
+                  <Link to="/employee">
                     <Button variant="outline" color="secondary">
                       Batalkan
                     </Button>

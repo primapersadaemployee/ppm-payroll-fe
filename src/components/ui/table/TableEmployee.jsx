@@ -9,11 +9,11 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from 'keep-react';
-import { CaretLeft, CaretRight, Eye, NotePencil } from 'phosphor-react';
-import { Link } from 'react-router-dom';
+} from "keep-react";
+import { CaretLeft, CaretRight, Eye, NotePencil } from "phosphor-react";
+import { Link } from "react-router-dom";
 
-export default function TableKaryawan({
+export default function TableEmployee({
   employees,
   currentPage,
   totalPages,
@@ -118,13 +118,13 @@ export default function TableKaryawan({
                   <Badge
                     variant="base"
                     color={
-                      employee.statusKaryawan === 'Tetap'
-                        ? 'success'
-                        : employee.statusKaryawan === 'PKWT'
-                        ? 'secondary'
-                        : employee.statusKaryawan === 'Resign'
-                        ? 'error'
-                        : 'warning'
+                      employee.statusKaryawan === "Tetap"
+                        ? "success"
+                        : employee.statusKaryawan === "PKWT"
+                        ? "secondary"
+                        : employee.statusKaryawan === "Resign"
+                        ? "error"
+                        : "warning"
                     }
                   >
                     {employee.statusKaryawan}
@@ -132,7 +132,7 @@ export default function TableKaryawan({
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center justify-center gap-1 text-sm">
-                    <Link to={`/karyawan/detail-karyawan/${employee.id}`}>
+                    <Link to={`/employee/detail/${employee.id}`}>
                       <Button
                         size="sm"
                         className="py-[2px] px-4 bg-[#F5F5F5] text-[#455468] font-medium hover:bg-white hover:text-[#455468]"
@@ -210,8 +210,8 @@ export default function TableKaryawan({
                         onClick={() => onPageChange(page)}
                         className={`min-w-[32px] h-8 rounded-full ${
                           currentPage === page
-                            ? 'bg-[#5E718D] text-white hover:bg-[#5E718D]'
-                            : 'text-[#455468] bg-transparent hover:bg-[#5E718D] hover:text-white'
+                            ? "bg-[#5E718D] text-white hover:bg-[#5E718D]"
+                            : "text-[#455468] bg-transparent hover:bg-[#5E718D] hover:text-white"
                         }`}
                       >
                         {page}

@@ -12,13 +12,12 @@ import {
   SelectContent,
   SelectItem,
   SelectValue,
-} from 'keep-react';
-import InputDate from '../input/InputDate';
-import { FloppyDisk } from 'phosphor-react';
-import { useEffect, useState } from 'react';
-import { DetailKehadiranData } from '../../../data/DetailKehadiranData';
+} from "keep-react";
+import InputDate from "../input/InputDate";
+import { FloppyDisk } from "phosphor-react";
+import { useEffect, useState } from "react";
 
-export default function EditKehadiranHarianModal({
+export default function EditAttendanceDailyModal({
   id,
   attendances,
   isFirstModalOpen,

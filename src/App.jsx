@@ -1,22 +1,19 @@
-import { Route, Routes } from 'react-router-dom';
-import Home from './pages/Home';
-import Karyawan from './pages/karyawan/Karyawan';
-import Login from './pages/auth/Login';
-import ResetPassword from './pages/auth/ResetPassword';
-import ForgotPassword from './pages/auth/ForgotPassword';
-import AddKaryawan from './pages/karyawan/AddKaryawan';
-import DetailKaryawan from './pages/karyawan/DetailKaryawan';
+import { Route, Routes } from "react-router-dom";
+import Login from "./pages/auth/Login";
+import ResetPassword from "./pages/auth/ResetPassword";
+import ForgotPassword from "./pages/auth/ForgotPassword";
+import Dashboard from "./pages/Dashboard";
+import Employee from "./pages/employee/Employee";
+import AddEmployee from "./pages/employee/AddEmployee";
+import DetailEmployee from "./pages/employee/DetailEmployee";
 
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/karyawan" element={<Karyawan />} />
-      <Route path="/karyawan/tambah-karyawan" element={<AddKaryawan />} />
-      <Route
-        path="/karyawan/detail-karyawan/:id"
-        element={<DetailKaryawan />}
-      />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/employee" element={<Employee />} />
+      <Route path="/employee/add" element={<AddEmployee />} />
+      <Route path="/employee/detail/:id" element={<DetailEmployee />} />
       <Route path="/login" element={<Login />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />

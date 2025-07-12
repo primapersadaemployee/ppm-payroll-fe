@@ -8,16 +8,16 @@ import {
   ModalDescription,
   ModalTitle,
 } from "keep-react";
-import { useAddKaryawanStore } from "../../../store/AddKaryawanStore";
+import { useAddEmployeeStore } from "../../../store/AddEmployeStore";
 
-export default function AddRekeningModal() {
+export default function AddBankAccountModal() {
   const {
     formData,
     isFirstModalOpen,
     setIsFirstModalOpen,
     handleInputChange,
     handleAddAccount,
-  } = useAddKaryawanStore();
+  } = useAddEmployeeStore();
 
   return (
     <Modal

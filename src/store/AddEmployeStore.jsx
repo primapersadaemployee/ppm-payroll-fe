@@ -51,7 +51,7 @@ const initialFormData = {
   nomorRekening: "",
 };
 
-export const useAddKaryawanStore = create((set, get) => ({
+export const useAddEmployeeStore = create((set, get) => ({
   // State
   currentStep: 1,
   formData: initialFormData,
@@ -143,7 +143,7 @@ export const useAddKaryawanStore = create((set, get) => ({
     };
 
     const missingFields = requiredFields[step]?.filter(
-      (field) => !formData[field],
+      (field) => !formData[field]
     );
 
     return missingFields?.length > 0
@@ -215,7 +215,7 @@ export const useAddKaryawanStore = create((set, get) => ({
         currentStep: 1,
       });
 
-      router("/karyawan");
+      router("/employee");
     } catch (err) {
       console.error("Error:", err.message);
       toast.error(err.message);

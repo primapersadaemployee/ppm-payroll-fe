@@ -6,26 +6,15 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from 'keep-react';
-import { CaretLeft, CaretRight, NotePencil } from 'phosphor-react';
-import EditKehadiranHarianModal from '../modal/EditKehadiranHarianModal';
-import { useState } from 'react';
-import ConfirmKehadiranHarianModal from '../modal/ConfirmKehadiranHarianModal';
+} from "keep-react";
+import { CaretLeft, CaretRight } from "phosphor-react";
 
-export default function TableKehadiranHarian({
-  attendances,
+export default function TableSalaryHistory({
+  salaryHistory,
   currentPage,
   totalPages,
   onPageChange,
 }) {
-  const [isFirstModalOpen, setIsFirstModalOpen] = useState(false);
-  const [isSecondModalOpen, setIsSecondModalOpen] = useState(false);
-  const [id, setId] = useState(null);
-  const editKehadiranHarian = (id) => {
-    setId(id);
-    setIsFirstModalOpen(true);
-  };
-
   return (
     <div className="space-y-4">
       <Table className="w-full rounded-t-none">
@@ -36,94 +25,45 @@ export default function TableKehadiranHarian({
               Tanggal
             </TableHead>
             <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
-              Shift
+              Slip Gaji
+            </TableHead>
+            <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
+              Periode
             </TableHead>
             <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
               Status
             </TableHead>
             <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
-              Masuk
-            </TableHead>
-            <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
-              Keluar
-            </TableHead>
-            <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
-              Terlambat
-            </TableHead>
-            <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
-              Durasi Terlambat
-            </TableHead>
-            <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
-              Aksi
+              Take Home Pay
             </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {attendances.length > 0 ? (
-            attendances.map((attendance) => (
+          {salaryHistory.length > 0 ? (
+            salaryHistory.map((salary) => (
               <TableRow
-                key={attendance.id}
+                key={salary.id}
                 className="hover:bg-gray-50 font-medium"
               >
-                <TableCell className="text-center">{attendance.id}</TableCell>
-                <TableCell className="text-center">
-                  {attendance.tanggal}
-                </TableCell>
-                <TableCell className="text-center">
-                  {attendance.shift}
-                </TableCell>
-                <TableCell className="text-center">
-                  {attendance.status}
-                </TableCell>
-                <TableCell className="text-center">
-                  {attendance.masuk}
-                </TableCell>
-                <TableCell className="text-center">
-                  {attendance.keluar}
-                </TableCell>
-                <TableCell className="text-center">
-                  {attendance.terlambat}
-                </TableCell>
-                <TableCell className="text-center">
-                  {attendance.durasiKeterlambatan}
-                </TableCell>
-                <TableCell>
-                  <Button
-                    size="sm"
-                    className="py-[2px] px-4 bg-[#F5F5F5] text-[#455468] font-medium hover:bg-white hover:text-[#455468]"
-                    title="Edit"
-                    onClick={() => editKehadiranHarian(attendance.id)}
-                  >
-                    <NotePencil size={19} />
-                    <span>Edit</span>
-                  </Button>
-                </TableCell>
+                <TableCell className="text-center">{salary.id}</TableCell>
+                <TableCell className="text-center">{salary.tanggal}</TableCell>
+                <TableCell className="text-center">{salary.slipGaji}</TableCell>
+                <TableCell className="text-center">{salary.periode}</TableCell>
+                <TableCell className="text-center">{salary.status}</TableCell>
+                <TableCell className="text-center">{salary.thp}</TableCell>
               </TableRow>
             ))
           ) : (
             <TableRow>
               <TableCell colSpan={9} className="text-center py-8">
                 <div className="flex flex-col items-center gap-2">
-                  <p className="font-medium">
-                    Belum ada data kehadiran harian.
-                  </p>
+                  <p className="font-medium">Belum ada data riwayat gaji.</p>
                 </div>
               </TableCell>
             </TableRow>
           )}
         </TableBody>
       </Table>
-      <EditKehadiranHarianModal
-        attendances={attendances}
-        id={id}
-        isFirstModalOpen={isFirstModalOpen}
-        setIsFirstModalOpen={setIsFirstModalOpen}
-        setIsSecondModalOpen={setIsSecondModalOpen}
-      />
-      <ConfirmKehadiranHarianModal
-        isSecondModalOpen={isSecondModalOpen}
-        setIsSecondModalOpen={setIsSecondModalOpen}
-      />
       {/* Pagination */}
       {totalPages > 1 && (
         <div className="mt-6 px-4 lg:px-6">
@@ -166,8 +106,8 @@ export default function TableKehadiranHarian({
                         onClick={() => onPageChange(page)}
                         className={`min-w-[32px] h-8 rounded-full ${
                           currentPage === page
-                            ? 'bg-[#5E718D] text-white hover:bg-[#5E718D]'
-                            : 'text-[#455468] bg-transparent hover:bg-[#5E718D] hover:text-white'
+                            ? "bg-[#5E718D] text-white hover:bg-[#5E718D]"
+                            : "text-[#455468] bg-transparent hover:bg-[#5E718D] hover:text-white"
                         }`}
                       >
                         {page}

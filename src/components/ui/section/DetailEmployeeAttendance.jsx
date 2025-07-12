@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import FilterDropdown from '../dropdown/FilterDropdown';
-import TableKehadiranHarian from '../table/TableKehadiranHarian';
-import TableHistoryKehadiran from '../table/TableHistoryKehadiran';
+import { useState } from "react";
+import FilterDropdown from "../dropdown/FilterDropdown";
+import TableAttendanceDaily from "../table/TableAttendanceDaily";
+import TableHistoryAttendance from "../table/TableHistoryAttendance";
 
-export default function DetailKaryawanKehadiran({ karyawan }) {
+export default function DetailEmployeeAttendance({ karyawan }) {
   const [option, setOption] = useState(1);
-  const [selectedStatus, setSelectedStatus] = useState('Semua Status');
-  const [selectedType, setSelectedType] = useState('Semua Tipe');
+  const [selectedStatus, setSelectedStatus] = useState("Semua Status");
+  const [selectedType, setSelectedType] = useState("Semua Tipe");
   const kehadiran = karyawan.kehadiranHarian;
   const [attendances] = useState(kehadiran);
   const historiKehadiran = karyawan.historiKehadiran;
@@ -14,20 +14,20 @@ export default function DetailKaryawanKehadiran({ karyawan }) {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  const statuses = ['Hadir', 'Izin', 'Sakit'];
-  const types = ['Presensi Masuk', 'Presensi Keluar'];
+  const statuses = ["Hadir", "Izin", "Sakit"];
+  const types = ["Presensi Masuk", "Presensi Keluar"];
 
   // Filter attendances based on search and filters
   const filterAttendance = attendances.filter((attendance) => {
     const matchesStatus =
-      selectedStatus === 'Semua Status' || attendance.status === selectedStatus;
+      selectedStatus === "Semua Status" || attendance.status === selectedStatus;
 
     return matchesStatus;
   });
 
   const filterHistoryAttendance = historyAttendances.filter((histori) => {
     const matchesType =
-      selectedType === 'Semua Tipe' || histori.tipe === selectedType;
+      selectedType === "Semua Tipe" || histori.tipe === selectedType;
 
     return matchesType;
   });
@@ -55,7 +55,7 @@ export default function DetailKaryawanKehadiran({ karyawan }) {
       <div className="relative w-full lg:w-3/4 xl:w-1/2 h-6 sm:h-8 lg:h-10 bg-[#F5F5F5] rounded-lg p-1 flex items-center font-medium text-[#455468]">
         <div
           className={`absolute top-1 left-1 h-4 sm:h-6 lg:h-8 w-[calc(50%-4px)] bg-white rounded-lg shadow transition-all duration-300 ease-in-out ${
-            option === 2 ? 'translate-x-full' : 'translate-x-0'
+            option === 2 ? "translate-x-full" : "translate-x-0"
           }`}
         ></div>
 
@@ -95,7 +95,7 @@ export default function DetailKaryawanKehadiran({ karyawan }) {
 
             {/* Attendance Table */}
             <div className="overflow-x-auto">
-              <TableKehadiranHarian
+              <TableAttendanceDaily
                 attendances={paginatedAttendance}
                 currentPage={currentPage}
                 totalPages={totalPages}
@@ -123,7 +123,7 @@ export default function DetailKaryawanKehadiran({ karyawan }) {
 
             {/* History Attendance Table */}
             <div className="overflow-x-auto">
-              <TableHistoryKehadiran
+              <TableHistoryAttendance
                 historyAttendances={paginatedHistoryAttendance}
                 currentPage={currentPage}
                 totalPages={totalPages}

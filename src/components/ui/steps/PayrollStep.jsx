@@ -1,10 +1,10 @@
-import { Plus } from 'phosphor-react';
-import { Button, Input } from 'keep-react';
-import InputDate from '../input/InputDate';
-import TableRekening from '../table/TableRekening';
-import { useAddKaryawanStore } from '../../../store/AddKaryawanStore';
-import AddRekeningModal from '../modal/AddRekeningModal';
-import ConfirmRekeningModal from '../modal/ConfirmRekeningModal';
+import { Plus } from "phosphor-react";
+import { Button, Input } from "keep-react";
+import InputDate from "../input/InputDate";
+import TableBankAccount from "../table/TableBankAccount";
+import { useAddEmployeeStore } from "../../../store/AddEmployeStore";
+import AddBankAccountModal from "../modal/AddBankAccountModal";
+import ConfirmBankAccountModal from "../modal/ConfirmBankAccountModal";
 
 export default function PayrollStep() {
   const {
@@ -14,7 +14,7 @@ export default function PayrollStep() {
     setIsFirstModalOpen,
     handleInputChange,
     handleDateChange,
-  } = useAddKaryawanStore();
+  } = useAddEmployeeStore();
 
   return (
     <div>
@@ -29,9 +29,10 @@ export default function PayrollStep() {
               <Input
                 id="npwp"
                 name="npwp"
+                type="number"
                 placeholder="No NPWP"
                 value={formData.npwp}
-                onChange={(e) => handleInputChange('npwp', e.target.value)}
+                onChange={(e) => handleInputChange("npwp", e.target.value)}
               />
             </div>
             <div>
@@ -47,7 +48,7 @@ export default function PayrollStep() {
                 placeholder="No NPWP"
                 value={formData.npwpPemotong}
                 onChange={(e) =>
-                  handleInputChange('npwpPemotong', e.target.value)
+                  handleInputChange("npwpPemotong", e.target.value)
                 }
               />
             </div>
@@ -66,10 +67,11 @@ export default function PayrollStep() {
               <Input
                 id="noBpjsKetenagakerjaan"
                 name="noBpjsKetenagakerjaan"
+                type="number"
                 placeholder="Masukan No/Nomor bpjs"
                 value={formData.noBpjsKetenagakerjaan}
                 onChange={(e) =>
-                  handleInputChange('noBpjsKetenagakerjaan', e.target.value)
+                  handleInputChange("noBpjsKetenagakerjaan", e.target.value)
                 }
               />
             </div>
@@ -92,10 +94,11 @@ export default function PayrollStep() {
               <Input
                 id="noBpjsKesehatan"
                 name="noBpjsKesehatan"
+                type="number"
                 placeholder="No BPJS Kesehatan"
                 value={formData.noBpjsKesehatan}
                 onChange={(e) =>
-                  handleInputChange('noBpjsKesehatan', e.target.value)
+                  handleInputChange("noBpjsKesehatan", e.target.value)
                 }
               />
             </div>
@@ -118,10 +121,11 @@ export default function PayrollStep() {
               <Input
                 id="jumlahAngsuranKeluarga"
                 name="jumlahAngsuranKeluarga"
+                type="number"
                 placeholder="Anggota Keluarga"
                 value={formData.jumlahAngsuranKeluarga}
                 onChange={(e) =>
-                  handleInputChange('jumlahAngsuranKeluarga', e.target.value)
+                  handleInputChange("jumlahAngsuranKeluarga", e.target.value)
                 }
               />
             </div>
@@ -142,11 +146,11 @@ export default function PayrollStep() {
               Tambah Nomor Rekening
               <Plus size={16} />
             </Button>
-            <AddRekeningModal />
-            <ConfirmRekeningModal />
+            <AddBankAccountModal />
+            <ConfirmBankAccountModal />
           </div>
           <div className="overflow-x-auto">
-            <TableRekening
+            <TableBankAccount
               rekeningData={rekenings}
               setRekeningData={setRekenings}
               setFormData={handleInputChange}

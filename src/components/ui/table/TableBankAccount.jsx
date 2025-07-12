@@ -1,7 +1,7 @@
-import { Badge, Button } from 'keep-react';
-import { Trash } from 'phosphor-react';
+import { Badge, Button } from "keep-react";
+import { Trash } from "phosphor-react";
 
-export default function TableRekening({
+export default function TableBankAccount({
   rekeningData,
   setRekeningData,
   setFormData,
@@ -13,10 +13,10 @@ export default function TableRekening({
     setRekeningData(newRekeningData);
     setFormData((prev) => ({
       ...prev,
-      namaBank: '',
-      cabangBank: '',
-      namaPemilikRekening: '',
-      nomorRekening: '',
+      namaBank: "",
+      cabangBank: "",
+      namaPemilikRekening: "",
+      nomorRekening: "",
     }));
   };
 
@@ -65,7 +65,7 @@ export default function TableRekening({
                   <Badge
                     variant="base"
                     color={
-                      rekening.status === 'Terverifikasi' ? 'success' : 'error'
+                      rekening.status === "Terverifikasi" ? "success" : "error"
                     }
                   >
                     {rekening.status}

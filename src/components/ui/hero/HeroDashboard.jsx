@@ -9,7 +9,7 @@ import BGBeranda from "/bg-beranda.webp";
 import PlayStore from "/playstore.png";
 import AppStore from "/appstore.png";
 
-export default function HeroHome() {
+export default function HeroDashboard() {
   return (
     <div className="w-full h-auto bg-primary rounded-lg overflow-hidden">
       <div className="flex flex-col lg:flex-row">

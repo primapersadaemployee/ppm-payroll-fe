@@ -4,13 +4,13 @@ import {
   SelectContent,
   SelectValue,
   SelectItem,
-} from 'keep-react';
-import InputDate from '../input/InputDate';
-import { useAddKaryawanStore } from '../../../store/AddKaryawanStore';
+} from "keep-react";
+import InputDate from "../input/InputDate";
+import { useAddEmployeeStore } from "../../../store/AddEmployeStore";
 
-export default function KepegawaianStep() {
+export default function StaffingStep() {
   const { formData, handleInputChange, handleDateChange } =
-    useAddKaryawanStore();
+    useAddEmployeeStore();
 
   return (
     <div>
@@ -27,7 +27,7 @@ export default function KepegawaianStep() {
             name="statusKaryawan"
             value={formData.statusKaryawan}
             onValueChange={(value) =>
-              handleInputChange('statusKaryawan', value)
+              handleInputChange("statusKaryawan", value)
             }
           >
             <SelectAction id="statusKaryawan" name="statusKaryawan">
@@ -58,7 +58,7 @@ export default function KepegawaianStep() {
           <Select
             name="organisasi"
             value={formData.organisasi}
-            onValueChange={(value) => handleInputChange('organisasi', value)}
+            onValueChange={(value) => handleInputChange("organisasi", value)}
           >
             <SelectAction id="organisasi" name="organisasi">
               <SelectValue placeholder="Pilih Organisasi..." />
@@ -82,7 +82,7 @@ export default function KepegawaianStep() {
           <Select
             name="jabatan"
             value={formData.jabatan}
-            onValueChange={(value) => handleInputChange('jabatan', value)}
+            onValueChange={(value) => handleInputChange("jabatan", value)}
           >
             <SelectAction id="jabatan" name="jabatan">
               <SelectValue placeholder="Pilih Jabatan..." />
@@ -101,7 +101,7 @@ export default function KepegawaianStep() {
           <Select
             name="pangkat"
             value={formData.pangkat}
-            onValueChange={(value) => handleInputChange('pangkat', value)}
+            onValueChange={(value) => handleInputChange("pangkat", value)}
           >
             <SelectAction id="pangkat" name="pangkat">
               <SelectValue placeholder="Pilih Pangkat..." />
@@ -120,7 +120,7 @@ export default function KepegawaianStep() {
           <Select
             name="jadwal"
             value={formData.jadwal}
-            onValueChange={(value) => handleInputChange('jadwal', value)}
+            onValueChange={(value) => handleInputChange("jadwal", value)}
           >
             <SelectAction id="jadwal" name="jadwal">
               <SelectValue placeholder="Pilih Jadwal..." />

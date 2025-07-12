@@ -1,4 +1,4 @@
-import { Upload } from 'phosphor-react';
+import { Upload } from "phosphor-react";
 import {
   Input,
   Select,
@@ -8,13 +8,13 @@ import {
   SelectItem,
   Checkbox,
   Textarea,
-} from 'keep-react';
-import InputDate from '../input/InputDate';
-import { useAddKaryawanStore } from '../../../store/AddKaryawanStore';
+} from "keep-react";
+import InputDate from "../input/InputDate";
+import { useAddEmployeeStore } from "../../../store/AddEmployeStore";
 
 export default function PersonalStep() {
   const { formData, handleImageChange, handleInputChange, handleDateChange } =
-    useAddKaryawanStore();
+    useAddEmployeeStore();
 
   return (
     <div className="flex flex-col gap-8">
@@ -26,7 +26,7 @@ export default function PersonalStep() {
           <div className="flex items-center gap-4">
             <div
               className={`w-16 h-16 rounded-full ${
-                formData.image ? 'bg-transparent' : 'bg-pink-100'
+                formData.image ? "bg-transparent" : "bg-pink-100"
               } flex items-center justify-center`}
             >
               {formData.image ? (
@@ -61,12 +61,13 @@ export default function PersonalStep() {
               ID Karyawan <span className="text-red-500">*</span>
             </label>
             <Input
+              type="number"
               id="idKaryawan"
               name="idKaryawan"
               required
               placeholder="ID Karyawan"
               value={formData.idKaryawan}
-              onChange={(e) => handleInputChange('idKaryawan', e.target.value)}
+              onChange={(e) => handleInputChange("idKaryawan", e.target.value)}
             />
           </div>
           <div>
@@ -82,7 +83,7 @@ export default function PersonalStep() {
               required
               placeholder="Nama Lengkap"
               value={formData.namaLengkap}
-              onChange={(e) => handleInputChange('namaLengkap', e.target.value)}
+              onChange={(e) => handleInputChange("namaLengkap", e.target.value)}
             />
           </div>
         </div>
@@ -100,7 +101,7 @@ export default function PersonalStep() {
               name="tempatLahir"
               placeholder="Tempat Lahir"
               value={formData.tempatLahir}
-              onChange={(e) => handleInputChange('tempatLahir', e.target.value)}
+              onChange={(e) => handleInputChange("tempatLahir", e.target.value)}
             />
           </div>
           <InputDate
@@ -123,15 +124,15 @@ export default function PersonalStep() {
                 <Checkbox
                   id="jenisKelamin"
                   name="jenisKelamin"
-                  checked={formData.jenisKelamin === 'Laki-laki'}
+                  checked={formData.jenisKelamin === "Laki-laki"}
                   onCheckedChange={(checked) =>
                     handleInputChange(
-                      'jenisKelamin',
-                      checked ? 'Laki-laki' : ''
+                      "jenisKelamin",
+                      checked ? "Laki-laki" : ""
                     )
                   }
                   className={`${
-                    formData.jenisKelamin === 'Laki-laki' ? 'bg-primary' : ''
+                    formData.jenisKelamin === "Laki-laki" ? "bg-primary" : ""
                   }`}
                 />
                 <span className="text-sm">Laki - Laki</span>
@@ -140,15 +141,15 @@ export default function PersonalStep() {
                 <Checkbox
                   id="jenisKelamin"
                   name="jenisKelamin"
-                  checked={formData.jenisKelamin === 'Perempuan'}
+                  checked={formData.jenisKelamin === "Perempuan"}
                   onCheckedChange={(checked) =>
                     handleInputChange(
-                      'jenisKelamin',
-                      checked ? 'Perempuan' : ''
+                      "jenisKelamin",
+                      checked ? "Perempuan" : ""
                     )
                   }
                   className={`${
-                    formData.jenisKelamin === 'Perempuan' ? 'bg-primary' : ''
+                    formData.jenisKelamin === "Perempuan" ? "bg-primary" : ""
                   }`}
                 />
                 <span className="text-sm">Perempuan</span>
@@ -166,7 +167,7 @@ export default function PersonalStep() {
               name="statusPerkawinan"
               value={formData.statusPerkawinan}
               onValueChange={(value) =>
-                handleInputChange('statusPerkawinan', value)
+                handleInputChange("statusPerkawinan", value)
               }
             >
               <SelectAction id="statusPerkawinan" name="statusPerkawinan">
@@ -194,7 +195,7 @@ export default function PersonalStep() {
               placeholder="Golongan Darah"
               value={formData.golonganDarah}
               onChange={(e) =>
-                handleInputChange('golonganDarah', e.target.value)
+                handleInputChange("golonganDarah", e.target.value)
               }
             />
           </div>
@@ -207,7 +208,7 @@ export default function PersonalStep() {
               name="agama"
               placeholder="Agama"
               value={formData.agama}
-              onChange={(e) => handleInputChange('agama', e.target.value)}
+              onChange={(e) => handleInputChange("agama", e.target.value)}
             />
           </div>
           <div>
@@ -221,7 +222,7 @@ export default function PersonalStep() {
               name="kewarganegaraan"
               value={formData.kewarganegaraan}
               onValueChange={(value) =>
-                handleInputChange('kewarganegaraan', value)
+                handleInputChange("kewarganegaraan", value)
               }
             >
               <SelectAction id="kewarganegaraan" name="kewarganegaraan">
@@ -252,7 +253,7 @@ export default function PersonalStep() {
               name="tipeIdentitas"
               value={formData.tipeIdentitas}
               onValueChange={(value) =>
-                handleInputChange('tipeIdentitas', value)
+                handleInputChange("tipeIdentitas", value)
               }
             >
               <SelectAction id="tipeIdentitas" name="tipeIdentitas">
@@ -277,7 +278,7 @@ export default function PersonalStep() {
               placeholder="ID Kartu Identitas"
               value={formData.idKartuIdentitas}
               onChange={(e) =>
-                handleInputChange('idKartuIdentitas', e.target.value)
+                handleInputChange("idKartuIdentitas", e.target.value)
               }
             />
           </div>
@@ -293,7 +294,7 @@ export default function PersonalStep() {
               name="email"
               placeholder="Email"
               value={formData.email}
-              onChange={(e) => handleInputChange('email', e.target.value)}
+              onChange={(e) => handleInputChange("email", e.target.value)}
             />
           </div>
         </div>
@@ -308,7 +309,7 @@ export default function PersonalStep() {
               type="number"
               placeholder="No. HP"
               value={formData.noHp}
-              onChange={(e) => handleInputChange('noHp', e.target.value)}
+              onChange={(e) => handleInputChange("noHp", e.target.value)}
             />
           </div>
           <div>
@@ -321,7 +322,7 @@ export default function PersonalStep() {
               type="number"
               placeholder="No. Telepon"
               value={formData.noTelp}
-              onChange={(e) => handleInputChange('noTelp', e.target.value)}
+              onChange={(e) => handleInputChange("noTelp", e.target.value)}
             />
           </div>
         </div>
@@ -340,7 +341,7 @@ export default function PersonalStep() {
               placeholder="Alamat Kartu Identitas"
               value={formData.alamatKartuIdentitas}
               onChange={(e) =>
-                handleInputChange('alamatKartuIdentitas', e.target.value)
+                handleInputChange("alamatKartuIdentitas", e.target.value)
               }
             />
           </div>
@@ -355,7 +356,7 @@ export default function PersonalStep() {
               name="negara"
               placeholder="Negara"
               value={formData.negara}
-              onChange={(e) => handleInputChange('negara', e.target.value)}
+              onChange={(e) => handleInputChange("negara", e.target.value)}
             />
           </div>
         </div>
@@ -372,7 +373,7 @@ export default function PersonalStep() {
               name="provinsi"
               placeholder="Provinsi"
               value={formData.provinsi}
-              onChange={(e) => handleInputChange('provinsi', e.target.value)}
+              onChange={(e) => handleInputChange("provinsi", e.target.value)}
             />
           </div>
           <div>
@@ -384,7 +385,7 @@ export default function PersonalStep() {
               name="kota"
               placeholder="Kota"
               value={formData.kota}
-              onChange={(e) => handleInputChange('kota', e.target.value)}
+              onChange={(e) => handleInputChange("kota", e.target.value)}
             />
           </div>
         </div>
@@ -403,7 +404,7 @@ export default function PersonalStep() {
               placeholder="Alamat Domisili"
               value={formData.alamatDomisili}
               onChange={(e) =>
-                handleInputChange('alamatDomisili', e.target.value)
+                handleInputChange("alamatDomisili", e.target.value)
               }
             />
           </div>
@@ -422,7 +423,7 @@ export default function PersonalStep() {
               placeholder="Negara Domisili"
               value={formData.negaraDomisili}
               onChange={(e) =>
-                handleInputChange('negaraDomisili', e.target.value)
+                handleInputChange("negaraDomisili", e.target.value)
               }
             />
           </div>
@@ -441,7 +442,7 @@ export default function PersonalStep() {
               placeholder="Provinsi Domisili"
               value={formData.provinsiDomisili}
               onChange={(e) =>
-                handleInputChange('provinsiDomisili', e.target.value)
+                handleInputChange("provinsiDomisili", e.target.value)
               }
             />
           </div>
@@ -458,7 +459,7 @@ export default function PersonalStep() {
               placeholder="Kota Domisili"
               value={formData.kotaDomisili}
               onChange={(e) =>
-                handleInputChange('kotaDomisili', e.target.value)
+                handleInputChange("kotaDomisili", e.target.value)
               }
             />
           </div>
@@ -477,7 +478,7 @@ export default function PersonalStep() {
               placeholder="Nama Kontak Darurat"
               value={formData.namaKontakDarurat}
               onChange={(e) =>
-                handleInputChange('namaKontakDarurat', e.target.value)
+                handleInputChange("namaKontakDarurat", e.target.value)
               }
             />
           </div>
@@ -495,7 +496,7 @@ export default function PersonalStep() {
               placeholder="No. Kontak Darurat"
               value={formData.noTelpKontakDarurat}
               onChange={(e) =>
-                handleInputChange('noTelpKontakDarurat', e.target.value)
+                handleInputChange("noTelpKontakDarurat", e.target.value)
               }
             />
           </div>
@@ -512,14 +513,14 @@ export default function PersonalStep() {
               htmlFor="pendidikanTerakhir"
               className="block text-sm font-medium mb-2"
             >
-              Jenjang Pendidikan Terakhir{' '}
+              Jenjang Pendidikan Terakhir{" "}
               <span className="text-red-500">*</span>
             </label>
             <Select
               name="pendidikanTerakhir"
               value={formData.pendidikanTerakhir}
               onValueChange={(value) =>
-                handleInputChange('pendidikanTerakhir', value)
+                handleInputChange("pendidikanTerakhir", value)
               }
             >
               <SelectAction id="pendidikanTerakhir" name="pendidikanTerakhir">
@@ -554,7 +555,7 @@ export default function PersonalStep() {
               placeholder="Nama Institusi Pendidikan"
               value={formData.namaInstitusiPendidikan}
               onChange={(e) =>
-                handleInputChange('namaInstitusiPendidikan', e.target.value)
+                handleInputChange("namaInstitusiPendidikan", e.target.value)
               }
             />
           </div>
@@ -571,7 +572,7 @@ export default function PersonalStep() {
               placeholder="Program Studi"
               value={formData.programStudi}
               onChange={(e) =>
-                handleInputChange('programStudi', e.target.value)
+                handleInputChange("programStudi", e.target.value)
               }
             />
           </div>

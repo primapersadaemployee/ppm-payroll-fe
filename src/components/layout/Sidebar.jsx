@@ -52,17 +52,17 @@ export const SidebarComponent = () => {
   const sidebarMenus = [
     {
       name: "Beranda",
-      link: "/",
+      link: "/dashboard",
       icon: <HouseSimple size={20} weight="bold" />,
     },
     {
       name: "Karyawan",
-      link: "/karyawan",
+      link: "/employee",
       icon: <Users size={20} weight="bold" />,
     },
     {
       name: "Kehadiran",
-      link: "/kehadiran",
+      link: "/presence",
       icon: <Clock size={20} weight="bold" />,
     },
     {
@@ -72,12 +72,12 @@ export const SidebarComponent = () => {
     },
     {
       name: "Pengumuman",
-      link: "/pengumuman",
+      link: "/announcement",
       icon: <Notification size={20} weight="bold" />,
     },
     {
       name: "Laporan",
-      link: "/laporan",
+      link: "/report",
       icon: <Note size={20} weight="bold" />,
     },
     {
@@ -87,7 +87,7 @@ export const SidebarComponent = () => {
     },
     {
       name: "FAQ",
-      link: "/faq",
+      link: "/faqs",
       icon: <Question size={20} weight="bold" />,
     },
   ];
@@ -127,11 +127,7 @@ export const SidebarComponent = () => {
               <Link key={item.name} to={item.link}>
                 <SidebarItem
                   className={`${
-                    item.link === "/"
-                      ? location === "/"
-                        ? "bg-primary text-white hover:bg-primary hover:text-white"
-                        : "text-[#455468] hover:bg-primary hover:text-white"
-                      : location.startsWith(item.link)
+                    location.startsWith(item.link)
                       ? "bg-primary text-white hover:bg-primary hover:text-white"
                       : "text-[#455468] hover:bg-primary hover:text-white"
                   }`}

@@ -8,15 +8,15 @@ import {
   ModalTitle,
   ModalFooter,
 } from "keep-react";
+import { useAddEmployeeStore } from "../../../store/AddEmployeStore";
 
-export default function ConfirmKehadiranHarianModal({
-  isSecondModalOpen,
-  setIsSecondModalOpen,
-}) {
+export default function ConfirmBankAccountModal() {
+  const { isSecondModalOpen, handleCloseSecondModal } = useAddEmployeeStore();
+
   return (
     <Modal
       open={isSecondModalOpen}
-      onClose={() => setIsSecondModalOpen(false)}
+      onClose={handleCloseSecondModal}
       showCloseIcon={false}
     >
       <ModalContent className="max-w-[20rem] lg:max-w-[26rem]">
@@ -28,17 +28,17 @@ export default function ConfirmKehadiranHarianModal({
           </div>
           <div className="space-y-1 text-center font-poppins">
             <ModalTitle className="text-xl font-medium">
-              Edit Kehadiran Harian Berhasil
+              Tambah Rekening Berhasil
             </ModalTitle>
             <ModalDescription className="text-sm text-[#455468]">
-              Kehadiran Harian berhasil diubah
+              Rekening Karyawan berhasil ditambahkan
             </ModalDescription>
           </div>
         </ModalHeader>
         <ModalFooter className="justify-center">
           <Button
             type="button"
-            onClick={() => setIsSecondModalOpen(false)}
+            onClick={handleCloseSecondModal}
             className="flex w-full items-center gap-2 font-poppins whitespace-nowrap bg-primary hover:bg-primary text-white font-medium"
           >
             Confirm

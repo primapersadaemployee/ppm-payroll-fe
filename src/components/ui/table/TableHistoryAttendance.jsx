@@ -6,10 +6,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from 'keep-react';
-import { CaretLeft, CaretRight } from 'phosphor-react';
+} from "keep-react";
+import { CaretLeft, CaretRight } from "phosphor-react";
 
-export default function TableHistoryKehadiran({
+export default function TableHistoryAttendance({
   historyAttendances,
   currentPage,
   totalPages,
@@ -109,8 +109,8 @@ export default function TableHistoryKehadiran({
                         onClick={() => onPageChange(page)}
                         className={`min-w-[32px] h-8 rounded-full ${
                           currentPage === page
-                            ? 'bg-[#5E718D] text-white hover:bg-[#5E718D]'
-                            : 'text-[#455468] bg-transparent hover:bg-[#5E718D] hover:text-white'
+                            ? "bg-[#5E718D] text-white hover:bg-[#5E718D]"
+                            : "text-[#455468] bg-transparent hover:bg-[#5E718D] hover:text-white"
                         }`}
                       >
                         {page}

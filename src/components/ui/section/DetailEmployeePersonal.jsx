@@ -1,7 +1,7 @@
-import { Button } from 'keep-react';
-import { useState } from 'react';
+import { Button } from "keep-react";
+import { useState } from "react";
 
-export default function DetailKaryawanPersonal({ karyawan }) {
+export default function DetailEmployeePersonal({ karyawan }) {
   const [option, setOption] = useState(1);
 
   return (
@@ -10,7 +10,7 @@ export default function DetailKaryawanPersonal({ karyawan }) {
       <div className="relative w-full lg:w-3/4 xl:w-1/2 h-6 sm:h-8 lg:h-10 bg-[#F5F5F5] rounded-lg p-1 flex items-center font-medium text-[#455468]">
         <div
           className={`absolute top-1 left-1 h-4 sm:h-6 lg:h-8 w-[calc(50%-4px)] bg-white rounded-lg shadow transition-all duration-300 ease-in-out ${
-            option === 2 ? 'translate-x-full' : 'translate-x-0'
+            option === 2 ? "translate-x-full" : "translate-x-0"
           }`}
         ></div>
 
@@ -36,7 +36,7 @@ export default function DetailKaryawanPersonal({ karyawan }) {
         <div className="flex flex-col lg:flex-row gap-4 lg:justify-between">
           <div className="flex gap-5">
             <img
-              src={karyawan?.image ?? '/profil5.png'}
+              src={karyawan?.image ?? "/profil5.png"}
               alt="profil"
               className="w-14 h-14 lg:w-[100px] lg:h-[100px] object-cover object-center rounded-xl"
             />
@@ -54,11 +54,11 @@ export default function DetailKaryawanPersonal({ karyawan }) {
         </div>
 
         {option === 1 && (
-          <div className="flex flex-col gap-2 text-xs sm:text-sm">
+          <div className="flex flex-col gap-2 text-xs sm:text-sm lg:text-base">
             {/* Informasi Pribadi */}
             <div className="w-full bg-[#F5F5F5] rounded-2xl p-4 lg:p-6 shadow-sm border border-gray-100">
               <div className="flex flex-col gap-5 font-medium">
-                <h4 className="text-black">Informasi Pribadi</h4>
+                <h4 className="text-black lg:text-lg">Informasi Pribadi</h4>
                 <div className="flex flex-col gap-4">
                   <div className="w-full flex flex-col lg:flex-row justify-between">
                     <span>ID Karyawan</span>
@@ -134,7 +134,7 @@ export default function DetailKaryawanPersonal({ karyawan }) {
                   <div className="w-full flex justify-between flex-col lg:flex-row">
                     <span>Kontak Darurat</span>
                     <span>
-                      {karyawan?.namaKontakDarurat}{' '}
+                      {karyawan?.namaKontakDarurat}{" "}
                       <span className="text-black">
                         {karyawan?.noHpKontakDarurat}
                       </span>
@@ -168,11 +168,11 @@ export default function DetailKaryawanPersonal({ karyawan }) {
         )}
 
         {option === 2 && (
-          <div className="flex flex-col gap-2 text-xs sm:text-sm">
+          <div className="flex flex-col gap-2 text-xs sm:text-sm lg:text-base">
             {/* Masa Kerja */}
             <div className="w-full bg-[#F5F5F5] rounded-2xl p-4 lg:p-6 shadow-sm border border-gray-100">
               <div className="flex flex-col gap-5 font-medium">
-                <h4 className="text-black">Masa Kerja</h4>
+                <h4 className="text-black lg:text-lg">Masa Kerja</h4>
                 <div className="flex flex-col gap-4">
                   <div className="w-full flex justify-between flex-col lg:flex-row">
                     <span>Mulai Kerja</span>
@@ -192,7 +192,7 @@ export default function DetailKaryawanPersonal({ karyawan }) {
             {/* NPWP */}
             <div className="w-full bg-[#F5F5F5] rounded-2xl p-4 lg:p-6 shadow-sm border border-gray-100">
               <div className="flex flex-col gap-5 font-medium">
-                <h4 className="text-black">NPWP</h4>
+                <h4 className="text-black lg:text-lg">NPWP</h4>
                 <div className="flex flex-col gap-4">
                   <div className="w-full flex justify-between flex-col lg:flex-row">
                     <span>Nomor NPWP</span>
@@ -208,7 +208,7 @@ export default function DetailKaryawanPersonal({ karyawan }) {
             {/* BPJS */}
             <div className="w-full bg-[#F5F5F5] rounded-2xl p-4 lg:p-6 shadow-sm border border-gray-100">
               <div className="flex flex-col gap-5 font-medium">
-                <h4 className="text-black">BPJS</h4>
+                <h4 className="text-black lg:text-lg">BPJS</h4>
                 <div className="flex flex-col gap-4">
                   <div className="w-full flex justify-between">
                     <span>No BPJS Ketenagakerjaan</span>
@@ -228,7 +228,7 @@ export default function DetailKaryawanPersonal({ karyawan }) {
             {/* Rekening Bank */}
             <div className="w-full bg-[#F5F5F5] rounded-2xl p-4 lg:p-6 shadow-sm border border-gray-100">
               <div className="flex flex-col gap-5 font-medium">
-                <h4 className="text-black">Rekening Bank</h4>
+                <h4 className="text-black lg:text-lg">Rekening Bank</h4>
                 <div className="w-full flex justify-between flex-col lg:flex-row">
                   <span>{karyawan?.namaBank}</span>
                   <span className="text-black">
