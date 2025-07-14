@@ -1,20 +1,20 @@
-import { toast } from "keep-react";
-import { create } from "zustand";
-import { format } from "date-fns";
+import { toast } from 'keep-react';
+import { create } from 'zustand';
+import { format } from 'date-fns';
 
 const initialFormData = {
-  tanggalEfektif: "",
+  tanggalEfektif: '',
   gajiBulanan: false,
   thr: false,
   gajiPokok: 0,
   koperasi: 0,
-  jaminanKeselamatanKerja: "",
-  jaminanKematian: "",
-  metodePerhitunganPph: "",
-  pengaliIuranBpjs: "",
+  jaminanKeselamatanKerja: '',
+  jaminanKematian: '',
+  metodePerhitunganPph: '',
+  pengaliIuranBpjs: '',
   jaminanHariTua: false,
   jaminanPensiunan: false,
-  bpjsDitanggungPerusahaan: "",
+  bpjsDitanggungPerusahaan: '',
   total: 0,
 };
 
@@ -38,7 +38,7 @@ export const useAddPayrollEmployeStore = create((set, get) => ({
     set((state) => ({
       formData: {
         ...state.formData,
-        [fieldName]: date ? format(date, "yyyy-MM-dd") : "",
+        [fieldName]: date ? format(date, 'yyyy-MM-dd') : '',
       },
     }));
   },
@@ -100,14 +100,14 @@ export const useAddPayrollEmployeStore = create((set, get) => ({
       !formData.pengaliIuranBpjs.trim() ||
       !formData.bpjsDitanggungPerusahaan.trim()
     ) {
-      toast.error("Semua field payroll wajib diisi!");
+      toast.error('Semua field payroll wajib diisi!');
       return;
     }
 
     set({
       formData: initialFormData,
       isFirstModalOpen: false,
-      isSecondModalOpen: false,
+      isSecondModalOpen: true,
     });
   },
 

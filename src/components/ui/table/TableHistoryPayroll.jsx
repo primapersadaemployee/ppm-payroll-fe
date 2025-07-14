@@ -6,8 +6,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "keep-react";
-import { CaretLeft, CaretRight } from "phosphor-react";
+} from 'keep-react';
+import { CaretLeft, CaretRight } from 'phosphor-react';
+import { format } from 'date-fns';
 
 export default function TableHistoryPayroll({
   historyPayroll,
@@ -41,7 +42,7 @@ export default function TableHistoryPayroll({
               >
                 <TableCell className="text-center">{history.id}</TableCell>
                 <TableCell className="text-center">
-                  {history.tanggalEfektif}
+                  {format(new Date(history.tanggalEfektif), 'dd/MM/yyyy')}
                 </TableCell>
                 <TableCell className="text-center">
                   {history.slipGaji}
@@ -103,8 +104,8 @@ export default function TableHistoryPayroll({
                         onClick={() => onPageChange(page)}
                         className={`min-w-[32px] h-8 rounded-full ${
                           currentPage === page
-                            ? "bg-[#5E718D] text-white hover:bg-[#5E718D]"
-                            : "text-[#455468] bg-transparent hover:bg-[#5E718D] hover:text-white"
+                            ? 'bg-[#5E718D] text-white hover:bg-[#5E718D]'
+                            : 'text-[#455468] bg-transparent hover:bg-[#5E718D] hover:text-white'
                         }`}
                       >
                         {page}

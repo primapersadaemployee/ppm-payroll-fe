@@ -12,10 +12,10 @@ import {
   SelectContent,
   SelectItem,
   SelectValue,
-} from "keep-react";
-import { FloppyDisk } from "phosphor-react";
-import InputDate from "../input/InputDate";
-import { useEditAnnualLeaveStore } from "../../../store/EditAnnualLeaveStore";
+} from 'keep-react';
+import { FloppyDisk } from 'phosphor-react';
+import InputDate from '../input/InputDate';
+import { useEditAnnualLeaveStore } from '../../../store/EditAnnualLeaveStore';
 
 export default function EditAnnualLeaveModal({ annualLeaves }) {
   const {
@@ -24,6 +24,7 @@ export default function EditAnnualLeaveModal({ annualLeaves }) {
     setIsFirstModalOpen,
     setIsSecondModalOpen,
     handleInputChange,
+    handleDateChange,
     handleEditAnnualLeave,
     resetForm,
   } = useEditAnnualLeaveStore();
@@ -93,10 +94,10 @@ export default function EditAnnualLeaveModal({ annualLeaves }) {
                 name="nama"
                 placeholder="John Doe"
                 value={formData.nama}
-                onChange={(e) => handleInputChange("nama", e.target.value)}
+                onChange={(e) => handleInputChange('nama', e.target.value)}
               />
             </div>
-            {/* <div>
+            <div>
               <InputDate
                 label="Tanggal Pengajuan"
                 placeholder="Pilih tanggal"
@@ -104,11 +105,9 @@ export default function EditAnnualLeaveModal({ annualLeaves }) {
                 fieldName="tanggalPengajuan"
                 hideAsterisk={true}
                 value={formData.tanggalPengajuan}
-                onChange={(e) =>
-                  handleInputChange("tanggalPengajuan", e.target.value)
-                }
+                onChange={handleDateChange}
               />
-            </div> */}
+            </div>
             <div>
               <label
                 htmlFor="jumlahHari"
@@ -123,11 +122,11 @@ export default function EditAnnualLeaveModal({ annualLeaves }) {
                 placeholder="1"
                 value={formData.jumlahHari}
                 onChange={(e) =>
-                  handleInputChange("jumlahHari", e.target.value)
+                  handleInputChange('jumlahHari', e.target.value)
                 }
               />
             </div>
-            {/* <div>
+            <div>
               <InputDate
                 label="Tanggal Cuti"
                 placeholder="Pilih tanggal"
@@ -135,11 +134,9 @@ export default function EditAnnualLeaveModal({ annualLeaves }) {
                 fieldName="tanggalCuti"
                 hideAsterisk={true}
                 value={formData.tanggalCuti}
-                onChange={(e) =>
-                  handleInputChange("tanggalCuti", e.target.value)
-                }
+                onChange={handleDateChange}
               />
-            </div> */}
+            </div>
             <div>
               <label
                 htmlFor="status"
@@ -150,7 +147,7 @@ export default function EditAnnualLeaveModal({ annualLeaves }) {
               <Select
                 name="status"
                 value={formData.status}
-                onValueChange={(value) => handleInputChange("status", value)}
+                onValueChange={(value) => handleInputChange('status', value)}
               >
                 <SelectAction id="status" name="status">
                   <SelectValue placeholder="Status" />

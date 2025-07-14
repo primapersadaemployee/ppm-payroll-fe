@@ -6,11 +6,12 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "keep-react";
-import { CaretLeft, CaretRight, NotePencil } from "phosphor-react";
-import EditAttendanceDailyModal from "../modal/EditAttendanceDailyModal";
-import ConfirmAttendanceDailyModal from "../modal/ConfirmAttendanceDailyModal";
-import { useEditAttendanceDailyStore } from "../../../store/EditAttendanceDailyStore";
+} from 'keep-react';
+import { CaretLeft, CaretRight, NotePencil } from 'phosphor-react';
+import EditAttendanceDailyModal from '../modal/EditAttendanceDailyModal';
+import ConfirmAttendanceDailyModal from '../modal/ConfirmAttendanceDailyModal';
+import { useEditAttendanceDailyStore } from '../../../store/EditAttendanceDailyStore';
+import { format } from 'date-fns';
 
 export default function TableAttendanceDaily({
   attendances,
@@ -29,8 +30,10 @@ export default function TableAttendanceDaily({
       <Table className="w-full rounded-t-none">
         <TableHeader>
           <TableRow>
-            <TableHead className=" text-[#8897AE] bg-[#F9FAFB]">No</TableHead>
-            <TableHead className=" text-[#8897AE] bg-[#F9FAFB]">
+            <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
+              No
+            </TableHead>
+            <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
               Tanggal
             </TableHead>
             <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
@@ -65,7 +68,7 @@ export default function TableAttendanceDaily({
               >
                 <TableCell className="text-center">{attendance.id}</TableCell>
                 <TableCell className="text-center">
-                  {attendance.tanggal}
+                  {format(new Date(attendance.tanggal), 'dd/MM/yyyy')}
                 </TableCell>
                 <TableCell className="text-center">
                   {attendance.shift}
@@ -155,8 +158,8 @@ export default function TableAttendanceDaily({
                         onClick={() => onPageChange(page)}
                         className={`min-w-[32px] h-8 rounded-full ${
                           currentPage === page
-                            ? "bg-[#5E718D] text-white hover:bg-[#5E718D]"
-                            : "text-[#455468] bg-transparent hover:bg-[#5E718D] hover:text-white"
+                            ? 'bg-[#5E718D] text-white hover:bg-[#5E718D]'
+                            : 'text-[#455468] bg-transparent hover:bg-[#5E718D] hover:text-white'
                         }`}
                       >
                         {page}

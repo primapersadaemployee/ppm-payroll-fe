@@ -6,8 +6,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "keep-react";
-import { CaretLeft, CaretRight } from "phosphor-react";
+} from 'keep-react';
+import { CaretLeft, CaretRight } from 'phosphor-react';
+import { format } from 'date-fns';
 
 export default function TableSalaryHistory({
   salaryHistory,
@@ -20,8 +21,10 @@ export default function TableSalaryHistory({
       <Table className="w-full rounded-t-none">
         <TableHeader>
           <TableRow>
-            <TableHead className=" text-[#8897AE] bg-[#F9FAFB]">No</TableHead>
-            <TableHead className=" text-[#8897AE] bg-[#F9FAFB]">
+            <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
+              No
+            </TableHead>
+            <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
               Tanggal
             </TableHead>
             <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
@@ -46,7 +49,9 @@ export default function TableSalaryHistory({
                 className="hover:bg-gray-50 font-medium"
               >
                 <TableCell className="text-center">{salary.id}</TableCell>
-                <TableCell className="text-center">{salary.tanggal}</TableCell>
+                <TableCell className="text-center">
+                  {format(new Date(salary.tanggal), 'dd/MM/yyyy')}
+                </TableCell>
                 <TableCell className="text-center">{salary.slipGaji}</TableCell>
                 <TableCell className="text-center">{salary.periode}</TableCell>
                 <TableCell className="text-center">{salary.status}</TableCell>
@@ -106,8 +111,8 @@ export default function TableSalaryHistory({
                         onClick={() => onPageChange(page)}
                         className={`min-w-[32px] h-8 rounded-full ${
                           currentPage === page
-                            ? "bg-[#5E718D] text-white hover:bg-[#5E718D]"
-                            : "text-[#455468] bg-transparent hover:bg-[#5E718D] hover:text-white"
+                            ? 'bg-[#5E718D] text-white hover:bg-[#5E718D]'
+                            : 'text-[#455468] bg-transparent hover:bg-[#5E718D] hover:text-white'
                         }`}
                       >
                         {page}

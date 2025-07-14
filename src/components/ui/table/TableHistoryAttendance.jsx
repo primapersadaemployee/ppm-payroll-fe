@@ -6,8 +6,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "keep-react";
-import { CaretLeft, CaretRight } from "phosphor-react";
+} from 'keep-react';
+import { CaretLeft, CaretRight } from 'phosphor-react';
+import { format } from 'date-fns';
 
 export default function TableHistoryAttendance({
   historyAttendances,
@@ -20,8 +21,12 @@ export default function TableHistoryAttendance({
       <Table className="w-full rounded-t-none">
         <TableHeader>
           <TableRow>
-            <TableHead className=" text-[#8897AE] bg-[#F9FAFB]">No</TableHead>
-            <TableHead className=" text-[#8897AE] bg-[#F9FAFB]">Tipe</TableHead>
+            <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
+              No
+            </TableHead>
+            <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
+              Tipe
+            </TableHead>
             <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
               Tanggal
             </TableHead>
@@ -45,7 +50,9 @@ export default function TableHistoryAttendance({
               >
                 <TableCell className="text-center">{history.id}</TableCell>
                 <TableCell className="text-center">{history.tipe}</TableCell>
-                <TableCell className="text-center">{history.tanggal}</TableCell>
+                <TableCell className="text-center">
+                  {format(new Date(history.tanggal), 'dd/MM/yyyy')}
+                </TableCell>
                 <TableCell className="text-center">{history.waktu}</TableCell>
                 <TableCell className="text-center">
                   {history.statusLokasi}
@@ -109,8 +116,8 @@ export default function TableHistoryAttendance({
                         onClick={() => onPageChange(page)}
                         className={`min-w-[32px] h-8 rounded-full ${
                           currentPage === page
-                            ? "bg-[#5E718D] text-white hover:bg-[#5E718D]"
-                            : "text-[#455468] bg-transparent hover:bg-[#5E718D] hover:text-white"
+                            ? 'bg-[#5E718D] text-white hover:bg-[#5E718D]'
+                            : 'text-[#455468] bg-transparent hover:bg-[#5E718D] hover:text-white'
                         }`}
                       >
                         {page}

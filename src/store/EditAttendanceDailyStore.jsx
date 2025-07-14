@@ -1,15 +1,16 @@
-import { toast } from "keep-react";
-import { create } from "zustand";
+import { format } from 'date-fns';
+import { toast } from 'keep-react';
+import { create } from 'zustand';
 
 const initialFormData = {
   id: null,
-  tanggal: "",
-  shift: "",
-  status: "",
-  masuk: "",
-  keluar: "",
-  terlambat: "",
-  durasiKeterlambatan: "",
+  tanggal: '',
+  shift: '',
+  status: '',
+  masuk: '',
+  keluar: '',
+  terlambat: '',
+  durasiKeterlambatan: '',
 };
 
 export const useEditAttendanceDailyStore = create((set, get) => ({
@@ -29,6 +30,15 @@ export const useEditAttendanceDailyStore = create((set, get) => ({
     }));
   },
 
+  handleDateChange: (fieldName, date) => {
+    set((state) => ({
+      formData: {
+        ...state.formData,
+        [fieldName]: date ? format(date, 'yyyy-MM-dd') : '',
+      },
+    }));
+  },
+
   setKehadiran: (id, attendances) => {
     const kehadiranData = attendances.find((kehadiran) => kehadiran.id === id);
     set({
@@ -36,13 +46,13 @@ export const useEditAttendanceDailyStore = create((set, get) => ({
       formData: {
         ...initialFormData,
         id: kehadiranData?.id || null,
-        tanggal: kehadiranData?.tanggal || "",
-        shift: kehadiranData?.shift || "",
-        status: kehadiranData?.status || "",
-        masuk: kehadiranData?.masuk || "",
-        keluar: kehadiranData?.keluar || "",
-        terlambat: kehadiranData?.terlambat || "",
-        durasiKeterlambatan: kehadiranData?.durasiKeterlambatan || "",
+        tanggal: kehadiranData?.tanggal || '',
+        shift: kehadiranData?.shift || '',
+        status: kehadiranData?.status || '',
+        masuk: kehadiranData?.masuk || '',
+        keluar: kehadiranData?.keluar || '',
+        terlambat: kehadiranData?.terlambat || '',
+        durasiKeterlambatan: kehadiranData?.durasiKeterlambatan || '',
       },
     });
   },
@@ -60,11 +70,11 @@ export const useEditAttendanceDailyStore = create((set, get) => ({
       !formData.terlambat.trim() ||
       !formData.durasiKeterlambatan.trim()
     ) {
-      toast.error("Semua field wajib diisi!");
+      toast.error('Semua field wajib diisi!');
       return false;
     }
 
-    console.log("Data yang akan disimpan:", formData);
+    console.log('Data yang akan disimpan:', formData);
 
     set({
       formData: initialFormData,

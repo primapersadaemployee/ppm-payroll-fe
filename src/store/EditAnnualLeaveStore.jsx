@@ -1,13 +1,14 @@
-import { toast } from "keep-react";
-import { create } from "zustand";
+import { toast } from 'keep-react';
+import { create } from 'zustand';
+import { format } from 'date-fns';
 
 const initialFormData = {
   id: null,
-  nama: "",
-  tanggalPengajuan: "",
-  jumlahHari: "",
-  tanggalCuti: "",
-  status: "",
+  nama: '',
+  tanggalPengajuan: '',
+  jumlahHari: '',
+  tanggalCuti: '',
+  status: '',
 };
 
 export const useEditAnnualLeaveStore = create((set, get) => ({
@@ -27,6 +28,15 @@ export const useEditAnnualLeaveStore = create((set, get) => ({
     }));
   },
 
+  handleDateChange: (fieldName, date) => {
+    set((state) => ({
+      formData: {
+        ...state.formData,
+        [fieldName]: date ? format(date, 'yyyy-MM-dd') : '',
+      },
+    }));
+  },
+
   setAnnualLeave: (id, annualLeaves) => {
     const annualLeaveData = annualLeaves.find((leave) => leave.id === id);
     set({
@@ -34,11 +44,11 @@ export const useEditAnnualLeaveStore = create((set, get) => ({
       formData: {
         ...initialFormData,
         id: annualLeaveData?.id || null,
-        nama: annualLeaveData?.nama || "",
-        tanggalPengajuan: annualLeaveData?.tanggalPengajuan || "",
-        jumlahHari: annualLeaveData?.jumlahHari || "",
-        tanggalCuti: annualLeaveData?.tanggalCuti || "",
-        status: annualLeaveData?.status || "",
+        nama: annualLeaveData?.nama || '',
+        tanggalPengajuan: annualLeaveData?.tanggalPengajuan || '',
+        jumlahHari: annualLeaveData?.jumlahHari || '',
+        tanggalCuti: annualLeaveData?.tanggalCuti || '',
+        status: annualLeaveData?.status || '',
       },
     });
   },
@@ -54,11 +64,11 @@ export const useEditAnnualLeaveStore = create((set, get) => ({
       !formData.tanggalCuti.trim() ||
       !formData.status.trim()
     ) {
-      toast.error("Semua field wajib diisi!");
+      toast.error('Semua field wajib diisi!');
       return false;
     }
 
-    console.log("Data yang akan disimpan:", formData);
+    console.log('Data yang akan disimpan:', formData);
 
     set({
       formData: initialFormData,

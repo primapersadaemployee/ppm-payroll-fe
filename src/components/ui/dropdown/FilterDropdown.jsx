@@ -1,4 +1,4 @@
-import { Button, Popover, PopoverAction, PopoverContent } from "keep-react";
+import { Button, Popover, PopoverAction, PopoverContent } from 'keep-react';
 
 export default function FilterDropdown({ value, options, onChange }) {
   return (
@@ -18,7 +18,7 @@ export default function FilterDropdown({ value, options, onChange }) {
           {options.map((option) => (
             <button
               key={option}
-              className="px-3 py-2 text-sm text-left hover:bg-gray-100 rounded"
+              className="px-3 py-2 text-sm text-left hover:bg-gray-100 rounded capitalize"
               onClick={() => onChange(option)}
             >
               {option}

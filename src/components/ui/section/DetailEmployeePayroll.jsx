@@ -1,10 +1,11 @@
-import { useState } from "react";
-import TableHistoryPayroll from "../table/TableHistoryPayroll";
-import { Plus } from "phosphor-react";
-import { Button } from "keep-react";
-import AddPayrollEmployeeModal from "../modal/AddPayrollEmployeeModal";
-import { useAddPayrollEmployeStore } from "../../../store/AddPayrollEmployeStore";
-import ConfirmPayrollEmployeeModal from "../modal/ConfirmPayrollEmployeeModal";
+import { useState } from 'react';
+import TableHistoryPayroll from '../table/TableHistoryPayroll';
+import { Plus } from 'phosphor-react';
+import { Button } from 'keep-react';
+import AddPayrollEmployeeModal from '../modal/AddPayrollEmployeeModal';
+import { useAddPayrollEmployeStore } from '../../../store/AddPayrollEmployeStore';
+import ConfirmPayrollEmployeeModal from '../modal/ConfirmPayrollEmployeeModal';
+import { format } from 'date-fns';
 
 export default function DetailEmployeePayroll({ karyawan }) {
   const payroll = karyawan?.payroll[0];
@@ -31,7 +32,9 @@ export default function DetailEmployeePayroll({ karyawan }) {
           <div className="flex flex-col gap-4">
             <div className="w-full flex flex-col lg:flex-row justify-between">
               <span>Tanggal Efektif</span>
-              <span className="text-black">{payroll?.tanggalEfektif}</span>
+              <span className="text-black">
+                {format(new Date(payroll?.tanggalEfektif), 'dd/MM/yyyy')}
+              </span>
             </div>
             <div className="w-full flex justify-between flex-col lg:flex-row">
               <span>Jaminan Keselamatan Kerja</span>
@@ -83,13 +86,13 @@ export default function DetailEmployeePayroll({ karyawan }) {
               <div className="w-full flex flex-col lg:flex-row justify-between">
                 <span>THR</span>
                 <span className="text-black">
-                  {payroll?.thr === true ? "1 x Gaji Pokok" : "0"}
+                  {payroll?.thr === true ? '1 x Gaji Pokok' : '0'}
                 </span>
               </div>
               <div className="w-full flex justify-between flex-col lg:flex-row">
                 <span>Total</span>
                 <span className="text-primary">
-                  {payroll?.thr === true ? payroll?.total : "0"}
+                  {payroll?.thr === true ? payroll?.total : '0'}
                 </span>
               </div>
             </div>

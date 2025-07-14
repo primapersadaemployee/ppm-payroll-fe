@@ -10,19 +10,19 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "keep-react";
+} from 'keep-react';
 import {
   CaretLeft,
   CaretRight,
   FunnelSimple,
   NotePencil,
-} from "phosphor-react";
-import { useEffect, useState } from "react";
-import { format, getDaysInMonth, startOfMonth, addDays } from "date-fns";
-import { id as idLocale } from "date-fns/locale";
-import EditPresenceModal from "../modal/EditPresenceModal";
-import ConfirmPresenceModal from "../modal/ConfirmPresenceModal";
-import { useEditPresenceStore } from "../../../store/EditPresenceStore";
+} from 'phosphor-react';
+import { useEffect, useState } from 'react';
+import { format, getDaysInMonth, startOfMonth, addDays } from 'date-fns';
+import { id as idLocale } from 'date-fns/locale';
+import EditPresenceModal from '../modal/EditPresenceModal';
+import ConfirmPresenceModal from '../modal/ConfirmPresenceModal';
+import { useEditPresenceStore } from '../../../store/EditPresenceStore';
 
 export default function TablePresence({ attendanceData }) {
   const today = new Date();
@@ -35,7 +35,7 @@ export default function TablePresence({ attendanceData }) {
 
   const { setPresence, setIsFirstModalOpen } = useEditPresenceStore();
 
-  const formattedSelectedDate = format(selectedDate, "dd/MM/yyyy");
+  const formattedSelectedDate = format(selectedDate, 'yyyy-MM-dd');
 
   // Generate tanggal-tanggal dalam 1 bulan berdasarkan selectedDate
   const generateDatesInMonth = (baseDate) => {
@@ -45,9 +45,9 @@ export default function TablePresence({ attendanceData }) {
       const current = addDays(start, i);
       return {
         dateObj: current,
-        formatted: format(current, "dd/MM/yyyy"),
-        label: format(current, "EEEE", { locale: idLocale }), // "Senin"
-        fullLabel: format(current, "EEEE, dd MMMM yyyy", {
+        formatted: format(current, 'yyyy-MM-dd'),
+        label: format(current, 'EEEE', { locale: idLocale }), // "Senin"
+        fullLabel: format(current, 'EEEE, dd MMMM yyyy', {
           locale: idLocale,
         }),
       };
@@ -95,13 +95,13 @@ export default function TablePresence({ attendanceData }) {
               setCurrentPage(1);
             }}
             className={`rounded-xl min-w-[128px] px-3 py-8 flex flex-col items-center border border-gray-100 ${
-              format(selectedDate, "dd/MM/yyyy") === d.formatted
-                ? "bg-primary text-white"
-                : "bg-white text-[#455468] hover:bg-primary hover:text-white"
+              format(selectedDate, 'yyyy-MM-dd') === d.formatted
+                ? 'bg-primary text-white'
+                : 'bg-white text-[#455468] hover:bg-primary hover:text-white'
             }`}
           >
             <span className="capitalize font-medium">{d.label}</span>
-            <span className="text-xs">{format(d.dateObj, "dd MMM yyyy")}</span>
+            <span className="text-xs">{format(d.dateObj, 'dd MMM yyyy')}</span>
           </Button>
         ))}
       </div>
@@ -135,14 +135,14 @@ export default function TablePresence({ attendanceData }) {
                 fromYear={1950}
                 toYear={2030}
                 classNames={{
-                  caption: "relative",
-                  caption_label: "hidden",
+                  caption: 'relative',
+                  caption_label: 'hidden',
                   caption_dropdowns:
-                    "flex gap-4 items-center w-full justify-center",
-                  dropdown_month: "min-w-[120px] text-sm",
-                  dropdown_year: "min-w-[100px] text-sm",
+                    'flex gap-4 items-center w-full justify-center',
+                  dropdown_month: 'min-w-[120px] text-sm',
+                  dropdown_year: 'min-w-[100px] text-sm',
                   dropdown:
-                    "px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500",
+                    'px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500',
                 }}
               />
             </PopoverContent>
@@ -155,15 +155,15 @@ export default function TablePresence({ attendanceData }) {
             <TableHeader>
               <TableRow>
                 {[
-                  "No",
-                  "Nama",
-                  "Shift",
-                  "Status",
-                  "Masuk",
-                  "Keluar",
-                  "Terlambat",
-                  "Durasi Terlambat",
-                  "Aksi",
+                  'No',
+                  'Nama',
+                  'Shift',
+                  'Status',
+                  'Masuk',
+                  'Keluar',
+                  'Terlambat',
+                  'Durasi Terlambat',
+                  'Aksi',
                 ].map((text, i) => (
                   <TableHead
                     key={i}
@@ -271,8 +271,8 @@ export default function TablePresence({ attendanceData }) {
                             onClick={() => setCurrentPage(page)}
                             className={`min-w-[32px] h-8 rounded-full ${
                               currentPage === page
-                                ? "bg-[#5E718D] text-white hover:bg-[#5E718D]"
-                                : "text-[#455468] bg-transparent hover:bg-[#5E718D] hover:text-white"
+                                ? 'bg-[#5E718D] text-white hover:bg-[#5E718D]'
+                                : 'text-[#455468] bg-transparent hover:bg-[#5E718D] hover:text-white'
                             }`}
                           >
                             {page}

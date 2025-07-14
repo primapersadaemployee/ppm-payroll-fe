@@ -1,19 +1,19 @@
-import { useState } from "react";
-import FilterDropdown from "../dropdown/FilterDropdown";
-import TableSalaryHistory from "../table/TableSalaryHistory";
+import { useState } from 'react';
+import FilterDropdown from '../dropdown/FilterDropdown';
+import TableSalaryHistory from '../table/TableSalaryHistory';
 
 export default function DetailEmployeeSalaryHistory({ karyawan }) {
-  const [selectedStatus, setSelectedStatus] = useState("Semua Status");
+  const [selectedStatus, setSelectedStatus] = useState('Semua Status');
   const riwayatGaji = karyawan.riwayatGaji;
   const [salaryHistory] = useState(riwayatGaji);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  const statuses = ["transfer", "belum transfer"];
+  const statuses = ['Semua Status', 'transfer', 'belum Transfer'];
 
   const filterSalaryHistory = salaryHistory.filter((sallary) => {
     const matchesStatus =
-      selectedStatus === "Semua Status" || sallary.status === selectedStatus;
+      selectedStatus === 'Semua Status' || sallary.status === selectedStatus;
 
     return matchesStatus;
   });

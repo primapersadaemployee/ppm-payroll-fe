@@ -12,10 +12,10 @@ import {
   SelectContent,
   SelectItem,
   SelectValue,
-} from "keep-react";
-import InputDate from "../input/InputDate";
-import { FloppyDisk } from "phosphor-react";
-import { useEditAttendanceDailyStore } from "../../../store/EditAttendanceDailyStore";
+} from 'keep-react';
+import InputDate from '../input/InputDate';
+import { FloppyDisk } from 'phosphor-react';
+import { useEditAttendanceDailyStore } from '../../../store/EditAttendanceDailyStore';
 
 export default function EditAttendanceDailyModal({
   attendances, // tetap diperlukan untuk validasi atau keperluan lain jika dibutuhkan
@@ -26,6 +26,7 @@ export default function EditAttendanceDailyModal({
     setIsFirstModalOpen,
     setIsSecondModalOpen,
     handleInputChange,
+    handleDateChange,
     handleEditAttendanceDaily,
   } = useEditAttendanceDailyStore();
 
@@ -80,12 +81,12 @@ export default function EditAttendanceDailyModal({
             <div>
               <InputDate
                 label="Tanggal"
-                placeHolder={formData?.tanggal || "Pilih tanggal"}
+                placeHolder={formData?.tanggal || 'Pilih tanggal'}
                 htmlFor="tanggal"
                 fieldName="tanggal"
                 hideAsterisk={true}
                 value={formData.tanggal}
-                onChange={(e) => handleInputChange("tanggal", e.target.value)}
+                onChange={handleDateChange}
               />
             </div>
             <div>
@@ -95,7 +96,7 @@ export default function EditAttendanceDailyModal({
               <Select
                 name="shift"
                 value={formData.shift}
-                onValueChange={(value) => handleInputChange("shift", value)}
+                onValueChange={(value) => handleInputChange('shift', value)}
               >
                 <SelectAction id="shift" name="shift">
                   <SelectValue placeholder="Shift" />
@@ -117,7 +118,7 @@ export default function EditAttendanceDailyModal({
               <Select
                 name="status"
                 value={formData.status}
-                onValueChange={(value) => handleInputChange("status", value)}
+                onValueChange={(value) => handleInputChange('status', value)}
               >
                 <SelectAction id="status" name="status">
                   <SelectValue placeholder="Status" />
@@ -138,7 +139,7 @@ export default function EditAttendanceDailyModal({
                 name="masuk"
                 placeholder="08:00"
                 value={formData.masuk}
-                onChange={(e) => handleInputChange("masuk", e.target.value)}
+                onChange={(e) => handleInputChange('masuk', e.target.value)}
               />
             </div>
             <div>
@@ -153,7 +154,7 @@ export default function EditAttendanceDailyModal({
                 name="keluar"
                 placeholder="17:00"
                 value={formData.keluar}
-                onChange={(e) => handleInputChange("keluar", e.target.value)}
+                onChange={(e) => handleInputChange('keluar', e.target.value)}
               />
             </div>
             <div>
@@ -166,7 +167,7 @@ export default function EditAttendanceDailyModal({
               <Select
                 name="terlambat"
                 value={formData.terlambat}
-                onValueChange={(value) => handleInputChange("terlambat", value)}
+                onValueChange={(value) => handleInputChange('terlambat', value)}
               >
                 <SelectAction id="terlambat" name="terlambat">
                   <SelectValue placeholder="Ya" />
@@ -190,7 +191,7 @@ export default function EditAttendanceDailyModal({
                 placeholder="00:00"
                 value={formData.durasiKeterlambatan}
                 onChange={(e) =>
-                  handleInputChange("durasiKeterlambatan", e.target.value)
+                  handleInputChange('durasiKeterlambatan', e.target.value)
                 }
               />
             </div>

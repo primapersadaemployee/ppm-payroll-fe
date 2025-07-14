@@ -8,35 +8,36 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "keep-react";
+} from 'keep-react';
 import {
   CaretLeft,
   CaretRight,
   MagnifyingGlass,
   NotePencil,
   Plus,
-} from "phosphor-react";
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { AnnualLeaveData } from "../../../data/AttendanceData";
-import FilterDropdown from "../dropdown/FilterDropdown";
-import { useEditAnnualLeaveStore } from "../../../store/EditAnnualLeaveStore";
-import EditAnnualLeaveModal from "../modal/EditAnnualLeaveModal";
-import ConfirmAnnualLeaveModal from "../modal/ConfirmAnnualLeaveModal";
+} from 'phosphor-react';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { AnnualLeaveData } from '../../../data/AttendanceData';
+import FilterDropdown from '../dropdown/FilterDropdown';
+import { useEditAnnualLeaveStore } from '../../../store/EditAnnualLeaveStore';
+import EditAnnualLeaveModal from '../modal/EditAnnualLeaveModal';
+import ConfirmAnnualLeaveModal from '../modal/ConfirmAnnualLeaveModal';
+import { format } from 'date-fns';
 
 export default function TableAnnualLeave() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedStatus, setSelectedStatus] = useState("Semua Status");
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedStatus, setSelectedStatus] = useState('Semua Status');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const { setAnnualLeave, setIsFirstModalOpen } = useEditAnnualLeaveStore();
 
   const statuses = [
-    "Semua Status",
-    "Disetujui",
-    "Ditolak",
-    "Arsip",
-    "Menunggu Persetujuan",
+    'Semua Status',
+    'Disetujui',
+    'Ditolak',
+    'Arsip',
+    'Menunggu Persetujuan',
   ];
 
   // Filter employees based on search and filters
@@ -46,7 +47,7 @@ export default function TableAnnualLeave() {
       .includes(searchTerm.toLowerCase());
 
     const matchesStatus =
-      selectedStatus === "Semua Status" || employee.status === selectedStatus;
+      selectedStatus === 'Semua Status' || employee.status === selectedStatus;
 
     return matchesSearch && matchesStatus;
   });
@@ -152,13 +153,13 @@ export default function TableAnnualLeave() {
                       {employee.nama}
                     </TableCell>
                     <TableCell className="text-center">
-                      {employee.tanggalPengajuan}
+                      {format(employee.tanggalPengajuan, 'dd/MM/yyyy')}
                     </TableCell>
                     <TableCell className="text-center">
                       {employee.jumlahHari}
                     </TableCell>
                     <TableCell className="text-center">
-                      {employee.tanggalCuti}
+                      {format(employee.tanggalCuti, 'dd/MM/yyyy')}
                     </TableCell>
                     <TableCell className="text-center">
                       {employee.status}
@@ -234,8 +235,8 @@ export default function TableAnnualLeave() {
                             onClick={() => setCurrentPage(page)}
                             className={`min-w-[32px] h-8 rounded-full ${
                               currentPage === page
-                                ? "bg-[#5E718D] text-white hover:bg-[#5E718D]"
-                                : "text-[#455468] bg-transparent hover:bg-[#5E718D] hover:text-white"
+                                ? 'bg-[#5E718D] text-white hover:bg-[#5E718D]'
+                                : 'text-[#455468] bg-transparent hover:bg-[#5E718D] hover:text-white'
                             }`}
                           >
                             {page}

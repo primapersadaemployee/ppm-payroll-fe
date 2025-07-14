@@ -9,9 +9,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "keep-react";
-import { CaretLeft, CaretRight, Eye, NotePencil } from "phosphor-react";
-import { Link } from "react-router-dom";
+} from 'keep-react';
+import { CaretLeft, CaretRight, Eye, NotePencil } from 'phosphor-react';
+import { Link } from 'react-router-dom';
+import { format } from 'date-fns';
 
 export default function TableEmployee({
   employees,
@@ -101,7 +102,7 @@ export default function TableEmployee({
                   {employee.tempatLahir}
                 </TableCell>
                 <TableCell className="text-center">
-                  {employee.tanggalLahir}
+                  {format(new Date(employee.tanggalLahir), 'dd/MM/yyyy')}
                 </TableCell>
                 <TableCell className="text-center">
                   {employee.statusPerkawinan}
@@ -118,13 +119,13 @@ export default function TableEmployee({
                   <Badge
                     variant="base"
                     color={
-                      employee.statusKaryawan === "Tetap"
-                        ? "success"
-                        : employee.statusKaryawan === "PKWT"
-                        ? "secondary"
-                        : employee.statusKaryawan === "Resign"
-                        ? "error"
-                        : "warning"
+                      employee.statusKaryawan === 'Tetap'
+                        ? 'success'
+                        : employee.statusKaryawan === 'PKWT'
+                        ? 'secondary'
+                        : employee.statusKaryawan === 'Resign'
+                        ? 'error'
+                        : 'warning'
                     }
                   >
                     {employee.statusKaryawan}
@@ -210,8 +211,8 @@ export default function TableEmployee({
                         onClick={() => onPageChange(page)}
                         className={`min-w-[32px] h-8 rounded-full ${
                           currentPage === page
-                            ? "bg-[#5E718D] text-white hover:bg-[#5E718D]"
-                            : "text-[#455468] bg-transparent hover:bg-[#5E718D] hover:text-white"
+                            ? 'bg-[#5E718D] text-white hover:bg-[#5E718D]'
+                            : 'text-[#455468] bg-transparent hover:bg-[#5E718D] hover:text-white'
                         }`}
                       >
                         {page}
