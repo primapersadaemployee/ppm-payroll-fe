@@ -95,7 +95,6 @@ export const useAddPayrollEmployeStore = create((set, get) => ({
       !formData.tanggalEfektif.trim() ||
       !formData.gajiPokok.trim() ||
       !formData.jaminanKeselamatanKerja.trim() ||
-      !formData.koperasi.trim() ||
       !formData.jaminanKematian.trim() ||
       !formData.metodePerhitunganPph.trim() ||
       !formData.pengaliIuranBpjs.trim() ||

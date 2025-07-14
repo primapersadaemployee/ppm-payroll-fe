@@ -9,8 +9,8 @@ import {
 } from "keep-react";
 import { CaretLeft, CaretRight, NotePencil } from "phosphor-react";
 import EditAttendanceDailyModal from "../modal/EditAttendanceDailyModal";
-import { useState } from "react";
 import ConfirmAttendanceDailyModal from "../modal/ConfirmAttendanceDailyModal";
+import { useEditAttendanceDailyStore } from "../../../store/EditAttendanceDailyStore";
 
 export default function TableAttendanceDaily({
   attendances,
@@ -18,11 +18,9 @@ export default function TableAttendanceDaily({
   totalPages,
   onPageChange,
 }) {
-  const [isFirstModalOpen, setIsFirstModalOpen] = useState(false);
-  const [isSecondModalOpen, setIsSecondModalOpen] = useState(false);
-  const [id, setId] = useState(null);
+  const { setIsFirstModalOpen, setKehadiran } = useEditAttendanceDailyStore();
   const editAttendanceDaily = (id) => {
-    setId(id);
+    setKehadiran(id, attendances);
     setIsFirstModalOpen(true);
   };
 
@@ -113,17 +111,8 @@ export default function TableAttendanceDaily({
           )}
         </TableBody>
       </Table>
-      <EditAttendanceDailyModal
-        attendances={attendances}
-        id={id}
-        isFirstModalOpen={isFirstModalOpen}
-        setIsFirstModalOpen={setIsFirstModalOpen}
-        setIsSecondModalOpen={setIsSecondModalOpen}
-      />
-      <ConfirmAttendanceDailyModal
-        isSecondModalOpen={isSecondModalOpen}
-        setIsSecondModalOpen={setIsSecondModalOpen}
-      />
+      <EditAttendanceDailyModal attendances={attendances} />
+      <ConfirmAttendanceDailyModal />
       {/* Pagination */}
       {totalPages > 1 && (
         <div className="mt-6 px-4 lg:px-6">

@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import Employee from "./pages/employee/Employee";
 import AddEmployee from "./pages/employee/AddEmployee";
 import DetailEmployee from "./pages/employee/DetailEmployee";
+import Presence from "./pages/presence/Presence";
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
       <Route path="/employee" element={<Employee />} />
       <Route path="/employee/add" element={<AddEmployee />} />
       <Route path="/employee/detail/:id" element={<DetailEmployee />} />
+      <Route path="/presence" element={<Presence />} />
       <Route path="/login" element={<Login />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />

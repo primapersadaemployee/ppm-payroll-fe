@@ -14,8 +14,8 @@ export default function DetailEmployeeAttendance({ karyawan }) {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  const statuses = ["Hadir", "Izin", "Sakit"];
-  const types = ["Presensi Masuk", "Presensi Keluar"];
+  const statuses = ["Semua Status", "Hadir", "Izin", "Sakit"];
+  const types = ["Semua Tipe", "Presensi Masuk", "Presensi Keluar"];
 
   // Filter attendances based on search and filters
   const filterAttendance = attendances.filter((attendance) => {

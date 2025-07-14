@@ -8,16 +8,19 @@ import {
   ModalTitle,
   ModalFooter,
 } from "keep-react";
-import { useEditAttendanceDailyStore } from "../../../store/EditAttendanceDailyStore";
+import { useEditAnnualLeaveStore } from "../../../store/EditAnnualLeaveStore";
 
-export default function ConfirmAttendanceDailyModal() {
-  const { isSecondModalOpen, setIsSecondModalOpen } =
-    useEditAttendanceDailyStore();
+export default function ConfirmAnnualLeaveModal() {
+  const { isSecondModalOpen, setIsSecondModalOpen, resetForm } =
+    useEditAnnualLeaveStore();
 
   return (
     <Modal
       open={isSecondModalOpen}
-      onClose={() => setIsSecondModalOpen(false)}
+      onClose={() => {
+        setIsSecondModalOpen(false);
+        resetForm();
+      }}
       showCloseIcon={false}
     >
       <ModalContent className="max-w-[20rem] lg:max-w-[26rem]">
@@ -29,17 +32,20 @@ export default function ConfirmAttendanceDailyModal() {
           </div>
           <div className="space-y-1 text-center font-poppins">
             <ModalTitle className="text-xl font-medium">
-              Edit Kehadiran Harian Berhasil
+              Edit Cuti Tahunan Berhasil
             </ModalTitle>
             <ModalDescription className="text-sm text-[#455468]">
-              Kehadiran Harian berhasil diubah
+              Cuti tahunan berhasil diubah
             </ModalDescription>
           </div>
         </ModalHeader>
         <ModalFooter className="justify-center">
           <Button
             type="button"
-            onClick={() => setIsSecondModalOpen(false)}
+            onClick={() => {
+              setIsSecondModalOpen(false);
+              resetForm();
+            }}
             className="flex w-full items-center gap-2 font-poppins whitespace-nowrap bg-primary hover:bg-primary text-white font-medium"
           >
             Confirm

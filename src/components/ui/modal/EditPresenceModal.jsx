@@ -13,24 +13,22 @@ import {
   SelectItem,
   SelectValue,
 } from "keep-react";
-import InputDate from "../input/InputDate";
 import { FloppyDisk } from "phosphor-react";
-import { useEditAttendanceDailyStore } from "../../../store/EditAttendanceDailyStore";
+import { useEditPresenceStore } from "../../../store/EditPresenceStore";
 
-export default function EditAttendanceDailyModal({
-  attendances, // tetap diperlukan untuk validasi atau keperluan lain jika dibutuhkan
-}) {
+export default function EditPresenceModal({ attendanceData }) {
   const {
     formData,
     isFirstModalOpen,
     setIsFirstModalOpen,
     setIsSecondModalOpen,
     handleInputChange,
-    handleEditAttendanceDaily,
-  } = useEditAttendanceDailyStore();
+    handleEditPresence,
+    resetForm,
+  } = useEditPresenceStore();
 
   const handleModalSuccess = () => {
-    const success = handleEditAttendanceDaily();
+    const success = handleEditPresence();
     if (success) {
       setIsFirstModalOpen(false);
       setIsSecondModalOpen(true);
@@ -48,7 +46,7 @@ export default function EditAttendanceDailyModal({
         <ModalHeader className="py-6 flex flex-col justify-center gap-8">
           <div className="flex justify-between items-center">
             <ModalTitle className="xl:text-2xl font-medium text-[#455468] font-poppins">
-              Daftar Kehadiran Harian
+              Daftar Kehadiran Presensi
             </ModalTitle>
             <ModalDescription className="hidden">
               Silahkan isi data kehadiran dibawah ini.
@@ -58,7 +56,10 @@ export default function EditAttendanceDailyModal({
                 type="button"
                 variant="outline"
                 color="secondary"
-                onClick={() => setIsFirstModalOpen(false)}
+                onClick={() => {
+                  setIsFirstModalOpen(false);
+                  resetForm();
+                }}
               >
                 Kembali
               </Button>
@@ -78,14 +79,15 @@ export default function EditAttendanceDailyModal({
             className="p-6 rounded-3xl border text-[#455468] border-gray-100 flex flex-col gap-5 font-poppins"
           >
             <div>
-              <InputDate
-                label="Tanggal"
-                placeHolder={formData?.tanggal || "Pilih tanggal"}
-                htmlFor="tanggal"
-                fieldName="tanggal"
-                hideAsterisk={true}
-                value={formData.tanggal}
-                onChange={(e) => handleInputChange("tanggal", e.target.value)}
+              <label htmlFor="nama" className="block text-sm font-medium mb-2">
+                Nama
+              </label>
+              <Input
+                id="nama"
+                name="nama"
+                placeholder="John Doe"
+                value={formData.nama}
+                onChange={(e) => handleInputChange("nama", e.target.value)}
               />
             </div>
             <div>
@@ -101,9 +103,8 @@ export default function EditAttendanceDailyModal({
                   <SelectValue placeholder="Shift" />
                 </SelectAction>
                 <SelectContent id="shift">
-                  <SelectItem value="Shift 1">Shift 1</SelectItem>
-                  <SelectItem value="Shift 2">Shift 2</SelectItem>
-                  <SelectItem value="Shift 3">Shift 3</SelectItem>
+                  <SelectItem value="Jam Kantor">Jam Kantor</SelectItem>
+                  <SelectItem value="Day Off">Day Off</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -123,7 +124,9 @@ export default function EditAttendanceDailyModal({
                   <SelectValue placeholder="Status" />
                 </SelectAction>
                 <SelectContent id="status">
-                  <SelectItem value="Hadir">Hadir</SelectItem>
+                  <SelectItem value="Hadir Hari Kerja">
+                    Hadir Hari Kerja
+                  </SelectItem>
                   <SelectItem value="Sakit">Sakit</SelectItem>
                   <SelectItem value="Izin">Izin</SelectItem>
                 </SelectContent>
@@ -172,25 +175,25 @@ export default function EditAttendanceDailyModal({
                   <SelectValue placeholder="Ya" />
                 </SelectAction>
                 <SelectContent id="terlambat">
-                  <SelectItem value="Ya">Ya</SelectItem>
-                  <SelectItem value="Tidak">Tidak</SelectItem>
+                  <SelectItem value="ya">Ya</SelectItem>
+                  <SelectItem value="tidak">Tidak</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             <div>
               <label
-                htmlFor="durasiKeterlambatan"
+                htmlFor="durasiTerlambat"
                 className="block text-sm font-medium mb-2"
               >
                 Durasi Terlambat
               </label>
               <Input
-                id="durasiKeterlambatan"
-                name="durasiKeterlambatan"
+                id="durasiTerlambat"
+                name="durasiTerlambat"
                 placeholder="00:00"
-                value={formData.durasiKeterlambatan}
+                value={formData.durasiTerlambat}
                 onChange={(e) =>
-                  handleInputChange("durasiKeterlambatan", e.target.value)
+                  handleInputChange("durasiTerlambat", e.target.value)
                 }
               />
             </div>

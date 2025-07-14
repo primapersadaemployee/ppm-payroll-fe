@@ -8,11 +8,10 @@ import {
   ModalTitle,
   ModalFooter,
 } from "keep-react";
-import { useEditAttendanceDailyStore } from "../../../store/EditAttendanceDailyStore";
+import { useEditPresenceStore } from "../../../store/EditPresenceStore";
 
-export default function ConfirmAttendanceDailyModal() {
-  const { isSecondModalOpen, setIsSecondModalOpen } =
-    useEditAttendanceDailyStore();
+export default function ConfirmPresenceModal() {
+  const { isSecondModalOpen, setIsSecondModalOpen } = useEditPresenceStore();
 
   return (
     <Modal
@@ -29,10 +28,10 @@ export default function ConfirmAttendanceDailyModal() {
           </div>
           <div className="space-y-1 text-center font-poppins">
             <ModalTitle className="text-xl font-medium">
-              Edit Kehadiran Harian Berhasil
+              Edit Kehadiran Presensi Berhasil
             </ModalTitle>
             <ModalDescription className="text-sm text-[#455468]">
-              Kehadiran Harian berhasil diubah
+              Kehadiran Presensi berhasil diubah
             </ModalDescription>
           </div>
         </ModalHeader>
