@@ -1,5 +1,6 @@
 import { useState } from "react";
 import TableAnnualLeave from "../table/TableAnnualLeave";
+import TableSpecialLeave from "../table/TableSpecialLeave";
 
 export default function PermissionAndLeave() {
   const [option, setOption] = useState(1);
@@ -32,7 +33,7 @@ export default function PermissionAndLeave() {
 
       {/* Content */}
       {option === 1 && <TableAnnualLeave />}
-      {/* {option === 2 && <TableSpecialLeave />} */}
+      {option === 2 && <TableSpecialLeave />}
       {/* {option === 3 && <TableSickLeave />} */}
       {/* {option === 4 && <TableLeave />} */}
       {/* {option === 5 && <TableUnpaidLeave />} */}
