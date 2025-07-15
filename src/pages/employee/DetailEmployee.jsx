@@ -42,6 +42,10 @@ export default function DetailEmployee() {
       icon: <Receipt size={22} />,
     },
   ];
+
+  if (!karyawan) {
+    return <div>Memuat data karyawan...</div>;
+  }
   return (
     <div className="flex gap-2 lg:gap-4 font-poppins p-2 lg:p-4 min-h-screen text-[#455468]">
       <div className="sticky top-2 lg:top-0 h-fit lg:h-screen shrink-0">

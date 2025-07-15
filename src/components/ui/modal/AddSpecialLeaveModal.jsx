@@ -16,7 +16,7 @@ import {
 } from "keep-react";
 import { FloppyDisk } from "phosphor-react";
 import InputDate from "../input/InputDate";
-import { useAddSpecialLeaveStore } from "../../../store/AddSpecialLeaveStore";
+import { useAddSpecialLeaveStore } from "../../../store/presence/AddSpecialLeaveStore";
 
 export default function AddSpecialLeaveModal() {
   const {
@@ -29,8 +29,6 @@ export default function AddSpecialLeaveModal() {
     handleAddSpecialLeave,
     resetForm,
   } = useAddSpecialLeaveStore();
-
-  console.log(formData);
 
   const handleModalSuccess = () => {
     const success = handleAddSpecialLeave();
@@ -82,8 +80,8 @@ export default function AddSpecialLeaveModal() {
             </div>
           </div>
           <form
-            id="add-cuti-khusus"
-            name="add-cuti-khusus"
+            id="add-special-leave"
+            name="add-special-leave"
             className="p-6 rounded-3xl border text-[#455468] border-gray-100 flex flex-col gap-5 font-poppins"
           >
             <div>

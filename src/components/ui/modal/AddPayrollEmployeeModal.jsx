@@ -15,7 +15,7 @@ import {
   SelectContent,
   SelectItem,
 } from "keep-react";
-import { useAddPayrollEmployeStore } from "../../../store/AddPayrollEmployeStore";
+import { useAddPayrollEmployeStore } from "../../../store/employee/AddPayrollEmployeStore";
 import { FloppyDisk } from "phosphor-react";
 import InputDate from "../input/InputDate";
 

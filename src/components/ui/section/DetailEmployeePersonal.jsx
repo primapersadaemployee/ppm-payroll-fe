@@ -1,6 +1,6 @@
-import { Button } from 'keep-react';
-import { useState } from 'react';
-import { format } from 'date-fns';
+import { Button } from "keep-react";
+import { useState } from "react";
+import { format } from "date-fns";
 
 export default function DetailEmployeePersonal({ karyawan }) {
   const [option, setOption] = useState(1);
@@ -11,7 +11,7 @@ export default function DetailEmployeePersonal({ karyawan }) {
       <div className="relative w-full lg:w-3/4 xl:w-1/2 h-6 sm:h-8 lg:h-10 bg-[#F5F5F5] rounded-lg p-1 flex items-center font-medium text-[#455468]">
         <div
           className={`absolute top-1 left-1 h-4 sm:h-6 lg:h-8 w-[calc(50%-4px)] bg-white rounded-lg shadow transition-all duration-300 ease-in-out ${
-            option === 2 ? 'translate-x-full' : 'translate-x-0'
+            option === 2 ? "translate-x-full" : "translate-x-0"
           }`}
         ></div>
 
@@ -37,7 +37,7 @@ export default function DetailEmployeePersonal({ karyawan }) {
         <div className="flex flex-col lg:flex-row gap-4 lg:justify-between">
           <div className="flex gap-5">
             <img
-              src={karyawan?.image ?? '/profil5.png'}
+              src={karyawan?.image ?? "/profil5.png"}
               alt="profil"
               className="w-14 h-14 lg:w-[100px] lg:h-[100px] object-cover object-center rounded-xl"
             />
@@ -90,8 +90,8 @@ export default function DetailEmployeePersonal({ karyawan }) {
                   <div className="w-full flex justify-between flex-col lg:flex-row">
                     <span>Tempat, Tanggal Lahir</span>
                     <span className="text-black">
-                      {karyawan?.tempatLahir},{' '}
-                      {format(new Date(karyawan?.tanggalLahir), 'dd/MM/yyyy')}
+                      {karyawan?.tempatLahir},{" "}
+                      {format(new Date(karyawan?.tanggalLahir), "dd/MM/yyyy")}
                     </span>
                   </div>
                   <div className="w-full flex justify-between flex-col lg:flex-row">
@@ -136,7 +136,7 @@ export default function DetailEmployeePersonal({ karyawan }) {
                   <div className="w-full flex justify-between flex-col lg:flex-row">
                     <span>Kontak Darurat</span>
                     <span>
-                      {karyawan?.namaKontakDarurat}{' '}
+                      {karyawan?.namaKontakDarurat}{" "}
                       <span className="text-black">
                         {karyawan?.noHpKontakDarurat}
                       </span>
@@ -179,7 +179,7 @@ export default function DetailEmployeePersonal({ karyawan }) {
                   <div className="w-full flex justify-between flex-col lg:flex-row">
                     <span>Mulai Kerja</span>
                     <span className="text-black">
-                      {format(new Date(karyawan?.mulaiKerja), 'dd/MM/yyyy')}
+                      {format(new Date(karyawan?.mulaiKerja), "dd/MM/yyyy")}
                     </span>
                   </div>
                   <div className="w-full flex justify-between flex-col lg:flex-row">
@@ -189,7 +189,7 @@ export default function DetailEmployeePersonal({ karyawan }) {
                   <div className="w-full flex justify-between flex-col lg:flex-row">
                     <span>Akhir Kerja</span>
                     <span className="text-black">
-                      {format(new Date(karyawan?.akhirKerja), 'dd/MM/yyyy')}
+                      {format(new Date(karyawan?.akhirKerja), "dd/MM/yyyy")}
                     </span>
                   </div>
                 </div>

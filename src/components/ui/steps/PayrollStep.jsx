@@ -2,9 +2,9 @@ import { Plus } from "phosphor-react";
 import { Button, Input } from "keep-react";
 import InputDate from "../input/InputDate";
 import TableBankAccount from "../table/TableBankAccount";
-import { useAddEmployeeStore } from "../../../store/AddEmployeStore";
+import { useAddEmployeeStore } from "../../../store/employee/AddEmployeStore";
 import AddBankAccountModal from "../modal/AddBankAccountModal";
-import ConfirmBankAccountModal from "../modal/ConfirmBankAccountModal";
+import ConfirmModal from "../modal/ConfirmModal";
 
 export default function PayrollStep() {
   const {
@@ -14,6 +14,8 @@ export default function PayrollStep() {
     setIsFirstModalOpen,
     handleInputChange,
     handleDateChange,
+    isSecondModalOpen,
+    handleCloseSecondModal,
   } = useAddEmployeeStore();
 
   return (
@@ -147,7 +149,13 @@ export default function PayrollStep() {
               <Plus size={16} />
             </Button>
             <AddBankAccountModal />
-            <ConfirmBankAccountModal />
+            <ConfirmModal
+              open={isSecondModalOpen}
+              onClose={handleCloseSecondModal}
+              title="Tambah Rekening Berhasil"
+              description="Rekening Karyawan berhasil ditambahkan."
+              onClick={handleCloseSecondModal}
+            />
           </div>
           <div className="overflow-x-auto">
             <TableBankAccount

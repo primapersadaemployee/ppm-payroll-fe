@@ -6,12 +6,12 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from 'keep-react';
-import { CaretLeft, CaretRight, NotePencil } from 'phosphor-react';
-import EditAttendanceDailyModal from '../modal/EditAttendanceDailyModal';
-import ConfirmAttendanceDailyModal from '../modal/ConfirmAttendanceDailyModal';
-import { useEditAttendanceDailyStore } from '../../../store/EditAttendanceDailyStore';
-import { format } from 'date-fns';
+} from "keep-react";
+import { CaretLeft, CaretRight, NotePencil } from "phosphor-react";
+import EditAttendanceDailyModal from "../modal/EditAttendanceDailyModal";
+import ConfirmModal from "../modal/ConfirmModal";
+import { useEditAttendanceDailyStore } from "../../../store/employee/EditAttendanceDailyStore";
+import { format } from "date-fns";
 
 export default function TableAttendanceDaily({
   attendances,
@@ -19,7 +19,12 @@ export default function TableAttendanceDaily({
   totalPages,
   onPageChange,
 }) {
-  const { setIsFirstModalOpen, setKehadiran } = useEditAttendanceDailyStore();
+  const {
+    setIsFirstModalOpen,
+    setKehadiran,
+    isSecondModalOpen,
+    setIsSecondModalOpen,
+  } = useEditAttendanceDailyStore();
   const editAttendanceDaily = (id) => {
     setKehadiran(id, attendances);
     setIsFirstModalOpen(true);
@@ -68,7 +73,7 @@ export default function TableAttendanceDaily({
               >
                 <TableCell className="text-center">{attendance.id}</TableCell>
                 <TableCell className="text-center">
-                  {format(new Date(attendance.tanggal), 'dd/MM/yyyy')}
+                  {format(new Date(attendance.tanggal), "dd/MM/yyyy")}
                 </TableCell>
                 <TableCell className="text-center">
                   {attendance.shift}
@@ -115,7 +120,13 @@ export default function TableAttendanceDaily({
         </TableBody>
       </Table>
       <EditAttendanceDailyModal attendances={attendances} />
-      <ConfirmAttendanceDailyModal />
+      <ConfirmModal
+        open={isSecondModalOpen}
+        onClose={() => setIsSecondModalOpen(false)}
+        title="Edit Kehadiran Harian Berhasil"
+        description="Kehadiran harian berhasil diubah."
+        onClick={() => setIsSecondModalOpen(false)}
+      />
       {/* Pagination */}
       {totalPages > 1 && (
         <div className="mt-6 px-4 lg:px-6">
@@ -158,8 +169,8 @@ export default function TableAttendanceDaily({
                         onClick={() => onPageChange(page)}
                         className={`min-w-[32px] h-8 rounded-full ${
                           currentPage === page
-                            ? 'bg-[#5E718D] text-white hover:bg-[#5E718D]'
-                            : 'text-[#455468] bg-transparent hover:bg-[#5E718D] hover:text-white'
+                            ? "bg-[#5E718D] text-white hover:bg-[#5E718D]"
+                            : "text-[#455468] bg-transparent hover:bg-[#5E718D] hover:text-white"
                         }`}
                       >
                         {page}

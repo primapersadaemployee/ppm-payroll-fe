@@ -14,7 +14,7 @@ import {
   SelectValue,
 } from "keep-react";
 import { FloppyDisk } from "phosphor-react";
-import { useEditPresenceStore } from "../../../store/EditPresenceStore";
+import { useEditPresenceStore } from "../../../store/presence/EditPresenceStore";
 
 export default function EditPresenceModal({ attendanceData }) {
   const {
@@ -74,8 +74,8 @@ export default function EditPresenceModal({ attendanceData }) {
             </div>
           </div>
           <form
-            id="edit-kehadiran-harian"
-            name="edit-kehadiran-harian"
+            id="edit-presence"
+            name="edit-presence"
             className="p-6 rounded-3xl border text-[#455468] border-gray-100 flex flex-col gap-5 font-poppins"
           >
             <div>

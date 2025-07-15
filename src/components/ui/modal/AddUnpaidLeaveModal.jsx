@@ -16,9 +16,9 @@ import {
 } from "keep-react";
 import { FloppyDisk } from "phosphor-react";
 import InputDate from "../input/InputDate";
-import { useAddAnnualLeaveStore } from "../../../store/presence/AddAnnualLeaveStore";
+import { useAddUnpaidLeaveStore } from "../../../store/presence/AddUnpaidLeaveStore";
 
-export default function AddAnnualLeaveModal() {
+export default function AddUnpaidLeaveModal() {
   const {
     formData,
     isFirstModalOpen,
@@ -26,12 +26,12 @@ export default function AddAnnualLeaveModal() {
     setIsSecondModalOpen,
     handleInputChange,
     handleDateChange,
-    handleAddAnnualLeave,
+    handleAddUnpaidLeave,
     resetForm,
-  } = useAddAnnualLeaveStore();
+  } = useAddUnpaidLeaveStore();
 
   const handleModalSuccess = () => {
-    const success = handleAddAnnualLeave();
+    const success = handleAddUnpaidLeave();
     if (success) {
       setIsFirstModalOpen(false);
       setIsSecondModalOpen(true);
@@ -48,14 +48,14 @@ export default function AddAnnualLeaveModal() {
       showCloseIcon={false}
     >
       <ModalAction asChild></ModalAction>
-      <ModalContent className="max-w-md lg:max-w-[960px]">
+      <ModalContent className="max-w-md lg:max-w-[960px] overflow-y-auto h-full max-h-[800px]">
         <ModalHeader className="py-6 flex flex-col justify-center gap-8">
           <div className="flex justify-between items-center">
             <ModalTitle className="xl:text-2xl font-medium text-[#455468] font-poppins">
-              Tambah Pengajuan Cuti Tahunan
+              Tambah Pengajuan Unpaid Leave
             </ModalTitle>
             <ModalDescription className="hidden">
-              Silahkan isi data cuti tahunan dibawah ini.
+              Silahkan isi data unpaid leave dibawah ini.
             </ModalDescription>
             <div className="flex gap-2">
               <Button
@@ -80,8 +80,8 @@ export default function AddAnnualLeaveModal() {
             </div>
           </div>
           <form
-            id="edit-annual-leave"
-            name="edit-annual-leave"
+            id="add-unpaid-leave"
+            name="add-unpaid-leave"
             className="p-6 rounded-3xl border text-[#455468] border-gray-100 flex flex-col gap-5 font-poppins"
           >
             <div>
@@ -127,12 +127,12 @@ export default function AddAnnualLeaveModal() {
             </div>
             <div>
               <InputDate
-                label="Tanggal Cuti"
+                label="Tanggal Izin"
                 placeholder="Pilih tanggal"
-                htmlFor="tanggalCuti"
-                fieldName="tanggalCuti"
+                htmlFor="tanggalIzin"
+                fieldName="tanggalIzin"
                 hideAsterisk={false}
-                value={formData.tanggalCuti}
+                value={formData.tanggalIzin}
                 onChange={handleDateChange}
               />
             </div>

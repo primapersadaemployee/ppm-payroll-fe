@@ -8,7 +8,7 @@ import {
   ModalDescription,
   ModalTitle,
 } from "keep-react";
-import { useAddEmployeeStore } from "../../../store/AddEmployeStore";
+import { useAddEmployeeStore } from "../../../store/employee/AddEmployeStore";
 
 export default function AddBankAccountModal() {
   const {

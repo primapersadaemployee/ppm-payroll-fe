@@ -16,7 +16,7 @@ import {
 } from "keep-react";
 import { FloppyDisk } from "phosphor-react";
 import InputDate from "../input/InputDate";
-import { useEditAnnualLeaveStore } from "../../../store/EditAnnualLeaveStore";
+import { useEditAnnualLeaveStore } from "../../../store/presence/EditAnnualLeaveStore";
 
 export default function EditAnnualLeaveModal({ annualLeaves }) {
   const {
@@ -29,8 +29,6 @@ export default function EditAnnualLeaveModal({ annualLeaves }) {
     handleEditAnnualLeave,
     resetForm,
   } = useEditAnnualLeaveStore();
-
-  console.log(formData);
 
   const handleModalSuccess = () => {
     const success = handleEditAnnualLeave();
@@ -82,8 +80,8 @@ export default function EditAnnualLeaveModal({ annualLeaves }) {
             </div>
           </div>
           <form
-            id="edit-cuti-tahunan"
-            name="edit-cuti-tahunan"
+            id="edit-annual-leave"
+            name="edit-annual-leave"
             className="p-6 rounded-3xl border text-[#455468] border-gray-100 flex flex-col gap-5 font-poppins"
           >
             <div>

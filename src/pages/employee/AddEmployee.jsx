@@ -7,7 +7,7 @@ import StepsIndicator from "../../components/ui/steps/StepsIndicator";
 import PersonalStep from "../../components/ui/steps/PersonalStep";
 import StaffingStep from "../../components/ui/steps/StaffingStep";
 import PayrollStep from "../../components/ui/steps/PayrollStep";
-import { useAddEmployeeStore } from "../../store/AddEmployeStore";
+import { useAddEmployeeStore } from "../../store/employee/AddEmployeStore";
 
 export default function AddEmployee() {
   const { currentStep, handleNext, handleBack, handleSubmit } =

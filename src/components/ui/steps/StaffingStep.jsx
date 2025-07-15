@@ -6,7 +6,7 @@ import {
   SelectItem,
 } from "keep-react";
 import InputDate from "../input/InputDate";
-import { useAddEmployeeStore } from "../../../store/AddEmployeStore";
+import { useAddEmployeeStore } from "../../../store/employee/AddEmployeStore";
 
 export default function StaffingStep() {
   const { formData, handleInputChange, handleDateChange } =

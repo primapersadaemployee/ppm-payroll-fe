@@ -16,7 +16,7 @@ import {
 } from "keep-react";
 import { FloppyDisk } from "phosphor-react";
 import InputDate from "../input/InputDate";
-import { useEditSpecialLeaveStore } from "../../../store/EditSpecialLeaveStore";
+import { useEditSpecialLeaveStore } from "../../../store/presence/EditSpecialLeaveStore";
 
 export default function EditSpecialLeaveModal({ specialLeave }) {
   const {
@@ -29,8 +29,6 @@ export default function EditSpecialLeaveModal({ specialLeave }) {
     handleEditSpecialLeave,
     resetForm,
   } = useEditSpecialLeaveStore();
-
-  console.log(formData);
 
   const handleModalSuccess = () => {
     const success = handleEditSpecialLeave();
@@ -82,8 +80,8 @@ export default function EditSpecialLeaveModal({ specialLeave }) {
             </div>
           </div>
           <form
-            id="edit-cuti-khusus"
-            name="edit-cuti-khusus"
+            id="edit-special-leave"
+            name="edit-special-leave"
             className="p-6 rounded-3xl border text-[#455468] border-gray-100 flex flex-col gap-5 font-poppins"
           >
             <div>

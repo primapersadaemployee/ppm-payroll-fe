@@ -19,22 +19,31 @@ import {
 import { useState } from "react";
 import { AnnualLeaveData } from "../../../data/AttendanceData";
 import FilterDropdown from "../dropdown/FilterDropdown";
-import { useAddAnnualLeaveStore } from "../../../store/AddAnnualLeaveStore";
-import { useEditAnnualLeaveStore } from "../../../store/EditAnnualLeaveStore";
+import { useAddAnnualLeaveStore } from "../../../store/presence/AddAnnualLeaveStore";
+import { useEditAnnualLeaveStore } from "../../../store/presence/EditAnnualLeaveStore";
 import EditAnnualLeaveModal from "../modal/EditAnnualLeaveModal";
-import ConfirmEditAnnualLeaveModal from "../modal/ConfirmEditAnnualLeaveModal";
 import { format } from "date-fns";
 import AddAnnualLeaveModal from "../modal/AddAnnualLeaveModal";
-import ConfirmAddAnnualLeaveModal from "../modal/ConfirmAddAnnualLeaveModal";
+import ConfirmModal from "../modal/ConfirmModal";
 
 export default function TableAnnualLeave() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("Semua Status");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-  const { setAnnualLeave, setIsFirstModalOpen } = useEditAnnualLeaveStore();
-  const { setIsFirstModalOpen: setIsAddFirstModalOpen } =
-    useAddAnnualLeaveStore();
+  const {
+    setAnnualLeave,
+    setIsFirstModalOpen,
+    isSecondModalOpen: isEditSecondModalOpen,
+    setIsSecondModalOpen: setIsEditSecondModalOpen,
+    resetForm: resetEditForm,
+  } = useEditAnnualLeaveStore();
+  const {
+    setIsFirstModalOpen: setIsAddFirstModalOpen,
+    isSecondModalOpen,
+    setIsSecondModalOpen,
+    resetForm,
+  } = useAddAnnualLeaveStore();
 
   const statuses = [
     "Semua Status",
@@ -198,9 +207,33 @@ export default function TableAnnualLeave() {
             </TableBody>
           </Table>
           <AddAnnualLeaveModal />
-          <ConfirmAddAnnualLeaveModal />
+          <ConfirmModal
+            open={isSecondModalOpen}
+            onClose={() => {
+              setIsSecondModalOpen(false);
+              resetForm();
+            }}
+            title="Tambah Pengajuan Cuti Tahunan Berhasil"
+            description="Pengajuan Cuti Tahunan berhasil ditambahkan."
+            onClick={() => {
+              setIsSecondModalOpen(false);
+              resetForm();
+            }}
+          />
           <EditAnnualLeaveModal annualLeaves={AnnualLeaveData} />
-          <ConfirmEditAnnualLeaveModal />
+          <ConfirmModal
+            open={isEditSecondModalOpen}
+            onClose={() => {
+              setIsEditSecondModalOpen(false);
+              resetEditForm();
+            }}
+            title="Edit Pengajuan Cuti Tahunan Berhasil"
+            description="Pengajuan Cuti Tahunan berhasil diubah."
+            onClick={() => {
+              setIsEditSecondModalOpen(false);
+              resetEditForm();
+            }}
+          />
           {/* Pagination */}
           {totalPages > 1 && (
             <div className="mt-6 px-4 lg:px-6">

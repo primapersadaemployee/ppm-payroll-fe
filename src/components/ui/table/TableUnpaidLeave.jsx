@@ -17,33 +17,33 @@ import {
   Plus,
 } from "phosphor-react";
 import { useState } from "react";
-import { SpecialLeaveData } from "../../../data/AttendanceData";
+import { UnpaidLeaveData } from "../../../data/AttendanceData";
 import FilterDropdown from "../dropdown/FilterDropdown";
-import { useAddSpecialLeaveStore } from "../../../store/presence/AddSpecialLeaveStore";
-import { useEditSpecialLeaveStore } from "../../../store/presence/EditSpecialLeaveStore";
-import EditSpecialLeaveModal from "../modal/EditSpecialLeaveModal";
+import { useAddUnpaidLeaveStore } from "../../../store/presence/AddUnpaidLeaveStore";
+import { useEditUnpaidLeaveStore } from "../../../store/presence/EditUnpaidLeaveStore";
+import EditUnpaidLeaveModal from "../modal/EditUnpaidLeaveModal";
 import { format } from "date-fns";
-import AddSpecialLeaveModal from "../modal/AddSpecialLeaveModal";
+import AddUnpaidLeaveModal from "../modal/AddUnpaidLeaveModal";
 import ConfirmModal from "../modal/ConfirmModal";
 
-export default function TableSpecialLeave() {
+export default function TableUnpaidLeave() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("Semua Status");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const {
-    setSpecialLeave,
+    setUnpaidLeave,
     setIsFirstModalOpen,
     isSecondModalOpen: isEditSecondModalOpen,
     setIsSecondModalOpen: setIsEditSecondModalOpen,
     resetForm: resetEditForm,
-  } = useEditSpecialLeaveStore();
+  } = useEditUnpaidLeaveStore();
   const {
     setIsFirstModalOpen: setIsAddFirstModalOpen,
     isSecondModalOpen,
     setIsSecondModalOpen,
     resetForm,
-  } = useAddSpecialLeaveStore();
+  } = useAddUnpaidLeaveStore();
 
   const statuses = [
     "Semua Status",
@@ -54,7 +54,7 @@ export default function TableSpecialLeave() {
   ];
 
   // Filter employees based on search and filters
-  const filteredSpecialLeave = SpecialLeaveData.filter((employee) => {
+  const filteredUnpaidLeave = UnpaidLeaveData.filter((employee) => {
     const matchesSearch = employee.nama
       .toLowerCase()
       .includes(searchTerm.toLowerCase());
@@ -66,9 +66,9 @@ export default function TableSpecialLeave() {
   });
 
   // Pagination
-  const totalPages = Math.ceil(filteredSpecialLeave.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredUnpaidLeave.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedEmployees = filteredSpecialLeave.slice(
+  const paginatedEmployees = filteredUnpaidLeave.slice(
     startIndex,
     startIndex + itemsPerPage
   );
@@ -84,8 +84,8 @@ export default function TableSpecialLeave() {
     setCurrentPage(1);
   };
 
-  const handleEditSpecialLeave = (id) => {
-    setSpecialLeave(id, SpecialLeaveData);
+  const handleEditPermissionLeave = (id) => {
+    setUnpaidLeave(id, UnpaidLeaveData);
     setIsFirstModalOpen(true);
   };
 
@@ -94,7 +94,7 @@ export default function TableSpecialLeave() {
       {/* Section Header with Filters */}
       <div className="flex flex-col xl:flex-row xl:items-center lg:justify-between gap-4 mb-6">
         <div className="flex items-center gap-4 px-4 lg:px-6">
-          <h2 className="text-lg font-medium">Daftar Cuti Khusus</h2>
+          <h2 className="text-lg font-medium">Daftar Unpaid Leave</h2>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-2 lg:gap-4 px-4 lg:px-6">
@@ -145,7 +145,7 @@ export default function TableSpecialLeave() {
                   Jumlah Hari
                 </TableHead>
                 <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
-                  Tanggal Cuti
+                  Tanggal Izin
                 </TableHead>
                 <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
                   Status
@@ -173,7 +173,7 @@ export default function TableSpecialLeave() {
                       {employee.jumlahHari}
                     </TableCell>
                     <TableCell className="text-center">
-                      {format(employee.tanggalCuti, "dd/MM/yyyy")}
+                      {format(employee.tanggalIzin, "dd/MM/yyyy")}
                     </TableCell>
                     <TableCell className="text-center">
                       {employee.status}
@@ -183,7 +183,7 @@ export default function TableSpecialLeave() {
                         size="sm"
                         className="py-[2px] px-4 bg-[#F5F5F5] text-[#455468] font-medium hover:bg-white hover:text-[#455468]"
                         title="Edit"
-                        onClick={() => handleEditSpecialLeave(employee.id)}
+                        onClick={() => handleEditPermissionLeave(employee.id)}
                       >
                         <span>
                           <NotePencil size={19} />
@@ -197,36 +197,36 @@ export default function TableSpecialLeave() {
                 <TableRow>
                   <TableCell colSpan={7} className="text-center py-8">
                     <div className="flex flex-col items-center gap-2">
-                      <p className="font-medium">Belum ada data cuti khusus.</p>
+                      <p className="font-medium">Belum ada data unpaid.</p>
                     </div>
                   </TableCell>
                 </TableRow>
               )}
             </TableBody>
           </Table>
-          <AddSpecialLeaveModal />
+          <AddUnpaidLeaveModal />
           <ConfirmModal
             open={isSecondModalOpen}
             onClose={() => {
               setIsSecondModalOpen(false);
               resetForm();
             }}
-            title="Tambah Pengajuan Cuti Khusus Berhasil"
-            description="Pengajuan Cuti Khusus berhasil ditambahkan."
+            title="Tambah Pengajuan Unpaid Berhasil"
+            description="Pengajuan Unpaid berhasil ditambahkan."
             onClick={() => {
               setIsSecondModalOpen(false);
               resetForm();
             }}
           />
-          <EditSpecialLeaveModal specialLeaves={SpecialLeaveData} />
+          <EditUnpaidLeaveModal unpaidLeave={UnpaidLeaveData} />
           <ConfirmModal
             open={isEditSecondModalOpen}
             onClose={() => {
               setIsEditSecondModalOpen(false);
               resetEditForm();
             }}
-            title="Edit Pengajuan Cuti Khusus Berhasil"
-            description="Pengajuan Cuti Khusus berhasil diubah."
+            title="Edit Pengajuan Unpaid Berhasil"
+            description="Pengajuan Unpaid berhasil diubah."
             onClick={() => {
               setIsEditSecondModalOpen(false);
               resetEditForm();

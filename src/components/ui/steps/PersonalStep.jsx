@@ -10,7 +10,7 @@ import {
   Textarea,
 } from "keep-react";
 import InputDate from "../input/InputDate";
-import { useAddEmployeeStore } from "../../../store/AddEmployeStore";
+import { useAddEmployeeStore } from "../../../store/employee/AddEmployeStore";
 
 export default function PersonalStep() {
   const { formData, handleImageChange, handleInputChange, handleDateChange } =
