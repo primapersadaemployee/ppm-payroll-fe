@@ -1,8 +1,48 @@
-import NotificationDashboard from "../../components/ui/notification/NotificationDashboard";
-import { CurrencyCircleDollar } from "phosphor-react";
-import { SidebarComponent } from "../../components/layout/Sidebar";
+import { useState } from 'react';
+import NotificationDashboard from '../../components/ui/notification/NotificationDashboard';
+import { CurrencyCircleDollar } from 'phosphor-react';
+import { SidebarComponent } from '../../components/layout/Sidebar';
+import TablePayroll from '../../components/ui/table/TablePayroll';
+import { PayrollData } from '../../data/PayrollData';
 
 export default function Payroll() {
+  const currentDate = new Date();
+  const [selectedMonth, setSelectedMonth] = useState(currentDate.getMonth());
+  const [selectedYear, setSelectedYear] = useState(currentDate.getFullYear());
+
+  // Fungsi untuk menghasilkan daftar bulan berdasarkan tahun
+  const generateMonths = (year) => {
+    const monthNames = [
+      'Januari',
+      'Februari',
+      'Maret',
+      'April',
+      'Mei',
+      'Juni',
+      'Juli',
+      'Agustus',
+      'September',
+      'Oktober',
+      'November',
+      'Desember',
+    ];
+    return monthNames.map((name, index) => ({
+      id: index,
+      name,
+      year: year.toString(),
+    }));
+  };
+
+  const handleMonthChange = (monthIndex) => {
+    setSelectedMonth(monthIndex);
+  };
+
+  const handleYearChange = (year) => {
+    setSelectedYear(year);
+  };
+
+  const months = generateMonths(selectedYear);
+
   return (
     <div className="flex gap-2 lg:gap-4 font-poppins p-2 lg:p-4 min-h-screen text-[#455468]">
       <div className="sticky top-2 lg:top-0 h-fit lg:h-screen shrink-0">
@@ -27,9 +67,34 @@ export default function Payroll() {
             </div>
           </div>
 
-          {/* Main Content */}
+          {/* Month Filter */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-4 justify-center">
+            {months.map((month) => (
+              <button
+                key={`${month.id}-${month.year}`}
+                onClick={() => handleMonthChange(month.id)}
+                className={`rounded-xl min-w-[100px] px-4 py-3 flex flex-col items-center border border-gray-100 transition-all ${
+                  selectedMonth === month.id
+                    ? 'bg-primary text-white'
+                    : 'bg-white text-[#455468] hover:bg-primary hover:text-white'
+                }`}
+              >
+                <span className="font-medium">{month.name}</span>
+                <span className="text-xs">{month.year}</span>
+              </button>
+            ))}
+          </div>
 
-          <div className="w-full bg-white overflow-auto"></div>
+          {/* Main Content */}
+          <div className="w-full bg-white overflow-auto">
+            <TablePayroll
+              payrollData={PayrollData}
+              selectedMonth={selectedMonth}
+              selectedYear={selectedYear}
+              onMonthChange={handleMonthChange}
+              onYearChange={handleYearChange}
+            />
+          </div>
         </div>
       </div>
     </div>
