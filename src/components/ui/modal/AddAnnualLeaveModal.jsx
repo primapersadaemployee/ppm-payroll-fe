@@ -16,9 +16,9 @@ import {
 } from "keep-react";
 import { FloppyDisk } from "phosphor-react";
 import InputDate from "../input/InputDate";
-import { useEditAnnualLeaveStore } from "../../../store/EditAnnualLeaveStore";
+import { useAddAnnualLeaveStore } from "../../../store/AddAnnualLeaveStore";
 
-export default function EditAnnualLeaveModal({ annualLeaves }) {
+export default function AddAnnualLeaveModal() {
   const {
     formData,
     isFirstModalOpen,
@@ -26,14 +26,14 @@ export default function EditAnnualLeaveModal({ annualLeaves }) {
     setIsSecondModalOpen,
     handleInputChange,
     handleDateChange,
-    handleEditAnnualLeave,
+    handleAddAnnualLeave,
     resetForm,
-  } = useEditAnnualLeaveStore();
+  } = useAddAnnualLeaveStore();
 
   console.log(formData);
 
   const handleModalSuccess = () => {
-    const success = handleEditAnnualLeave();
+    const success = handleAddAnnualLeave();
     if (success) {
       setIsFirstModalOpen(false);
       setIsSecondModalOpen(true);
@@ -54,7 +54,7 @@ export default function EditAnnualLeaveModal({ annualLeaves }) {
         <ModalHeader className="py-6 flex flex-col justify-center gap-8">
           <div className="flex justify-between items-center">
             <ModalTitle className="xl:text-2xl font-medium text-[#455468] font-poppins">
-              Ubah Pengajuan Cuti Tahunan
+              Tambah Pengajuan Cuti Tahunan
             </ModalTitle>
             <ModalDescription className="hidden">
               Silahkan isi data cuti tahunan dibawah ini.
@@ -93,7 +93,7 @@ export default function EditAnnualLeaveModal({ annualLeaves }) {
               <Input
                 id="nama"
                 name="nama"
-                placeholder="John Doe"
+                placeholder="Pilih Nama Karyawan"
                 value={formData.nama}
                 onChange={(e) => handleInputChange("nama", e.target.value)}
               />

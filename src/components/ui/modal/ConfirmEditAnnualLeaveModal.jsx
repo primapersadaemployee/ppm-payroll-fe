@@ -10,7 +10,7 @@ import {
 } from "keep-react";
 import { useEditAnnualLeaveStore } from "../../../store/EditAnnualLeaveStore";
 
-export default function ConfirmAnnualLeaveModal() {
+export default function ConfirmEditAnnualLeaveModal() {
   const { isSecondModalOpen, setIsSecondModalOpen, resetForm } =
     useEditAnnualLeaveStore();
 

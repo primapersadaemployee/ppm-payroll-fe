@@ -3,7 +3,6 @@ import { create } from "zustand";
 import { format } from "date-fns";
 
 const initialFormData = {
-  id: null,
   nama: "",
   tanggalPengajuan: "",
   jumlahHari: "",
@@ -12,12 +11,11 @@ const initialFormData = {
   keterangan: "",
 };
 
-export const useEditAnnualLeaveStore = create((set, get) => ({
+export const useAddAnnualLeaveStore = create((set, get) => ({
   // State
   formData: initialFormData,
   isFirstModalOpen: false,
   isSecondModalOpen: false,
-  annualLeave: null,
 
   // Actions
   handleInputChange: (field, value) => {
@@ -38,52 +36,35 @@ export const useEditAnnualLeaveStore = create((set, get) => ({
     }));
   },
 
-  setAnnualLeave: (id, annualLeaves) => {
-    const annualLeaveData = annualLeaves.find((leave) => leave.id === id);
-    set({
-      annualLeave: annualLeaveData,
-      formData: {
-        ...initialFormData,
-        id: annualLeaveData?.id || null,
-        nama: annualLeaveData?.nama || "",
-        tanggalPengajuan: annualLeaveData?.tanggalPengajuan || "",
-        jumlahHari: annualLeaveData?.jumlahHari || "",
-        tanggalCuti: annualLeaveData?.tanggalCuti || "",
-        status: annualLeaveData?.status || "",
-        keterangan: annualLeaveData?.keterangan || "",
-      },
-    });
-  },
-
-  handleEditAnnualLeave: () => {
+  handleAddAnnualLeave: () => {
     const { formData } = get();
 
-    // Validasi
+    console.log(formData);
+
     if (
       !formData.nama.trim() ||
       !formData.tanggalPengajuan.trim() ||
-      !formData.jumlahHari ||
+      !formData.jumlahHari.trim() ||
       !formData.tanggalCuti.trim() ||
       !formData.status.trim() ||
       !formData.keterangan.trim()
     ) {
-      toast.error("Semua field wajib diisi!");
-      return false;
+      toast.error("Semua field cuti wajib diisi!");
+      return;
     }
-
-    console.log("Data yang akan disimpan:", formData);
 
     set({
       formData: initialFormData,
       isFirstModalOpen: false,
       isSecondModalOpen: true,
-      annualLeave: null,
     });
-
-    return true;
   },
 
   setIsFirstModalOpen: (open) => set({ isFirstModalOpen: open }),
   setIsSecondModalOpen: (open) => set({ isSecondModalOpen: open }),
-  resetForm: () => set({ formData: initialFormData, annualLeave: null }),
+  resetForm: () => set({ formData: initialFormData }),
+
+  handleCloseSecondModal: () => {
+    set({ isSecondModalOpen: false });
+  },
 }));

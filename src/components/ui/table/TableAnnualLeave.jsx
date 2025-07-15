@@ -8,36 +8,40 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from 'keep-react';
+} from "keep-react";
 import {
   CaretLeft,
   CaretRight,
   MagnifyingGlass,
   NotePencil,
   Plus,
-} from 'phosphor-react';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { AnnualLeaveData } from '../../../data/AttendanceData';
-import FilterDropdown from '../dropdown/FilterDropdown';
-import { useEditAnnualLeaveStore } from '../../../store/EditAnnualLeaveStore';
-import EditAnnualLeaveModal from '../modal/EditAnnualLeaveModal';
-import ConfirmAnnualLeaveModal from '../modal/ConfirmAnnualLeaveModal';
-import { format } from 'date-fns';
+} from "phosphor-react";
+import { useState } from "react";
+import { AnnualLeaveData } from "../../../data/AttendanceData";
+import FilterDropdown from "../dropdown/FilterDropdown";
+import { useAddAnnualLeaveStore } from "../../../store/AddAnnualLeaveStore";
+import { useEditAnnualLeaveStore } from "../../../store/EditAnnualLeaveStore";
+import EditAnnualLeaveModal from "../modal/EditAnnualLeaveModal";
+import ConfirmEditAnnualLeaveModal from "../modal/ConfirmEditAnnualLeaveModal";
+import { format } from "date-fns";
+import AddAnnualLeaveModal from "../modal/AddAnnualLeaveModal";
+import ConfirmAddAnnualLeaveModal from "../modal/ConfirmAddAnnualLeaveModal";
 
 export default function TableAnnualLeave() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedStatus, setSelectedStatus] = useState('Semua Status');
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState("Semua Status");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const { setAnnualLeave, setIsFirstModalOpen } = useEditAnnualLeaveStore();
+  const { setIsFirstModalOpen: setIsAddFirstModalOpen } =
+    useAddAnnualLeaveStore();
 
   const statuses = [
-    'Semua Status',
-    'Disetujui',
-    'Ditolak',
-    'Arsip',
-    'Menunggu Persetujuan',
+    "Semua Status",
+    "Disetujui",
+    "Ditolak",
+    "Arsip",
+    "Menunggu Persetujuan",
   ];
 
   // Filter employees based on search and filters
@@ -47,7 +51,7 @@ export default function TableAnnualLeave() {
       .includes(searchTerm.toLowerCase());
 
     const matchesStatus =
-      selectedStatus === 'Semua Status' || employee.status === selectedStatus;
+      selectedStatus === "Semua Status" || employee.status === selectedStatus;
 
     return matchesSearch && matchesStatus;
   });
@@ -85,12 +89,13 @@ export default function TableAnnualLeave() {
         </div>
 
         <div className="flex flex-col sm:flex-row gap-2 lg:gap-4 px-4 lg:px-6">
-          <Link to="#">
-            <Button className="flex items-center gap-2 whitespace-nowrap bg-primary hover:bg-primary/90 text-white">
-              <Plus size={16} />
-              Tambah Pengajuan
-            </Button>
-          </Link>
+          <Button
+            className="flex items-center gap-2 whitespace-nowrap bg-primary hover:bg-primary/90 text-white"
+            onClick={() => setIsAddFirstModalOpen(true)}
+          >
+            <Plus size={16} />
+            Tambah Pengajuan
+          </Button>
           <fieldset className="relative w-full">
             <Input
               type="text"
@@ -153,13 +158,13 @@ export default function TableAnnualLeave() {
                       {employee.nama}
                     </TableCell>
                     <TableCell className="text-center">
-                      {format(employee.tanggalPengajuan, 'dd/MM/yyyy')}
+                      {format(employee.tanggalPengajuan, "dd/MM/yyyy")}
                     </TableCell>
                     <TableCell className="text-center">
                       {employee.jumlahHari}
                     </TableCell>
                     <TableCell className="text-center">
-                      {format(employee.tanggalCuti, 'dd/MM/yyyy')}
+                      {format(employee.tanggalCuti, "dd/MM/yyyy")}
                     </TableCell>
                     <TableCell className="text-center">
                       {employee.status}
@@ -192,8 +197,10 @@ export default function TableAnnualLeave() {
               )}
             </TableBody>
           </Table>
+          <AddAnnualLeaveModal />
+          <ConfirmAddAnnualLeaveModal />
           <EditAnnualLeaveModal annualLeaves={AnnualLeaveData} />
-          <ConfirmAnnualLeaveModal />
+          <ConfirmEditAnnualLeaveModal />
           {/* Pagination */}
           {totalPages > 1 && (
             <div className="mt-6 px-4 lg:px-6">
@@ -235,8 +242,8 @@ export default function TableAnnualLeave() {
                             onClick={() => setCurrentPage(page)}
                             className={`min-w-[32px] h-8 rounded-full ${
                               currentPage === page
-                                ? 'bg-[#5E718D] text-white hover:bg-[#5E718D]'
-                                : 'text-[#455468] bg-transparent hover:bg-[#5E718D] hover:text-white'
+                                ? "bg-[#5E718D] text-white hover:bg-[#5E718D]"
+                                : "text-[#455468] bg-transparent hover:bg-[#5E718D] hover:text-white"
                             }`}
                           >
                             {page}
