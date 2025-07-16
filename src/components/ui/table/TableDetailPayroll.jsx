@@ -120,26 +120,20 @@ export default function TableDetailPayroll({ payrollDetail, onDownload }) {
       <div className="overflow-x-auto">
         <Table className="w-full rounded-t-none">
           <TableHeader>
-            <TableRow className="text-[#8897AE] bg-[#F9FAFB]">
-              {/* {["No", "Nama", "Bank", "Status Pembayaran", "Total"].map(
-                (text, i) => (
-                  <TableHead
-                    key={i}
-                    className="text-[#8897AE] bg-[#F9FAFB] text-center"
-                  >
-                    {text}
-                  </TableHead>
-                )
-              )} */}
-              <TableHead className="text-center">No</TableHead>
-              <TableHead className="text-center min-w-[150px] truncate">
+            <TableRow className=" bg-[#F9FAFB]">
+              <TableHead className="text-[#8897AE] text-center">No</TableHead>
+              <TableHead className="text-[#8897AE] text-center min-w-[150px] truncate">
                 Nama
               </TableHead>
-              <TableHead className="text-center min-w-[120px]">Bank</TableHead>
-              <TableHead className="text-center min-w-[200px]">
+              <TableHead className="text-[#8897AE] text-center min-w-[120px]">
+                Bank
+              </TableHead>
+              <TableHead className="text-[#8897AE] text-center min-w-[200px]">
                 Status Pembayaran
               </TableHead>
-              <TableHead className="text-center min-w-[150px]">Total</TableHead>
+              <TableHead className="text-[#8897AE] text-center min-w-[150px]">
+                Total
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

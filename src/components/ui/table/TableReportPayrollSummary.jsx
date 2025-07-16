@@ -1,10 +1,5 @@
 import {
   Button,
-  Input,
-  InputIcon,
-  LineProgress,
-  LineProgressBar,
-  LineProgressText,
   Popover,
   PopoverAction,
   PopoverContent,
@@ -15,112 +10,47 @@ import {
   TableHeader,
   TableRow,
 } from "keep-react";
-import {
-  CaretLeft,
-  CaretRight,
-  FunnelSimple,
-  MagnifyingGlass,
-  Plus,
-} from "phosphor-react";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { ReportPayrollSummary } from "../../../data/ReportData";
+import { useState } from "react";
+import { CaretLeft, CaretRight, FunnelSimple } from "phosphor-react";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 
-export default function TablePayroll({
-  payrollData,
-  selectedMonth,
-  selectedYear,
-  onMonthChange,
-  onYearChange,
-}) {
-  const [searchTerm, setSearchTerm] = useState("");
-  const navigate = useNavigate();
+export default function TableReportPayrollSummary() {
+  const [selectedMonth, setSelectedMonth] = useState(null); // Null untuk menunjukkan tidak ada filter
+  const [selectedYear, setSelectedYear] = useState(null); // Null untuk menunjukkan tidak ada filter
   const [currentPage, setCurrentPage] = useState(1);
-  const [filterDate, setFilterDate] = useState(
-    new Date(selectedYear, selectedMonth, 1)
-  );
   const itemsPerPage = 10;
 
-  // Sync filterDate when selectedMonth or selectedYear changes from parent
-  useEffect(() => {
-    setFilterDate(new Date(selectedYear, selectedMonth, 1));
-    setCurrentPage(1); // Reset to first page on month/year change
-  }, [selectedMonth, selectedYear]);
+  // Data awal (semua data)
+  const allPayrollSummary = ReportPayrollSummary;
 
-  // Filter payroll data based on selected month and year
-  const filteredData = payrollData.filter((payroll) => {
-    const matchesSearch = payroll.slip
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-    const payrollStartDate = new Date(payroll.startPeriode);
-    const payrollMonth = payrollStartDate.getMonth(); // 0-11
-    const payrollYear = payrollStartDate.getFullYear();
-
-    return (
-      payrollMonth === selectedMonth &&
-      payrollYear === selectedYear &&
-      matchesSearch
-    );
-  });
+  // Filter berdasarkan selectedMonth dan selectedYear jika ada
+  const filterPayrollSummary =
+    selectedMonth !== null && selectedYear !== null
+      ? ReportPayrollSummary.filter((payroll) => {
+          const payrollDate = new Date(payroll.bulan);
+          return (
+            payrollDate.getMonth() === selectedMonth &&
+            payrollDate.getFullYear() === selectedYear
+          );
+        })
+      : allPayrollSummary;
 
   // Pagination
-  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+  const totalPages = Math.ceil(filterPayrollSummary.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedData = filteredData.slice(
+  const paginatedPayrollSummary = filterPayrollSummary.slice(
     startIndex,
     startIndex + itemsPerPage
   );
-
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-    setCurrentPage(1);
-  };
-
-  const handleRowClick = (payrollId) => {
-    navigate(`/payroll/detail/${payrollId}`);
-  };
-
-  const calculateProgressReadyToPay = (karyawan) => {
-    const readyToPay = karyawan.filter(
-      (k) => k.statusPembayaran === "Siap Bayar"
-    ).length;
-    return Math.round((readyToPay / karyawan.length) * 100);
-  };
-
-  const calculateProgressAlreadyPaid = (karyawan) => {
-    const alreadyPaid = karyawan.filter(
-      (k) => k.statusPembayaran === "Sudah Dibayar"
-    ).length;
-    return Math.round((alreadyPaid / karyawan.length) * 100);
-  };
 
   return (
     <div className="bg-white rounded-2xl py-4 lg:py-6 shadow-sm border border-gray-100">
       {/* Header dengan tombol dan filter */}
       <div className="flex flex-col xl:flex-row xl:items-center lg:justify-between gap-4 mb-6 px-4 lg:px-6">
-        <h2 className="text-lg font-medium">Daftar Payroll</h2>
+        <h2 className="text-lg font-medium">Daftar Ringkasan Gaji</h2>
         <div className="flex gap-2 items-center">
-          {/* <Button
-            size="lg"
-            className="flex items-center gap-2 whitespace-nowrap bg-primary hover:bg-primary/90 text-white"
-          >
-            <Plus size={16} />
-            Tambah Slip Tidak Tetap
-          </Button> */}
-          <fieldset className="relative w-full">
-            <Input
-              type="text"
-              placeholder="Cari"
-              name="search"
-              value={searchTerm}
-              onChange={handleSearchChange}
-              className="flex-1 ps-11"
-            />
-            <InputIcon>
-              <MagnifyingGlass size={19} color="#2d3643" weight="bold" />
-            </InputIcon>
-          </fieldset>
           <Popover>
             <PopoverAction asChild>
               <Button
@@ -137,13 +67,16 @@ export default function TablePayroll({
               <div className="p-4">
                 <div className="flex gap-4 items-center">
                   <select
-                    value={filterDate.getMonth()}
+                    value={selectedMonth ?? ""} // Kosong jika belum dipilih
                     onChange={(e) => {
-                      const newMonth = parseInt(e.target.value);
-                      onMonthChange(newMonth);
+                      const newMonth = e.target.value
+                        ? parseInt(e.target.value)
+                        : null;
+                      setSelectedMonth(newMonth);
                     }}
                     className="min-w-[120px] text-sm px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
+                    <option value="">Semua Bulan</option>
                     {[
                       "Januari",
                       "Februari",
@@ -164,13 +97,16 @@ export default function TablePayroll({
                     ))}
                   </select>
                   <select
-                    value={filterDate.getFullYear()}
+                    value={selectedYear ?? ""} // Kosong jika belum dipilih
                     onChange={(e) => {
-                      const newYear = parseInt(e.target.value);
-                      onYearChange(newYear);
+                      const newYear = e.target.value
+                        ? parseInt(e.target.value)
+                        : null;
+                      setSelectedYear(newYear);
                     }}
                     className="min-w-[100px] text-sm px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
+                    <option value="">Semua Tahun</option>
                     {Array.from({ length: 11 }, (_, i) => 2020 + i).map(
                       (year) => (
                         <option key={year} value={year}>
@@ -190,84 +126,56 @@ export default function TablePayroll({
       <div className="overflow-x-auto">
         <Table className="w-full rounded-t-none">
           <TableHeader>
-            <TableRow className=" bg-[#F9FAFB]">
+            <TableRow className="bg-[#F9FAFB]">
               <TableHead className="text-[#8897AE] text-center">No</TableHead>
-              <TableHead className="text-[#8897AE] text-center">Slip</TableHead>
+              <TableHead className="text-[#8897AE] text-center min-w-[140px]">
+                Bulan
+              </TableHead>
               <TableHead className="text-[#8897AE] text-center min-w-[220px]">
-                Periode
+                Slip
               </TableHead>
-              <TableHead className="text-[#8897AE] text-center">
-                Karyawan
-              </TableHead>
-              <TableHead className="text-[#8897AE] text-center min-w-[200px]">
-                Siap Bayar
+              <TableHead className="text-[#8897AE] text-center min-w-[140px]">
+                Gaji Pokok
               </TableHead>
               <TableHead className="text-[#8897AE] text-center min-w-[200px]">
-                Sudah Bayar
+                Total Tunjangan
+              </TableHead>
+              <TableHead className="text-[#8897AE] text-center min-w-[200px]">
+                Total Potongan
+              </TableHead>
+              <TableHead className="text-[#8897AE] text-center min-w-[200px]">
+                Take Home Pay
               </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {paginatedData.length > 0 ? (
-              paginatedData.map((payroll, index) => {
-                const siapBayarProgress = calculateProgressReadyToPay(
-                  payroll.karyawan
-                );
-                const sudahBayarProgress = calculateProgressAlreadyPaid(
-                  payroll.karyawan
-                );
-
-                return (
-                  <TableRow
-                    key={payroll.id}
-                    className="hover:bg-gray-50 font-medium cursor-pointer"
-                    onClick={() => handleRowClick(payroll.id)}
-                  >
-                    <TableCell className="text-center">
-                      {(currentPage - 1) * itemsPerPage + index + 1}
-                    </TableCell>
-                    <TableCell className="text-center">
-                      {payroll.slip}
-                    </TableCell>
-                    <TableCell className="text-center">
-                      {`${format(payroll.startPeriode, "dd MMMM yyyy", {
-                        locale: id,
-                      })} - ${format(payroll.endPeriode, "dd MMMM yyyy", {
-                        locale: id,
-                      })}`}
-                    </TableCell>
-                    <TableCell className="text-center">
-                      {payroll.karyawan.length}
-                    </TableCell>
-                    <TableCell className="text-center">
-                      <LineProgress progress={siapBayarProgress}>
-                        <LineProgressBar
-                          lineBackground="bg-success-50"
-                          className="bg-success-500 border border-gray-100"
-                        />
-                        <LineProgressText>
-                          {siapBayarProgress}%
-                        </LineProgressText>
-                      </LineProgress>
-                    </TableCell>
-                    <TableCell className="text-center">
-                      <LineProgress progress={sudahBayarProgress}>
-                        <LineProgressBar
-                          lineBackground="bg-success-50"
-                          className="bg-success-500 border border-gray-100"
-                        />
-                        <LineProgressText>
-                          {sudahBayarProgress}%
-                        </LineProgressText>
-                      </LineProgress>
-                    </TableCell>
-                  </TableRow>
-                );
-              })
+            {paginatedPayrollSummary.length > 0 ? (
+              paginatedPayrollSummary.map((payroll, index) => (
+                <TableRow
+                  key={payroll.id}
+                  className="hover:bg-gray-50 font-medium cursor-pointer"
+                >
+                  <TableCell className="text-center">{payroll.id}</TableCell>
+                  <TableCell className="text-center">
+                    {format(payroll.bulan, "MMMM yyyy", { locale: id })}
+                  </TableCell>
+                  <TableCell className="text-center">{payroll.slip}</TableCell>
+                  <TableCell className="text-center">
+                    {payroll.gajiPokok}
+                  </TableCell>
+                  <TableCell className="text-center">
+                    {payroll.tunjangan}
+                  </TableCell>
+                  <TableCell className="text-center">
+                    {payroll.potongan}
+                  </TableCell>
+                  <TableCell className="text-center">{payroll.thp}</TableCell>
+                </TableRow>
+              ))
             ) : (
               <TableRow>
-                <TableCell colSpan={6} className="text-center py-8">
-                  <p className="font-medium">Belum ada data payroll.</p>
+                <TableCell colSpan={7} className="text-center py-8">
+                  <p className="font-medium">Belum ada data ringkasan gaji.</p>
                 </TableCell>
               </TableRow>
             )}

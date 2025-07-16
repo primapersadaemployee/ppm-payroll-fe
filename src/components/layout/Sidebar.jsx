@@ -82,7 +82,7 @@ export const SidebarComponent = () => {
     },
     {
       name: "Setting",
-      link: "/setting",
+      link: "/settings",
       icon: <Gear size={20} weight="bold" />,
     },
     {

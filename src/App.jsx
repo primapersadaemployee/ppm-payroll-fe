@@ -10,6 +10,11 @@ import Presence from "./pages/presence/Presence";
 import Payroll from "./pages/payroll/Payroll";
 import DetailPayroll from "./pages/payroll/DetailPayroll";
 import Announcement from "./pages/announcement/Announcement";
+import Report from "./pages/report/Report";
+import PayrollSummary from "./pages/report/PayrollSummary";
+import PayrollReport from "./pages/report/PayrollReport";
+import Settings from "./pages/settings/Settings";
+import Company from "./pages/settings/Company";
 
 export default function App() {
   return (
@@ -23,6 +28,11 @@ export default function App() {
       <Route path="/payroll" element={<Payroll />} />
       <Route path="/payroll/detail/:id" element={<DetailPayroll />} />
       <Route path="/announcement" element={<Announcement />} />
+      <Route path="/report" element={<Report />} />
+      <Route path="/report/payroll-summary" element={<PayrollSummary />} />
+      <Route path="/report/payroll" element={<PayrollReport />} />
+      <Route path="/settings" element={<Settings />} />
+      <Route path="/settings/company" element={<Company />} />
 
       {/* Auth */}
       <Route path="/login" element={<Login />} />
