@@ -1,6 +1,8 @@
 import {
   Badge,
   Button,
+  Input,
+  InputIcon,
   Popover,
   PopoverAction,
   PopoverContent,
@@ -10,24 +12,42 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from 'keep-react';
+} from "keep-react";
 import {
   CaretLeft,
   CaretRight,
   FunnelSimple,
   DownloadSimple,
-} from 'phosphor-react';
-import { useState } from 'react';
+  MagnifyingGlass,
+} from "phosphor-react";
+import { useState } from "react";
+import FilterDropdown from "../dropdown/FilterDropdown";
 
 export default function TableDetailPayroll({ payrollDetail, onDownload }) {
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedStatus, setSelectedStatus] = useState("Semua Status");
+  const [searchTerm, setSearchTerm] = useState("");
   const itemsPerPage = 10;
 
+  const statuses = [
+    "Semua Status",
+    "Sudah Dibayar",
+    "Siap Bayar",
+    "Belum Siap",
+  ];
+
   // Filter data based on search term
-  const filteredKaryawan = payrollDetail.karyawan.filter((employee) =>
-    employee.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredKaryawan = payrollDetail.karyawan.filter((employee) => {
+    const matchesSearch = employee.name
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+
+    const matchesStatus =
+      selectedStatus === "Semua Status" ||
+      employee.statusPembayaran === selectedStatus;
+
+    return matchesSearch && matchesStatus;
+  });
 
   // Pagination
   const totalPages = Math.ceil(filteredKaryawan.length / itemsPerPage);
@@ -37,16 +57,26 @@ export default function TableDetailPayroll({ payrollDetail, onDownload }) {
     startIndex + itemsPerPage
   );
 
+  const handleFilterChange = (setter) => (value) => {
+    setter(value);
+    setCurrentPage(1);
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+    setCurrentPage(1);
+  };
+
   const getStatusBadge = (status) => {
     switch (status) {
-      case 'Sudah Dibayar':
-        return 'success';
-      case 'Belum Siap':
-        return 'error';
-      case 'Siap Bayar':
-        return 'warning';
+      case "Sudah Dibayar":
+        return "success";
+      case "Belum Siap":
+        return "error";
+      case "Siap Bayar":
+        return "warning";
       default:
-        return 'secondary';
+        return "secondary";
     }
   };
 
@@ -55,44 +85,33 @@ export default function TableDetailPayroll({ payrollDetail, onDownload }) {
       {/* Header dengan tombol download dan filter */}
       <div className="flex flex-col xl:flex-row xl:items-center lg:justify-between gap-4 mb-6 px-4 lg:px-6">
         <h2 className="text-lg font-medium">Daftar Payroll</h2>
-        <div className="flex gap-2">
+        <div className="flex flex-col md:flex-row gap-2 md:items-center md:justify-end">
           <Button
-            size="lg"
             className="flex items-center gap-2 whitespace-nowrap bg-primary hover:bg-primary/90 text-white"
             onClick={onDownload}
           >
             <DownloadSimple size={20} />
             Download Slip Gaji Massal
           </Button>
-          <div className="flex gap-2">
-            <input
-              type="text"
-              placeholder="Cari..."
-              value={searchTerm}
-              onChange={(e) => {
-                setSearchTerm(e.target.value);
-                setCurrentPage(1);
-              }}
-              className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          <div className="flex gap-2 items-center">
+            <fieldset className="relative w-full">
+              <Input
+                type="text"
+                placeholder="Cari"
+                name="search"
+                value={searchTerm}
+                onChange={handleSearchChange}
+                className="flex-1 ps-11"
+              />
+              <InputIcon>
+                <MagnifyingGlass size={19} color="#2d3643" weight="bold" />
+              </InputIcon>
+            </fieldset>
+            <FilterDropdown
+              value={selectedStatus}
+              options={statuses}
+              onChange={handleFilterChange(setSelectedStatus)}
             />
-            <Popover>
-              <PopoverAction asChild>
-                <Button
-                  color="secondary"
-                  size="lg"
-                  className="flex gap-2 border border-metal-100"
-                  variant="outline"
-                >
-                  <FunnelSimple size={20} />
-                  Filter
-                </Button>
-              </PopoverAction>
-              <PopoverContent align="start" className="max-w-min border-0">
-                <div className="p-4">
-                  <p>Filter options coming soon...</p>
-                </div>
-              </PopoverContent>
-            </Popover>
           </div>
         </div>
       </div>
@@ -101,8 +120,8 @@ export default function TableDetailPayroll({ payrollDetail, onDownload }) {
       <div className="overflow-x-auto">
         <Table className="w-full rounded-t-none">
           <TableHeader>
-            <TableRow>
-              {['No', 'Nama', 'Bank', 'Status Pembayaran', 'Total'].map(
+            <TableRow className="text-[#8897AE] bg-[#F9FAFB]">
+              {/* {["No", "Nama", "Bank", "Status Pembayaran", "Total"].map(
                 (text, i) => (
                   <TableHead
                     key={i}
@@ -111,7 +130,16 @@ export default function TableDetailPayroll({ payrollDetail, onDownload }) {
                     {text}
                   </TableHead>
                 )
-              )}
+              )} */}
+              <TableHead className="text-center">No</TableHead>
+              <TableHead className="text-center min-w-[150px] truncate">
+                Nama
+              </TableHead>
+              <TableHead className="text-center min-w-[120px]">Bank</TableHead>
+              <TableHead className="text-center min-w-[200px]">
+                Status Pembayaran
+              </TableHead>
+              <TableHead className="text-center min-w-[150px]">Total</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -144,8 +172,8 @@ export default function TableDetailPayroll({ payrollDetail, onDownload }) {
                 <TableCell colSpan={5} className="text-center py-8">
                   <p className="font-medium">
                     {searchTerm
-                      ? 'Tidak ada data yang cocok dengan pencarian.'
-                      : 'Belum ada data karyawan.'}
+                      ? "Tidak ada data yang cocok dengan pencarian."
+                      : "Belum ada data karyawan."}
                   </p>
                 </TableCell>
               </TableRow>
@@ -191,8 +219,8 @@ export default function TableDetailPayroll({ payrollDetail, onDownload }) {
                           onClick={() => setCurrentPage(page)}
                           className={`min-w-[32px] h-8 rounded-full ${
                             currentPage === page
-                              ? 'bg-[#5E718D] text-white hover:bg-[#5E718D]'
-                              : 'text-[#455468] bg-transparent hover:bg-[#5E718D] hover:text-white'
+                              ? "bg-[#5E718D] text-white hover:bg-[#5E718D]"
+                              : "text-[#455468] bg-transparent hover:bg-[#5E718D] hover:text-white"
                           }`}
                         >
                           {page}

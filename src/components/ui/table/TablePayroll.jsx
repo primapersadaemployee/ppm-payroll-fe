@@ -1,5 +1,7 @@
 import {
   Button,
+  Input,
+  InputIcon,
   LineProgress,
   LineProgressBar,
   LineProgressText,
@@ -12,12 +14,18 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from 'keep-react';
-import { CaretLeft, CaretRight, FunnelSimple, Plus } from 'phosphor-react';
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { format } from 'date-fns';
-import { id } from 'date-fns/locale';
+} from "keep-react";
+import {
+  CaretLeft,
+  CaretRight,
+  FunnelSimple,
+  MagnifyingGlass,
+  Plus,
+} from "phosphor-react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { format } from "date-fns";
+import { id } from "date-fns/locale";
 
 export default function TablePayroll({
   payrollData,
@@ -26,6 +34,7 @@ export default function TablePayroll({
   onMonthChange,
   onYearChange,
 }) {
+  const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
   const [filterDate, setFilterDate] = useState(
@@ -41,11 +50,18 @@ export default function TablePayroll({
 
   // Filter payroll data based on selected month and year
   const filteredData = payrollData.filter((payroll) => {
+    const matchesSearch = payroll.slip
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
     const payrollStartDate = new Date(payroll.startPeriode);
     const payrollMonth = payrollStartDate.getMonth(); // 0-11
     const payrollYear = payrollStartDate.getFullYear();
 
-    return payrollMonth === selectedMonth && payrollYear === selectedYear;
+    return (
+      payrollMonth === selectedMonth &&
+      payrollYear === selectedYear &&
+      matchesSearch
+    );
   });
 
   // Pagination
@@ -56,20 +72,25 @@ export default function TablePayroll({
     startIndex + itemsPerPage
   );
 
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+    setCurrentPage(1);
+  };
+
   const handleRowClick = (payrollId) => {
     navigate(`/payroll/detail/${payrollId}`);
   };
 
   const calculateProgressReadyToPay = (karyawan) => {
     const readyToPay = karyawan.filter(
-      (k) => k.statusPembayaran === 'Siap Bayar'
+      (k) => k.statusPembayaran === "Siap Bayar"
     ).length;
     return Math.round((readyToPay / karyawan.length) * 100);
   };
 
   const calculateProgressAlreadyPaid = (karyawan) => {
     const alreadyPaid = karyawan.filter(
-      (k) => k.statusPembayaran === 'Sudah Dibayar'
+      (k) => k.statusPembayaran === "Sudah Dibayar"
     ).length;
     return Math.round((alreadyPaid / karyawan.length) * 100);
   };
@@ -79,14 +100,27 @@ export default function TablePayroll({
       {/* Header dengan tombol dan filter */}
       <div className="flex flex-col xl:flex-row xl:items-center lg:justify-between gap-4 mb-6 px-4 lg:px-6">
         <h2 className="text-lg font-medium">Daftar Payroll</h2>
-        <div className="flex gap-2">
-          <Button
+        <div className="flex gap-2 items-center">
+          {/* <Button
             size="lg"
             className="flex items-center gap-2 whitespace-nowrap bg-primary hover:bg-primary/90 text-white"
           >
             <Plus size={16} />
             Tambah Slip Tidak Tetap
-          </Button>
+          </Button> */}
+          <fieldset className="relative w-full">
+            <Input
+              type="text"
+              placeholder="Cari"
+              name="search"
+              value={searchTerm}
+              onChange={handleSearchChange}
+              className="flex-1 ps-11"
+            />
+            <InputIcon>
+              <MagnifyingGlass size={19} color="#2d3643" weight="bold" />
+            </InputIcon>
+          </fieldset>
           <Popover>
             <PopoverAction asChild>
               <Button
@@ -111,18 +145,18 @@ export default function TablePayroll({
                     className="min-w-[120px] text-sm px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     {[
-                      'Januari',
-                      'Februari',
-                      'Maret',
-                      'April',
-                      'Mei',
-                      'Juni',
-                      'Juli',
-                      'Agustus',
-                      'September',
-                      'Oktober',
-                      'November',
-                      'Desember',
+                      "Januari",
+                      "Februari",
+                      "Maret",
+                      "April",
+                      "Mei",
+                      "Juni",
+                      "Juli",
+                      "Agustus",
+                      "September",
+                      "Oktober",
+                      "November",
+                      "Desember",
                     ].map((month, index) => (
                       <option key={index} value={index}>
                         {month}
@@ -156,22 +190,19 @@ export default function TablePayroll({
       <div className="overflow-x-auto">
         <Table className="w-full rounded-t-none">
           <TableHeader>
-            <TableRow>
-              {[
-                'No',
-                'Slip',
-                'Periode',
-                'Karyawan',
-                'Siap Bayar',
-                'Sudah Bayar',
-              ].map((text, i) => (
-                <TableHead
-                  key={i}
-                  className="text-[#8897AE] bg-[#F9FAFB] text-center"
-                >
-                  {text}
-                </TableHead>
-              ))}
+            <TableRow className="text-[#8897AE] bg-[#F9FAFB]">
+              <TableHead className="text-center">No</TableHead>
+              <TableHead className="text-center">Slip</TableHead>
+              <TableHead className="text-center min-w-[220px]">
+                Periode
+              </TableHead>
+              <TableHead className="text-center">Karyawan</TableHead>
+              <TableHead className="text-center min-w-[200px]">
+                Siap Bayar
+              </TableHead>
+              <TableHead className="text-center min-w-[200px]">
+                Sudah Bayar
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -197,9 +228,9 @@ export default function TablePayroll({
                       {payroll.slip}
                     </TableCell>
                     <TableCell className="text-center">
-                      {`${format(payroll.startPeriode, 'dd MMMM yyyy', {
+                      {`${format(payroll.startPeriode, "dd MMMM yyyy", {
                         locale: id,
-                      })} - ${format(payroll.endPeriode, 'dd MMMM yyyy', {
+                      })} - ${format(payroll.endPeriode, "dd MMMM yyyy", {
                         locale: id,
                       })}`}
                     </TableCell>
@@ -279,8 +310,8 @@ export default function TablePayroll({
                           onClick={() => setCurrentPage(page)}
                           className={`min-w-[32px] h-8 rounded-full ${
                             currentPage === page
-                              ? 'bg-[#5E718D] text-white hover:bg-[#5E718D]'
-                              : 'text-[#455468] bg-transparent hover:bg-[#5E718D] hover:text-white'
+                              ? "bg-[#5E718D] text-white hover:bg-[#5E718D]"
+                              : "text-[#455468] bg-transparent hover:bg-[#5E718D] hover:text-white"
                           }`}
                         >
                           {page}
