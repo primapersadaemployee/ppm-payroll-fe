@@ -110,4 +110,370 @@ const CompanyPolicyData = [
   },
 ];
 
-export { CompanyData, CompanyPolicyData };
+const SallarySlipData = [
+  {
+    id: 1,
+    nama: "THR",
+    periode: "Tidak Tetap",
+    lamaPeriode: "1 Bulanan",
+    absensiTerakhir: 0,
+    komponenPendapatan: [
+      {
+        id: 1,
+        nama: "THR",
+      },
+      {
+        id: 2,
+        nama: "Uang Lembur",
+      },
+    ],
+    komponenPemotongan: [
+      {
+        id: 1,
+        nama: "Koperasi",
+      },
+    ],
+  },
+  {
+    id: 2,
+    nama: "THR",
+    periode: "Tetap",
+    lamaPeriode: "1 Bulanan",
+    absensiTerakhir: 0,
+    komponenPendapatan: [
+      {
+        id: 1,
+        nama: "THR",
+      },
+      {
+        id: 2,
+        nama: "Uang Lembur",
+      },
+    ],
+    komponenPemotongan: [
+      {
+        id: 1,
+        nama: "Koperasi",
+      },
+    ],
+  },
+  {
+    id: 3,
+    nama: "Gaji Bulanan",
+    periode: "Tetap",
+    lamaPeriode: "1 Bulanan",
+    absensiTerakhir: 0,
+    komponenPendapatan: [
+      {
+        id: 1,
+        nama: "Gaji Bulanan",
+      },
+      {
+        id: 2,
+        nama: "Uang Lembur",
+      },
+    ],
+    komponenPemotongan: [
+      {
+        id: 1,
+        nama: "Koperasi",
+      },
+    ],
+  },
+  {
+    id: 4,
+    nama: "Gaji Bulanan",
+    periode: "Tetap",
+    lamaPeriode: "1 Bulanan",
+    absensiTerakhir: 0,
+    komponenPendapatan: [
+      {
+        id: 1,
+        nama: "Gaji Bulanan",
+      },
+      {
+        id: 2,
+        nama: "Uang Lembur",
+      },
+    ],
+    komponenPemotongan: [
+      {
+        id: 1,
+        nama: "Koperasi",
+      },
+    ],
+  },
+  {
+    id: 5,
+    nama: "Gaji Bulanan",
+    periode: "Tetap",
+    lamaPeriode: "1 Bulanan",
+    absensiTerakhir: 0,
+    komponenPendapatan: [
+      {
+        id: 1,
+        nama: "Gaji Bulanan",
+      },
+      {
+        id: 2,
+        nama: "Uang Lembur",
+      },
+    ],
+    komponenPemotongan: [
+      {
+        id: 1,
+        nama: "Koperasi",
+      },
+    ],
+  },
+  {
+    id: 6,
+    nama: "Gaji Bulanan",
+    periode: "Tetap",
+    lamaPeriode: "1 Bulanan",
+    absensiTerakhir: 0,
+    komponenPendapatan: [
+      {
+        id: 1,
+        nama: "Gaji Bulanan",
+      },
+      {
+        id: 2,
+        nama: "Uang Lembur",
+      },
+    ],
+    komponenPemotongan: [
+      {
+        id: 1,
+        nama: "Koperasi",
+      },
+    ],
+  },
+  {
+    id: 7,
+    nama: "Gaji Bulanan",
+    periode: "Tetap",
+    lamaPeriode: "1 Bulanan",
+    absensiTerakhir: 0,
+    komponenPendapatan: [
+      {
+        id: 1,
+        nama: "Gaji Bulanan",
+      },
+      {
+        id: 2,
+        nama: "Uang Lembur",
+      },
+    ],
+    komponenPemotongan: [
+      {
+        id: 1,
+        nama: "Koperasi",
+      },
+    ],
+  },
+  {
+    id: 8,
+    nama: "Gaji Bulanan",
+    periode: "Tetap",
+    lamaPeriode: "1 Bulanan",
+    absensiTerakhir: 0,
+    komponenPendapatan: [
+      {
+        id: 1,
+        nama: "Gaji Bulanan",
+      },
+      {
+        id: 2,
+        nama: "Uang Lembur",
+      },
+    ],
+    komponenPemotongan: [
+      {
+        id: 1,
+        nama: "Koperasi",
+      },
+    ],
+  },
+  {
+    id: 9,
+    nama: "Gaji Bulanan",
+    periode: "Tetap",
+    lamaPeriode: "1 Bulanan",
+    absensiTerakhir: 0,
+    komponenPendapatan: [
+      {
+        id: 1,
+        nama: "Gaji Bulanan",
+      },
+      {
+        id: 2,
+        nama: "Uang Lembur",
+      },
+    ],
+    komponenPemotongan: [
+      {
+        id: 1,
+        nama: "Koperasi",
+      },
+    ],
+  },
+  {
+    id: 10,
+    nama: "Gaji Bulanan",
+    periode: "Tetap",
+    lamaPeriode: "1 Bulanan",
+    absensiTerakhir: 0,
+    komponenPendapatan: [
+      {
+        id: 1,
+        nama: "Gaji Bulanan",
+      },
+      {
+        id: 2,
+        nama: "Uang Lembur",
+      },
+    ],
+    komponenPemotongan: [
+      {
+        id: 1,
+        nama: "Koperasi",
+      },
+    ],
+  },
+  {
+    id: 11,
+    nama: "Gaji Bulanan",
+    periode: "Tetap",
+    lamaPeriode: "1 Bulanan",
+    absensiTerakhir: 0,
+    komponenPendapatan: [
+      {
+        id: 1,
+        nama: "Gaji Bulanan",
+      },
+      {
+        id: 2,
+        nama: "Uang Lembur",
+      },
+    ],
+    komponenPemotongan: [
+      {
+        id: 1,
+        nama: "Koperasi",
+      },
+    ],
+  },
+  {
+    id: 12,
+    nama: "Gaji Bulanan",
+    periode: "Tetap",
+    lamaPeriode: "1 Bulanan",
+    absensiTerakhir: 0,
+    komponenPendapatan: [
+      {
+        id: 1,
+        nama: "Gaji Bulanan",
+      },
+      {
+        id: 2,
+        nama: "Uang Lembur",
+      },
+    ],
+    komponenPemotongan: [
+      {
+        id: 1,
+        nama: "Koperasi",
+      },
+    ],
+  },
+];
+
+const CompanyAccountData = [
+  {
+    id: 1,
+    nama: "Bank BCA",
+    norek: "2834123912",
+    pemegangRekening: "PT Prima Persada Multimedia",
+    kantorCabang: "Bandung",
+  },
+  {
+    id: 2,
+    nama: "Bank BCA",
+    norek: "2834123912",
+    pemegangRekening: "PT Prima Persada Multimedia",
+    kantorCabang: "Bandung",
+  },
+  {
+    id: 3,
+    nama: "Bank BCA",
+    norek: "2834123912",
+    pemegangRekening: "PT Prima Persada Multimedia",
+    kantorCabang: "Bandung",
+  },
+  {
+    id: 4,
+    nama: "Bank BCA",
+    norek: "2834123912",
+    pemegangRekening: "PT Prima Persada Multimedia",
+    kantorCabang: "Bandung",
+  },
+  {
+    id: 5,
+    nama: "Bank BCA",
+    norek: "2834123912",
+    pemegangRekening: "PT Prima Persada Multimedia",
+    kantorCabang: "Bandung",
+  },
+  {
+    id: 6,
+    nama: "Bank BCA",
+    norek: "2834123912",
+    pemegangRekening: "PT Prima Persada Multimedia",
+    kantorCabang: "Bandung",
+  },
+  {
+    id: 7,
+    nama: "Bank BCA",
+    norek: "2834123912",
+    pemegangRekening: "PT Prima Persada Multimedia",
+    kantorCabang: "Bandung",
+  },
+  {
+    id: 8,
+    nama: "Bank BCA",
+    norek: "2834123912",
+    pemegangRekening: "PT Prima Persada Multimedia",
+    kantorCabang: "Bandung",
+  },
+  {
+    id: 9,
+    nama: "Bank BCA",
+    norek: "2834123912",
+    pemegangRekening: "PT Prima Persada Multimedia",
+    kantorCabang: "Bandung",
+  },
+  {
+    id: 10,
+    nama: "Bank BCA",
+    norek: "2834123912",
+    pemegangRekening: "PT Prima Persada Multimedia",
+    kantorCabang: "Bandung",
+  },
+  {
+    id: 11,
+    nama: "Bank BNI",
+    norek: "2834123912",
+    pemegangRekening: "PT Prima Persada Multimedia",
+    kantorCabang: "Bandung",
+  },
+  {
+    id: 12,
+    nama: "Bank Mandiri",
+    norek: "2834123912",
+    pemegangRekening: "PT Prima Persada Multimedia",
+    kantorCabang: "Bandung",
+  },
+];
+
+export { CompanyData, CompanyPolicyData, SallarySlipData, CompanyAccountData };
