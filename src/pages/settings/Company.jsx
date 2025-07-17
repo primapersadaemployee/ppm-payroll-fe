@@ -21,7 +21,9 @@ export default function Company() {
               <span>/</span>
               <span className="font-medium">Setting</span>
               <span>/</span>
-              <span>Info Perusahaan</span>
+              <span>
+                {option === 1 ? "Info Perusahaan" : "Peraturan Perusahaan"}
+              </span>
             </div>
           </nav>
 

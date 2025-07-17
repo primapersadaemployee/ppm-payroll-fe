@@ -11,4 +11,103 @@ const CompanyData = {
   npwpPerusahaan: "12983791293891",
 };
 
-export { CompanyData };
+const CompanyPolicyData = [
+  {
+    id: 1,
+    judul: "Peraturan Dummy",
+    isi: "Isi Peraturan",
+    lampiran: "Lampiran Peraturan",
+    lampiranUrl:
+      "https://dishub.malangkota.go.id/wp-content/uploads/sites/16/2016/05/BUKU-PETUNJUK-TATA-CARA-BERLALU-LINTAS-highwaycode-Di-Indonesia.pdf",
+  },
+  {
+    id: 2,
+    judul: "Peraturan Dummy",
+    isi: "Isi Peraturan",
+    lampiran: "Lampiran Peraturan",
+    lampiranUrl:
+      "https://dishub.malangkota.go.id/wp-content/uploads/sites/16/2016/05/BUKU-PETUNJUK-TATA-CARA-BERLALU-LINTAS-highwaycode-Di-Indonesia.pdf",
+  },
+  {
+    id: 3,
+    judul: "Peraturan Dummy",
+    isi: "Isi Peraturan",
+    lampiran: "Lampiran Peraturan",
+    lampiranUrl:
+      "https://dishub.malangkota.go.id/wp-content/uploads/sites/16/2016/05/BUKU-PETUNJUK-TATA-CARA-BERLALU-LINTAS-highwaycode-Di-Indonesia.pdf",
+  },
+  {
+    id: 4,
+    judul: "Peraturan Dummy",
+    isi: "Isi Peraturan",
+    lampiran: "Lampiran Peraturan",
+    lampiranUrl:
+      "https://dishub.malangkota.go.id/wp-content/uploads/sites/16/2016/05/BUKU-PETUNJUK-TATA-CARA-BERLALU-LINTAS-highwaycode-Di-Indonesia.pdf",
+  },
+  {
+    id: 5,
+    judul: "Peraturan Dummy",
+    isi: "Isi Peraturan",
+    lampiran: "Lampiran Peraturan",
+    lampiranUrl:
+      "https://dishub.malangkota.go.id/wp-content/uploads/sites/16/2016/05/BUKU-PETUNJUK-TATA-CARA-BERLALU-LINTAS-highwaycode-Di-Indonesia.pdf",
+  },
+  {
+    id: 6,
+    judul: "Peraturan Dummy",
+    isi: "Isi Peraturan",
+    lampiran: "Lampiran Peraturan",
+    lampiranUrl:
+      "https://dishub.malangkota.go.id/wp-content/uploads/sites/16/2016/05/BUKU-PETUNJUK-TATA-CARA-BERLALU-LINTAS-highwaycode-Di-Indonesia.pdf",
+  },
+  {
+    id: 7,
+    judul: "Peraturan Dummy",
+    isi: "Isi Peraturan",
+    lampiran: "Lampiran Peraturan",
+    lampiranUrl:
+      "https://dishub.malangkota.go.id/wp-content/uploads/sites/16/2016/05/BUKU-PETUNJUK-TATA-CARA-BERLALU-LINTAS-highwaycode-Di-Indonesia.pdf",
+  },
+  {
+    id: 8,
+    judul: "Peraturan Dummy",
+    isi: "Isi Peraturan",
+    lampiran: "Lampiran Peraturan",
+    lampiranUrl:
+      "https://dishub.malangkota.go.id/wp-content/uploads/sites/16/2016/05/BUKU-PETUNJUK-TATA-CARA-BERLALU-LINTAS-highwaycode-Di-Indonesia.pdf",
+  },
+  {
+    id: 9,
+    judul: "Peraturan Dummy",
+    isi: "Isi Peraturan",
+    lampiran: "Lampiran Peraturan",
+    lampiranUrl:
+      "https://dishub.malangkota.go.id/wp-content/uploads/sites/16/2016/05/BUKU-PETUNJUK-TATA-CARA-BERLALU-LINTAS-highwaycode-Di-Indonesia.pdf",
+  },
+  {
+    id: 10,
+    judul: "Peraturan Dummy",
+    isi: "Isi Peraturan",
+    lampiran: "Lampiran Peraturan",
+    lampiranUrl:
+      "https://dishub.malangkota.go.id/wp-content/uploads/sites/16/2016/05/BUKU-PETUNJUK-TATA-CARA-BERLALU-LINTAS-highwaycode-Di-Indonesia.pdf",
+  },
+  {
+    id: 11,
+    judul: "Peraturan Dummy",
+    isi: "Isi Peraturan",
+    lampiran: "Lampiran Peraturan",
+    lampiranUrl:
+      "https://dishub.malangkota.go.id/wp-content/uploads/sites/16/2016/05/BUKU-PETUNJUK-TATA-CARA-BERLALU-LINTAS-highwaycode-Di-Indonesia.pdf",
+  },
+  {
+    id: 12,
+    judul: "Peraturan Dummy",
+    isi: "Isi Peraturan",
+    lampiran: "Lampiran Peraturan",
+    lampiranUrl:
+      "https://dishub.malangkota.go.id/wp-content/uploads/sites/16/2016/05/BUKU-PETUNJUK-TATA-CARA-BERLALU-LINTAS-highwaycode-Di-Indonesia.pdf",
+  },
+];
+
+export { CompanyData, CompanyPolicyData };
