@@ -19,6 +19,7 @@ import PayrollSetting from "./pages/settings/PayrollSetting";
 import ScheduleSetting from "./pages/settings/ScheduleSetting";
 import Overtime from "./pages/settings/Overtime";
 import AttendanceLocation from "./pages/settings/AttendanceLocation";
+import Profile from "./pages/settings/Profile";
 
 export default function App() {
   return (
@@ -44,6 +45,7 @@ export default function App() {
         path="/settings/attendance-location"
         element={<AttendanceLocation />}
       />
+      <Route path="/settings/profile" element={<Profile />} />
 
       {/* Auth */}
       <Route path="/login" element={<Login />} />

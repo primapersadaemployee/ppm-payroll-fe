@@ -797,6 +797,20 @@ const AttendanceLocationData = [
   },
 ];
 
+const ProfileData = {
+  id: 1,
+  nama: "Jakir Hoosen",
+  status: "Tetap Permanen",
+  divisi: "HRD",
+  email: "jakirhoosen@gmail.com",
+  noHp: "0897213712371",
+  images:
+    "https://upload.wikimedia.org/wikipedia/id/0/0d/Logo_Persib_Bandung.png",
+  passwordLama: "",
+  passwordBaru: "",
+  konfPasswordBaru: "",
+};
+
 export {
   CompanyData,
   CompanyPolicyData,
@@ -805,4 +819,5 @@ export {
   WorkScheduleData,
   OvertimeData,
   AttendanceLocationData,
+  ProfileData,
 };
