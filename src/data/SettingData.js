@@ -662,6 +662,141 @@ const OvertimeData = [
   },
 ];
 
+const AttendanceLocationData = [
+  {
+    id: 1,
+    nama: "PT Prima Persada Multimedia",
+    alamat:
+      "Jl. Cibodas Raya No.15, Antapani Tengah, Kec. Antapani, Kota Bandung, Jawa Barat 40291, Indonesia",
+    latitude: -6.926241030729703,
+    longitude: 107.66526730009933,
+    penempatanKaryawan: 2,
+    radius: 1000,
+    ip: "38.0.101.76",
+  },
+  {
+    id: 2,
+    nama: "PT Prima Persada Multimedia",
+    alamat:
+      "Jl. Cibodas Raya No.15, Antapani Tengah, Kec. Antapani, Kota Bandung, Jawa Barat 40291, Indonesia",
+    latitude: -6.926241030729703,
+    longitude: 107.66526730009933,
+    penempatanKaryawan: 2,
+    radius: 1000,
+    ip: "38.0.101.76",
+  },
+  {
+    id: 3,
+    nama: "PT Prima Persada Multimedia",
+    alamat:
+      "Jl. Cibodas Raya No.15, Antapani Tengah, Kec. Antapani, Kota Bandung, Jawa Barat 40291, Indonesia",
+    latitude: -6.926241030729703,
+    longitude: 107.66526730009933,
+    penempatanKaryawan: 2,
+    radius: 1000,
+    ip: "38.0.101.76",
+  },
+  {
+    id: 4,
+    nama: "PT Prima Persada Multimedia",
+    alamat:
+      "Jl. Cibodas Raya No.15, Antapani Tengah, Kec. Antapani, Kota Bandung, Jawa Barat 40291, Indonesia",
+    latitude: -6.926241030729703,
+    longitude: 107.66526730009933,
+    penempatanKaryawan: 2,
+    radius: 1000,
+    ip: "38.0.101.76",
+  },
+  {
+    id: 5,
+    nama: "PT Prima Persada Multimedia",
+    alamat:
+      "Jl. Cibodas Raya No.15, Antapani Tengah, Kec. Antapani, Kota Bandung, Jawa Barat 40291, Indonesia",
+    latitude: -6.926241030729703,
+    longitude: 107.66526730009933,
+    penempatanKaryawan: 2,
+    radius: 1000,
+    ip: "38.0.101.76",
+  },
+  {
+    id: 6,
+    nama: "PT Prima Persada Multimedia",
+    alamat:
+      "Jl. Cibodas Raya No.15, Antapani Tengah, Kec. Antapani, Kota Bandung, Jawa Barat 40291, Indonesia",
+    latitude: -6.926241030729703,
+    longitude: 107.66526730009933,
+    penempatanKaryawan: 2,
+    radius: 1000,
+    ip: "38.0.101.76",
+  },
+  {
+    id: 7,
+    nama: "PT Prima Persada Multimedia",
+    alamat:
+      "Jl. Cibodas Raya No.15, Antapani Tengah, Kec. Antapani, Kota Bandung, Jawa Barat 40291, Indonesia",
+    latitude: -6.926241030729703,
+    longitude: 107.66526730009933,
+    penempatanKaryawan: 2,
+    radius: 1000,
+    ip: "38.0.101.76",
+  },
+  {
+    id: 8,
+    nama: "PT Prima Persada Multimedia",
+    alamat:
+      "Jl. Cibodas Raya No.15, Antapani Tengah, Kec. Antapani, Kota Bandung, Jawa Barat 40291, Indonesia",
+    latitude: -6.926241030729703,
+    longitude: 107.66526730009933,
+    penempatanKaryawan: 2,
+    radius: 1000,
+    ip: "38.0.101.76",
+  },
+  {
+    id: 9,
+    nama: "PT Prima Persada Multimedia",
+    alamat:
+      "Jl. Cibodas Raya No.15, Antapani Tengah, Kec. Antapani, Kota Bandung, Jawa Barat 40291, Indonesia",
+    latitude: -6.926241030729703,
+    longitude: 107.66526730009933,
+    penempatanKaryawan: 2,
+    radius: 1000,
+    ip: "38.0.101.76",
+  },
+  {
+    id: 10,
+    nama: "PT Prima Persada Multimedia",
+    alamat:
+      "Jl. Cibodas Raya No.15, Antapani Tengah, Kec. Antapani, Kota Bandung, Jawa Barat 40291, Indonesia",
+    latitude: -6.926241030729703,
+    longitude: 107.66526730009933,
+    penempatanKaryawan: 2,
+    radius: 1000,
+    ip: "38.0.101.76",
+  },
+  {
+    id: 11,
+    nama: "PT Prima Persada Multimedia",
+    alamat:
+      "Jl. Cibodas Raya No.15, Antapani Tengah, Kec. Antapani, Kota Bandung, Jawa Barat 40291, Indonesia",
+    latitude: -6.926241030729703,
+    longitude: 107.66526730009933,
+    penempatanKaryawan: 2,
+    radius: 1000,
+    ip: "38.0.101.76",
+  },
+  {
+    id: 12,
+    nama: "PT Prima Persada Multimedia",
+    alamat:
+      "Jl. Cibodas Raya No.15, Antapani Tengah, Kec. Antapani, Kota Bandung, Jawa Barat 40291, Indonesia",
+    latitude: -6.926241030729703,
+    longitude: 107.66526730009933,
+    penempatanKaryawan: 2,
+    radius: 1000,
+    ip: "38.0.101.76",
+  },
+];
+
 export {
   CompanyData,
   CompanyPolicyData,
@@ -669,4 +804,5 @@ export {
   CompanyAccountData,
   WorkScheduleData,
   OvertimeData,
+  AttendanceLocationData,
 };

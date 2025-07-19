@@ -18,6 +18,7 @@ import Company from "./pages/settings/Company";
 import PayrollSetting from "./pages/settings/PayrollSetting";
 import ScheduleSetting from "./pages/settings/ScheduleSetting";
 import Overtime from "./pages/settings/Overtime";
+import AttendanceLocation from "./pages/settings/AttendanceLocation";
 
 export default function App() {
   return (
@@ -39,6 +40,10 @@ export default function App() {
       <Route path="/settings/payroll" element={<PayrollSetting />} />
       <Route path="/settings/schedule" element={<ScheduleSetting />} />
       <Route path="/settings/overtime" element={<Overtime />} />
+      <Route
+        path="/settings/attendance-location"
+        element={<AttendanceLocation />}
+      />
 
       {/* Auth */}
       <Route path="/login" element={<Login />} />
