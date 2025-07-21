@@ -20,6 +20,8 @@ import ScheduleSetting from "./pages/settings/ScheduleSetting";
 import Overtime from "./pages/settings/Overtime";
 import AttendanceLocation from "./pages/settings/AttendanceLocation";
 import Profile from "./pages/settings/Profile";
+import Faqs from "./pages/faqs/Faqs";
+import CategoryFaqs from "./pages/faqs/CategoryFaqs";
 
 export default function App() {
   return (
@@ -46,6 +48,8 @@ export default function App() {
         element={<AttendanceLocation />}
       />
       <Route path="/settings/profile" element={<Profile />} />
+      <Route path="/faqs" element={<Faqs />} />
+      <Route path="/faqs/category/:id" element={<CategoryFaqs />} />
 
       {/* Auth */}
       <Route path="/login" element={<Login />} />
