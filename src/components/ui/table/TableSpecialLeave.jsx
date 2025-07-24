@@ -24,7 +24,7 @@ import { useEditSpecialLeaveStore } from "../../../store/presence/EditSpecialLea
 import EditSpecialLeaveModal from "../modal/EditSpecialLeaveModal";
 import { format } from "date-fns";
 import AddSpecialLeaveModal from "../modal/AddSpecialLeaveModal";
-import ConfirmModal from "../modal/ConfirmModal";
+import ConfirmModal from "../modal/common/ConfirmModal";
 
 export default function TableSpecialLeave() {
   const [searchTerm, setSearchTerm] = useState("");

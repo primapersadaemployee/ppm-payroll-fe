@@ -21,7 +21,7 @@ import { CompanyAccountData } from "../../../data/SettingData";
 import FilterDropdown from "../dropdown/FilterDropdown";
 import { useAddCompanyAccountStore } from "../../../store/settings/AddCompanyAccountStore";
 import AddCompanyAccountModal from "../modal/AddCompanyAccountModal";
-import ConfirmModal from "../modal/ConfirmModal";
+import ConfirmModal from "../modal/common/ConfirmModal";
 import EditCompanyAccountModal from "../modal/EditCompanyAccountModal";
 import { useEditCompanyAccountStore } from "../../../store/settings/EditCompanyAccountStore";
 

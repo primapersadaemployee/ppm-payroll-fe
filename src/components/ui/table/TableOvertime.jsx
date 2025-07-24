@@ -21,7 +21,7 @@ import { OvertimeData } from "../../../data/SettingData";
 import FilterDropdown from "../dropdown/FilterDropdown";
 import { useAddOvertimeStore } from "../../../store/settings/AddOvertimeStore";
 import AddOvertimeModal from "../modal/AddOvertimeModal";
-import ConfirmModal from "../modal/ConfirmModal";
+import ConfirmModal from "../modal/common/ConfirmModal";
 import EditOvertimeModal from "../modal/EditOvertimeModal";
 import { useEditOvertimeStore } from "../../../store/settings/EditOvertimeStore";
 

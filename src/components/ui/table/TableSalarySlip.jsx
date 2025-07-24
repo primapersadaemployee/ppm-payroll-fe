@@ -21,7 +21,7 @@ import { SallarySlipData } from "../../../data/SettingData";
 import FilterDropdown from "../dropdown/FilterDropdown";
 import { useAddSalarySlipStore } from "../../../store/settings/AddSalarySlipStore";
 import AddSalarySlipModal from "../modal/AddSalarySlipModal";
-import ConfirmModal from "../modal/ConfirmModal";
+import ConfirmModal from "../modal/common/ConfirmModal";
 import EditSalarySlipModal from "../modal/EditSalarySlipModal";
 import { useEditSalarySlipStore } from "../../../store/settings/EditSalarySlipStore";
 

@@ -5,7 +5,7 @@ import { Button } from "keep-react";
 import AddPayrollEmployeeModal from "../modal/AddPayrollEmployeeModal";
 import { useAddPayrollEmployeStore } from "../../../store/employee/AddPayrollEmployeStore";
 import { format } from "date-fns";
-import ConfirmModal from "../modal/ConfirmModal";
+import ConfirmModal from "../modal/common/ConfirmModal";
 
 export default function DetailEmployeePayroll({ karyawan }) {
   const payroll = karyawan?.payroll[0];

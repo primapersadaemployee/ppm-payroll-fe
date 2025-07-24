@@ -22,7 +22,7 @@ import { format, getDaysInMonth, startOfMonth, addDays } from "date-fns";
 import { id as idLocale } from "date-fns/locale";
 import EditPresenceModal from "../modal/EditPresenceModal";
 import { useEditPresenceStore } from "../../../store/presence/EditPresenceStore";
-import ConfirmModal from "../modal/ConfirmModal";
+import ConfirmModal from "../modal/common/ConfirmModal";
 
 export default function TablePresence({ attendanceData }) {
   const today = new Date();

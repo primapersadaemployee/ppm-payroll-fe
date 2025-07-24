@@ -3,7 +3,7 @@ import { CompanyData } from "../../../data/SettingData";
 import { Button } from "keep-react";
 import { useEditCompanyStore } from "../../../store/settings/EditCompanyStore";
 import EditCompanyModal from "../modal/EditCompanyModal";
-import ConfirmModal from "../modal/ConfirmModal";
+import ConfirmModal from "../modal/common/ConfirmModal";
 
 export default function DetailCompany() {
   const [company, setCompany] = useState({});

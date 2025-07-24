@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { ProfileData } from "../../data/SettingData";
 import { Badge, Button } from "keep-react";
 import EditProfileModal from "../../components/ui/modal/EditProfileModal";
-import ConfirmModal from "../../components/ui/modal/ConfirmModal";
+import ConfirmModal from "../../components/ui/modal/common/ConfirmModal";
 import { useEditProfileStore } from "../../store/settings/EditProfileStore";
 import EditPasswordModal from "../../components/ui/modal/EditPasswordModal";
 

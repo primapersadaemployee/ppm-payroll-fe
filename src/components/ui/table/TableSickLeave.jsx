@@ -24,7 +24,7 @@ import { useEditSickLeaveStore } from "../../../store/presence/EditSickLeaveStor
 import EditSickLeaveModal from "../modal/EditSickLeaveModal";
 import { format } from "date-fns";
 import AddSickLeaveModal from "../modal/AddSickLeaveModal";
-import ConfirmModal from "../modal/ConfirmModal";
+import ConfirmModal from "../modal/common/ConfirmModal";
 
 export default function TableSickLeave() {
   const [searchTerm, setSearchTerm] = useState("");

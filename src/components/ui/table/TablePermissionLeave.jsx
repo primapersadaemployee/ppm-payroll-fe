@@ -24,7 +24,7 @@ import { useEditPermissionLeaveStore } from "../../../store/presence/EditPermiss
 import EditPermissionLeaveModal from "../modal/EditPermissionLeaveModal";
 import { format } from "date-fns";
 import AddPermissionLeaveModal from "../modal/AddPermissionLeaveModal";
-import ConfirmModal from "../modal/ConfirmModal";
+import ConfirmModal from "../modal/common/ConfirmModal";
 
 export default function TablePermissionLeave() {
   const [searchTerm, setSearchTerm] = useState("");

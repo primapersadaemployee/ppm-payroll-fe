@@ -22,7 +22,7 @@ import PDFIcon from "/icon-pdf.png";
 import { Link } from "react-router-dom";
 import { useAddCompanyPolicyStore } from "../../../store/settings/AddCompanyPolicyStore";
 import AddCompanyPolicyModal from "../modal/AddCompanyPolicyModal";
-import ConfirmModal from "../modal/ConfirmModal";
+import ConfirmModal from "../modal/common/ConfirmModal";
 import EditCompanyPolicyModal from "../modal/EditCompanyPolicyModal";
 import { useEditCompanyPolicyStore } from "../../../store/settings/EditCompanyPolicyStore";
 

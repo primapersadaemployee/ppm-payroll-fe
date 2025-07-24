@@ -24,7 +24,7 @@ import { useEditUnpaidLeaveStore } from "../../../store/presence/EditUnpaidLeave
 import EditUnpaidLeaveModal from "../modal/EditUnpaidLeaveModal";
 import { format } from "date-fns";
 import AddUnpaidLeaveModal from "../modal/AddUnpaidLeaveModal";
-import ConfirmModal from "../modal/ConfirmModal";
+import ConfirmModal from "../modal/common/ConfirmModal";
 
 export default function TableUnpaidLeave() {
   const [searchTerm, setSearchTerm] = useState("");

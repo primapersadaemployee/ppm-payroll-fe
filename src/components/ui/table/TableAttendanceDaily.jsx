@@ -9,7 +9,7 @@ import {
 } from "keep-react";
 import { CaretLeft, CaretRight, NotePencil } from "phosphor-react";
 import EditAttendanceDailyModal from "../modal/EditAttendanceDailyModal";
-import ConfirmModal from "../modal/ConfirmModal";
+import ConfirmModal from "../modal/common/ConfirmModal";
 import { useEditAttendanceDailyStore } from "../../../store/employee/EditAttendanceDailyStore";
 import { format } from "date-fns";
 

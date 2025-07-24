@@ -19,7 +19,7 @@ import {
 import { useState } from "react";
 import { AttendanceLocationData } from "../../../data/SettingData";
 import { useAddAttendanceLocationStore } from "../../../store/settings/AddAttendanceLocationStore";
-import ConfirmModal from "../modal/ConfirmModal";
+import ConfirmModal from "../modal/common/ConfirmModal";
 import AddAttendanceLocationModal from "../modal/AddAttendanceLocationModal";
 import { useEditAttendanceLocationStore } from "../../../store/settings/EditAttendanceLocationStore";
 import EditAttendanceLocationModal from "../modal/EditAttendanceLocationModal";

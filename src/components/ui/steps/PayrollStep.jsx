@@ -4,7 +4,7 @@ import InputDate from "../input/InputDate";
 import TableBankAccount from "../table/TableBankAccount";
 import { useAddEmployeeStore } from "../../../store/employee/AddEmployeStore";
 import AddBankAccountModal from "../modal/AddBankAccountModal";
-import ConfirmModal from "../modal/ConfirmModal";
+import ConfirmModal from "../modal/common/ConfirmModal";
 
 export default function PayrollStep() {
   const {

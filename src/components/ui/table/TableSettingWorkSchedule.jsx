@@ -21,7 +21,7 @@ import { WorkScheduleData } from "../../../data/SettingData";
 import FilterDropdown from "../dropdown/FilterDropdown";
 import { useAddWorkScheduleStore } from "../../../store/settings/AddWorkScheduleStore";
 import AddWorkScheduleModal from "../modal/AddWorkScheduleModal";
-import ConfirmModal from "../modal/ConfirmModal";
+import ConfirmModal from "../modal/common/ConfirmModal";
 import EditWorkScheduleModal from "../modal/EditWorkScheduleModal";
 import { useEditWorkScheduleStore } from "../../../store/settings/EditWorkScheduleStore";
 import { format } from "date-fns";

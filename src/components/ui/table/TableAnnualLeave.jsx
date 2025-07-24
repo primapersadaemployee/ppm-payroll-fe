@@ -24,7 +24,7 @@ import { useEditAnnualLeaveStore } from "../../../store/presence/EditAnnualLeave
 import EditAnnualLeaveModal from "../modal/EditAnnualLeaveModal";
 import { format } from "date-fns";
 import AddAnnualLeaveModal from "../modal/AddAnnualLeaveModal";
-import ConfirmModal from "../modal/ConfirmModal";
+import ConfirmModal from "../modal/common/ConfirmModal";
 
 export default function TableAnnualLeave() {
   const [searchTerm, setSearchTerm] = useState("");

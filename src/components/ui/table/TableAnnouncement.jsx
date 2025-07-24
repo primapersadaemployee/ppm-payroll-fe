@@ -17,7 +17,7 @@ import FilterDropdown from "../dropdown/FilterDropdown";
 import { useAddAnnouncementStore } from "../../../store/announcement/AddAnnouncementStore";
 import { format } from "date-fns";
 import AddAnnouncementModal from "../modal/AddAnnouncementModal";
-import ConfirmModal from "../modal/ConfirmModal";
+import ConfirmModal from "../modal/common/ConfirmModal";
 import { id } from "date-fns/locale";
 
 export default function TableAnnouncement() {
