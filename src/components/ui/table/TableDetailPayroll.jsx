@@ -3,9 +3,6 @@ import {
   Button,
   Input,
   InputIcon,
-  Popover,
-  PopoverAction,
-  PopoverContent,
   Table,
   TableBody,
   TableCell,
@@ -16,56 +13,43 @@ import {
 import {
   CaretLeft,
   CaretRight,
-  FunnelSimple,
   DownloadSimple,
   MagnifyingGlass,
 } from "phosphor-react";
-import { useState } from "react";
 import FilterDropdown from "../dropdown/FilterDropdown";
+import { useTableFeatures } from "../../../hooks/useTableFeatures";
 
 export default function TableDetailPayroll({ payrollDetail, onDownload }) {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [selectedStatus, setSelectedStatus] = useState("Semua Status");
-  const [searchTerm, setSearchTerm] = useState("");
-  const itemsPerPage = 10;
+  const filterConfig = [
+    {
+      name: "status",
+      key: "statusPembayaran",
+      defaultValue: "Semua Status",
+      keys: ["name", "bank"],
+    },
+  ];
+
+  const {
+    currentPage,
+    itemsPerPage,
+    setCurrentPage,
+    searchTerm,
+    handleSearchChange,
+    filters,
+    handleFilterChange,
+    paginatedData,
+    totalPages,
+  } = useTableFeatures({
+    initialData: payrollDetail,
+    filterConfig,
+  });
 
   const statuses = [
     "Semua Status",
     "Sudah Dibayar",
-    "Siap Bayar",
     "Belum Siap",
+    "Siap Bayar",
   ];
-
-  // Filter data based on search term
-  const filteredKaryawan = payrollDetail.karyawan.filter((employee) => {
-    const matchesSearch = employee.name
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-
-    const matchesStatus =
-      selectedStatus === "Semua Status" ||
-      employee.statusPembayaran === selectedStatus;
-
-    return matchesSearch && matchesStatus;
-  });
-
-  // Pagination
-  const totalPages = Math.ceil(filteredKaryawan.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedData = filteredKaryawan.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
-
-  const handleFilterChange = (setter) => (value) => {
-    setter(value);
-    setCurrentPage(1);
-  };
-
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-    setCurrentPage(1);
-  };
 
   const getStatusBadge = (status) => {
     switch (status) {
@@ -108,9 +92,9 @@ export default function TableDetailPayroll({ payrollDetail, onDownload }) {
               </InputIcon>
             </fieldset>
             <FilterDropdown
-              value={selectedStatus}
+              value={filters.status}
               options={statuses}
-              onChange={handleFilterChange(setSelectedStatus)}
+              onChange={handleFilterChange("status")}
             />
           </div>
         </div>

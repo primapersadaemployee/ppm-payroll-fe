@@ -1,11 +1,9 @@
-import { useParams } from 'react-router-dom';
-import NotificationDashboard from '../../components/ui/notification/NotificationDashboard';
-import { CurrencyCircleDollar } from 'phosphor-react';
-import { SidebarComponent } from '../../components/layout/Sidebar';
-import TableDetailPayroll from '../../components/ui/table/TableDetailPayroll';
-import { PayrollData } from '../../data/PayrollData';
-import { Button } from 'keep-react';
-import { DownloadSimple } from 'phosphor-react';
+import { useParams } from "react-router-dom";
+import NotificationDashboard from "../../components/ui/notification/NotificationDashboard";
+import { CurrencyCircleDollar } from "phosphor-react";
+import { SidebarComponent } from "../../components/layout/Sidebar";
+import TableDetailPayroll from "../../components/ui/table/TableDetailPayroll";
+import { PayrollData } from "../../data/PayrollData";
 
 export default function DetailPayroll() {
   const { id } = useParams();
@@ -29,15 +27,15 @@ export default function DetailPayroll() {
   }
 
   const formatDateRange = (startDate, endDate) => {
-    const start = new Date(startDate).toLocaleDateString('id-ID', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
+    const start = new Date(startDate).toLocaleDateString("id-ID", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
     });
-    const end = new Date(endDate).toLocaleDateString('id-ID', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
+    const end = new Date(endDate).toLocaleDateString("id-ID", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
     });
     return `${start} - ${end}`;
   };
@@ -78,10 +76,10 @@ export default function DetailPayroll() {
           {/* Main Content */}
           <div className="w-full bg-white overflow-auto">
             <TableDetailPayroll
-              payrollDetail={payrollDetail}
+              payrollDetail={payrollDetail.karyawan}
               onDownload={() => {
                 // Handle download functionality
-                console.log('Download slip gaji massal');
+                console.log("Download slip gaji massal");
               }}
             />
           </div>

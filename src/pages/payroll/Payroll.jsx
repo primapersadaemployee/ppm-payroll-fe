@@ -1,17 +1,38 @@
-import { useState } from "react";
+import { useMemo } from "react";
 import NotificationDashboard from "../../components/ui/notification/NotificationDashboard";
 import { CurrencyCircleDollar } from "phosphor-react";
 import { SidebarComponent } from "../../components/layout/Sidebar";
 import TablePayroll from "../../components/ui/table/TablePayroll";
 import { PayrollData } from "../../data/PayrollData";
+import { useTableFeatures } from "../../hooks/useTableFeatures";
 
 export default function Payroll() {
-  const currentDate = new Date();
-  const [selectedMonth, setSelectedMonth] = useState(currentDate.getMonth());
-  const [selectedYear, setSelectedYear] = useState(currentDate.getFullYear());
+  const {
+    paginatedData,
+    itemsPerPage,
+    currentPage,
+    setCurrentPage,
+    totalPages,
+    searchTerm,
+    handleSearchChange,
+    selectedMonth,
+    selectedYear,
+    handleMonthChange,
+    handleYearChange,
+  } = useTableFeatures({
+    initialData: PayrollData,
+    filterConfig: [
+      {
+        name: "search",
+        keys: ["slip"],
+      },
+    ],
+    monthFilterKey: "startPeriode",
+    yearFilterKey: "startPeriode",
+  });
 
   // Fungsi untuk menghasilkan daftar bulan berdasarkan tahun
-  const generateMonths = (year) => {
+  const months = useMemo(() => {
     const monthNames = [
       "Januari",
       "Februari",
@@ -29,19 +50,9 @@ export default function Payroll() {
     return monthNames.map((name, index) => ({
       id: index,
       name,
-      year: year.toString(),
+      year: selectedYear.toString(),
     }));
-  };
-
-  const handleMonthChange = (monthIndex) => {
-    setSelectedMonth(monthIndex);
-  };
-
-  const handleYearChange = (year) => {
-    setSelectedYear(year);
-  };
-
-  const months = generateMonths(selectedYear);
+  }, [selectedYear]);
 
   return (
     <div className="flex gap-2 lg:gap-4 font-poppins p-2 lg:p-4 min-h-screen text-[#455468]">
@@ -90,7 +101,13 @@ export default function Payroll() {
           {/* Main Content */}
           <div className="w-full bg-white overflow-auto">
             <TablePayroll
-              payrollData={PayrollData}
+              paginatedData={paginatedData}
+              itemsPerPage={itemsPerPage}
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={setCurrentPage}
+              searchTerm={searchTerm}
+              onSearchChange={handleSearchChange}
               selectedMonth={selectedMonth}
               selectedYear={selectedYear}
               onMonthChange={handleMonthChange}

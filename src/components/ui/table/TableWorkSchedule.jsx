@@ -10,15 +10,33 @@ import {
   TableRow,
 } from "keep-react";
 import { CaretLeft, CaretRight, MagnifyingGlass } from "phosphor-react";
-import { useState } from "react";
 import FilterDropdown from "../dropdown/FilterDropdown";
+import { useTableFeatures } from "../../../hooks/useTableFeatures";
 
 export default function TableWorkSchedule({ attendanceData }) {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedOrganitation, setSelectedOrganitation] =
-    useState("Semua Organisasi");
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const filterConfig = [
+    {
+      name: "organitation",
+      key: "organisasi",
+      defaultValue: "Semua Organisasi",
+      keys: ["nama", "jabatan", "pangkat"],
+    },
+  ];
+
+  const {
+    currentPage,
+    setCurrentPage,
+    searchTerm,
+    handleSearchChange,
+    filters,
+    handleFilterChange,
+    paginatedData,
+    totalPages,
+  } = useTableFeatures({
+    initialData: attendanceData,
+    filterConfig,
+  });
+
   const organitations = [
     "Semua Organisasi",
     "IT",
@@ -31,36 +49,6 @@ export default function TableWorkSchedule({ attendanceData }) {
     "Tata Kelola",
   ];
 
-  // Filter work schedules based on search and filters
-  const filterWorkSchedule = attendanceData.filter((attendance) => {
-    const matchesSearch = attendance.nama
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-
-    const matchedOrganitation =
-      selectedOrganitation === "Semua Organisasi" ||
-      attendance.organisasi === selectedOrganitation;
-
-    return matchesSearch && matchedOrganitation;
-  });
-
-  // Pagination
-  const totalPages = Math.ceil(filterWorkSchedule.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedWorkSchedule = filterWorkSchedule.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
-
-  const handleFilterChange = (setter) => (value) => {
-    setter(value);
-    setCurrentPage(1);
-  };
-
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-    setCurrentPage(1);
-  };
   return (
     <div className="bg-white rounded-2xl py-4 lg:py-6 shadow-sm border border-gray-100">
       <div className="flex flex-col xl:flex-row xl:items-center lg:justify-between gap-4 mb-6">
@@ -82,9 +70,9 @@ export default function TableWorkSchedule({ attendanceData }) {
             </InputIcon>
           </fieldset>
           <FilterDropdown
-            value={selectedOrganitation}
+            value={filters.organitation}
             options={organitations}
-            onChange={handleFilterChange(setSelectedOrganitation)}
+            onChange={handleFilterChange("organitation")}
           />
         </div>
       </div>
@@ -95,26 +83,26 @@ export default function TableWorkSchedule({ attendanceData }) {
               <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
                 No
               </TableHead>
-              <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
+              <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center min-w-[170px]">
                 Nama
               </TableHead>
-              <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
+              <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center min-w-[150px]">
                 Organisasi
               </TableHead>
-              <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
+              <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center min-w-[150px]">
                 Jabatan
               </TableHead>
-              <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
+              <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center min-w-[150px]">
                 Pangkat
               </TableHead>
-              <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
+              <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center min-w-[150px]">
                 Jadwal
               </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {paginatedWorkSchedule.length > 0 ? (
-              paginatedWorkSchedule.map((schedule) => (
+            {paginatedData.length > 0 ? (
+              paginatedData.map((schedule) => (
                 <TableRow
                   key={schedule.id}
                   className="hover:bg-gray-50 font-medium"

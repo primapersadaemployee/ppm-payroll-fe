@@ -16,7 +16,6 @@ import {
   NotePencil,
   Plus,
 } from "phosphor-react";
-import { useState } from "react";
 import { AnnualLeaveData } from "../../../data/AttendanceData";
 import FilterDropdown from "../dropdown/FilterDropdown";
 import { useAddAnnualLeaveStore } from "../../../store/presence/AddAnnualLeaveStore";
@@ -25,12 +24,9 @@ import EditAnnualLeaveModal from "../modal/EditAnnualLeaveModal";
 import { format } from "date-fns";
 import AddAnnualLeaveModal from "../modal/AddAnnualLeaveModal";
 import ConfirmModal from "../modal/common/ConfirmModal";
+import { useTableFeatures } from "../../../hooks/useTableFeatures";
 
 export default function TableAnnualLeave() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedStatus, setSelectedStatus] = useState("Semua Status");
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
   const {
     setAnnualLeave,
     setIsFirstModalOpen,
@@ -45,6 +41,29 @@ export default function TableAnnualLeave() {
     resetForm,
   } = useAddAnnualLeaveStore();
 
+  const filterConfig = [
+    {
+      name: "status",
+      key: "status",
+      defaultValue: "Semua Status",
+      keys: ["nama"],
+    },
+  ];
+
+  const {
+    currentPage,
+    setCurrentPage,
+    searchTerm,
+    handleSearchChange,
+    filters,
+    handleFilterChange,
+    paginatedData,
+    totalPages,
+  } = useTableFeatures({
+    initialData: AnnualLeaveData,
+    filterConfig,
+  });
+
   const statuses = [
     "Semua Status",
     "Disetujui",
@@ -52,37 +71,6 @@ export default function TableAnnualLeave() {
     "Arsip",
     "Menunggu Persetujuan",
   ];
-
-  // Filter employees based on search and filters
-  const filteredAnnualLeave = AnnualLeaveData.filter((employee) => {
-    const matchesSearch = employee.nama
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-
-    const matchesStatus =
-      selectedStatus === "Semua Status" || employee.status === selectedStatus;
-
-    return matchesSearch && matchesStatus;
-  });
-
-  // Pagination
-  const totalPages = Math.ceil(filteredAnnualLeave.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedEmployees = filteredAnnualLeave.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
-
-  // Reset to first page when filters change
-  const handleFilterChange = (setter) => (value) => {
-    setter(value);
-    setCurrentPage(1);
-  };
-
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-    setCurrentPage(1);
-  };
 
   const handleEditAnnualLeave = (id) => {
     setAnnualLeave(id, AnnualLeaveData);
@@ -119,9 +107,9 @@ export default function TableAnnualLeave() {
             </InputIcon>
           </fieldset>
           <FilterDropdown
-            value={selectedStatus}
+            value={filters.status}
             options={statuses}
-            onChange={handleFilterChange(setSelectedStatus)}
+            onChange={handleFilterChange("status")}
           />
         </div>
       </div>
@@ -135,29 +123,29 @@ export default function TableAnnualLeave() {
                 <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
                   No
                 </TableHead>
-                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
+                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center min-w-[170px]">
                   Nama
                 </TableHead>
-                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
+                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center min-w-[190px]">
                   Tanggal Pengajuan
                 </TableHead>
-                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
+                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center min-w-[150px]">
                   Jumlah Hari
                 </TableHead>
-                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
+                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center min-w-[150px]">
                   Tanggal Cuti
                 </TableHead>
-                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
+                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center min-w-[220px]">
                   Status
                 </TableHead>
-                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
+                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center min-w-[150px]">
                   Aksi
                 </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {paginatedEmployees.length > 0 ? (
-                paginatedEmployees.map((employee) => (
+              {paginatedData.length > 0 ? (
+                paginatedData.map((employee) => (
                   <TableRow
                     key={employee.id}
                     className="hover:bg-gray-50 font-medium"

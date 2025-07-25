@@ -23,16 +23,9 @@ import { id as idLocale } from "date-fns/locale";
 import EditPresenceModal from "../modal/EditPresenceModal";
 import { useEditPresenceStore } from "../../../store/presence/EditPresenceStore";
 import ConfirmModal from "../modal/common/ConfirmModal";
+import { useTableFeatures } from "../../../hooks/useTableFeatures";
 
 export default function TablePresence({ attendanceData }) {
-  const today = new Date();
-
-  const [selectedDate, setSelectedDate] = useState(today);
-  const [dateList, setDateList] = useState([]);
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
-
   const {
     setPresence,
     setIsFirstModalOpen,
@@ -40,47 +33,45 @@ export default function TablePresence({ attendanceData }) {
     setIsSecondModalOpen,
   } = useEditPresenceStore();
 
-  const formattedSelectedDate = format(selectedDate, "yyyy-MM-dd");
+  // Gabungkan dan siapkan data awal
+  const flatAttendanceData = attendanceData.flatMap((attendance) =>
+    attendance.presensi.map((presensi) => ({
+      ...presensi,
+      nama: attendance.nama,
+      idEmployee: attendance.id,
+    }))
+  );
 
-  // Generate tanggal-tanggal dalam 1 bulan berdasarkan selectedDate
-  const generateDatesInMonth = (baseDate) => {
-    const start = startOfMonth(baseDate);
+  const {
+    paginatedData,
+    itemsPerPage,
+    currentPage,
+    setCurrentPage,
+    totalPages,
+    selectedDate,
+    handleDateChange,
+  } = useTableFeatures({
+    initialData: flatAttendanceData,
+    filterConfig: [{ name: "search", keys: ["nama"] }],
+    dateFilterKey: "tanggal",
+  });
+
+  const [dateList, setDateList] = useState([]);
+
+  // Generate daftar tanggal di bulan ini
+  useEffect(() => {
+    const start = startOfMonth(selectedDate);
     const days = getDaysInMonth(start);
-    return Array.from({ length: days }, (_, i) => {
+    const dates = Array.from({ length: days }, (_, i) => {
       const current = addDays(start, i);
       return {
         dateObj: current,
         formatted: format(current, "yyyy-MM-dd"),
-        label: format(current, "EEEE", { locale: idLocale }), // "Senin"
-        fullLabel: format(current, "EEEE, dd MMMM yyyy", {
-          locale: idLocale,
-        }),
+        label: format(current, "EEEE", { locale: idLocale }),
       };
     });
-  };
-
-  useEffect(() => {
-    setDateList(generateDatesInMonth(selectedDate));
+    setDateList(dates);
   }, [selectedDate]);
-
-  // Filter presence data
-  const filterPresence = attendanceData
-    .flatMap((attendance) =>
-      attendance.presensi.map((presensi) => ({
-        ...presensi,
-        nama: attendance.nama,
-        idEmployee: attendance.id,
-      }))
-    )
-    .filter((data) => data.tanggal === formattedSelectedDate);
-
-  // Pagination
-  const totalPages = Math.ceil(filterPresence.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedPresence = filterPresence.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
 
   const handleEditPresence = (idEmployee, idPresence) => {
     setPresence(idEmployee, idPresence, attendanceData);
@@ -95,10 +86,7 @@ export default function TablePresence({ attendanceData }) {
           <Button
             key={d.formatted}
             size="sm"
-            onClick={() => {
-              setSelectedDate(d.dateObj);
-              setCurrentPage(1);
-            }}
+            onClick={() => handleDateChange(d.dateObj)}
             className={`rounded-xl min-w-[128px] px-3 py-8 flex flex-col items-center border border-gray-100 ${
               format(selectedDate, "yyyy-MM-dd") === d.formatted
                 ? "bg-primary text-white"
@@ -130,12 +118,7 @@ export default function TablePresence({ attendanceData }) {
               <DatePicker
                 mode="single"
                 selected={selectedDate}
-                onSelect={(selectedDate) => {
-                  if (selectedDate) {
-                    setSelectedDate(selectedDate);
-                    setCurrentPage(1);
-                  }
-                }}
+                onSelect={handleDateChange}
                 captionLayout="dropdown"
                 fromYear={1950}
                 toYear={2030}
@@ -158,30 +141,37 @@ export default function TablePresence({ attendanceData }) {
         <div className="overflow-x-auto">
           <Table className="w-full rounded-t-none">
             <TableHeader>
-              <TableRow>
-                {[
-                  "No",
-                  "Nama",
-                  "Shift",
-                  "Status",
-                  "Masuk",
-                  "Keluar",
-                  "Terlambat",
-                  "Durasi Terlambat",
-                  "Aksi",
-                ].map((text, i) => (
-                  <TableHead
-                    key={i}
-                    className="text-[#8897AE] bg-[#F9FAFB] text-center"
-                  >
-                    {text}
-                  </TableHead>
-                ))}
-              </TableRow>
+              <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
+                No
+              </TableHead>
+              <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center min-w-[170px]">
+                Nama
+              </TableHead>
+              <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center min-w-[150px]">
+                Shift
+              </TableHead>
+              <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center min-w-[180px]">
+                Status
+              </TableHead>
+              <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center min-w-[150px]">
+                Masuk
+              </TableHead>
+              <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center min-w-[150px]">
+                Keluar
+              </TableHead>
+              <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center min-w-[150px]">
+                Terlambat
+              </TableHead>
+              <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center min-w-[170px]">
+                Durasi Terlambat
+              </TableHead>
+              <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center min-w-[150px]">
+                Aksi
+              </TableHead>
             </TableHeader>
             <TableBody>
-              {paginatedPresence.length > 0 ? (
-                paginatedPresence.map((presence, index) => (
+              {paginatedData.length > 0 ? (
+                paginatedData.map((presence, index) => (
                   <TableRow
                     key={`${presence.idEmployee}-${presence.id}`}
                     className="hover:bg-gray-50 font-medium"

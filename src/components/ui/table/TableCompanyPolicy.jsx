@@ -16,7 +16,6 @@ import {
   NotePencil,
   Plus,
 } from "phosphor-react";
-import { useState } from "react";
 import { CompanyPolicyData } from "../../../data/SettingData";
 import PDFIcon from "/icon-pdf.png";
 import { Link } from "react-router-dom";
@@ -25,11 +24,9 @@ import AddCompanyPolicyModal from "../modal/AddCompanyPolicyModal";
 import ConfirmModal from "../modal/common/ConfirmModal";
 import EditCompanyPolicyModal from "../modal/EditCompanyPolicyModal";
 import { useEditCompanyPolicyStore } from "../../../store/settings/EditCompanyPolicyStore";
+import { useTableFeatures } from "../../../hooks/useTableFeatures";
 
 export default function TableCompanyPolicy() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
   const {
     setCompanyPolicy,
     setIsFirstModalOpen,
@@ -44,28 +41,21 @@ export default function TableCompanyPolicy() {
     resetForm,
   } = useAddCompanyPolicyStore();
 
-  // Filter employees based on search and filters
-  const filteredCompanyPolicy = CompanyPolicyData.filter((policy) => {
-    const matchesSearch = policy.judul
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-
-    return matchesSearch;
+  const {
+    currentPage,
+    setCurrentPage,
+    searchTerm,
+    handleSearchChange,
+    paginatedData,
+    totalPages,
+  } = useTableFeatures({
+    initialData: CompanyPolicyData,
+    filterConfig: [
+      {
+        keys: ["judul", "isi"],
+      },
+    ],
   });
-
-  // Pagination
-  const totalPages = Math.ceil(filteredCompanyPolicy.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedCompanyPolicy = filteredCompanyPolicy.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
-
-  // Reset to first page when search change
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-    setCurrentPage(1);
-  };
 
   const handleEditCompanyPolicy = (id) => {
     setCompanyPolicy(id, CompanyPolicyData);
@@ -128,8 +118,8 @@ export default function TableCompanyPolicy() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {paginatedCompanyPolicy.length > 0 ? (
-                paginatedCompanyPolicy.map((policy) => (
+              {paginatedData.length > 0 ? (
+                paginatedData.map((policy) => (
                   <TableRow
                     key={policy.id}
                     className="hover:bg-gray-50 font-medium"

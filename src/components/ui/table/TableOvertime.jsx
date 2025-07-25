@@ -16,7 +16,6 @@ import {
   NotePencil,
   Plus,
 } from "phosphor-react";
-import { useState } from "react";
 import { OvertimeData } from "../../../data/SettingData";
 import FilterDropdown from "../dropdown/FilterDropdown";
 import { useAddOvertimeStore } from "../../../store/settings/AddOvertimeStore";
@@ -24,12 +23,9 @@ import AddOvertimeModal from "../modal/AddOvertimeModal";
 import ConfirmModal from "../modal/common/ConfirmModal";
 import EditOvertimeModal from "../modal/EditOvertimeModal";
 import { useEditOvertimeStore } from "../../../store/settings/EditOvertimeStore";
+import { useTableFeatures } from "../../../hooks/useTableFeatures";
 
 export default function TableOvertime() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedType, setSelectedType] = useState("Semua Tipe");
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
   const {
     setOvertime,
     setIsFirstModalOpen,
@@ -44,33 +40,30 @@ export default function TableOvertime() {
     resetForm,
   } = useAddOvertimeStore();
 
-  const types = ["Semua Tipe", "Flat", "Pemerintah"];
+  const filterConfig = [
+    {
+      name: "types",
+      key: "tipe",
+      defaultValue: "Semua Tipe",
+      keys: ["nama", "tipe"],
+    },
+  ];
 
-  // Filter overtime types based on search and filters
-  const filteredOvertime = OvertimeData.filter((overtime) => {
-    const matchesSearch = overtime.nama
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-
-    const matchesType =
-      selectedType === "Semua Tipe" || overtime.tipe === selectedType;
-
-    return matchesSearch && matchesType;
+  const {
+    currentPage,
+    setCurrentPage,
+    searchTerm,
+    handleSearchChange,
+    filters,
+    handleFilterChange,
+    paginatedData,
+    totalPages,
+  } = useTableFeatures({
+    initialData: OvertimeData,
+    filterConfig,
   });
 
-  // Pagination
-  const totalPages = Math.ceil(filteredOvertime.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedOvertime = filteredOvertime.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
-
-  // Reset to first page when search change
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-    setCurrentPage(1);
-  };
+  const types = ["Semua Tipe", "Flat", "Pemerintah"];
 
   const handleEditOvertime = (id) => {
     setOvertime(id, OvertimeData);
@@ -107,9 +100,9 @@ export default function TableOvertime() {
             </InputIcon>
           </fieldset>
           <FilterDropdown
+            value={filters.types}
             options={types}
-            value={selectedType}
-            onChange={setSelectedType}
+            onChange={handleFilterChange("types")}
           />
         </div>
       </div>
@@ -144,8 +137,8 @@ export default function TableOvertime() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {paginatedOvertime.length > 0 ? (
-                paginatedOvertime.map((overtime) => (
+              {paginatedData.length > 0 ? (
+                paginatedData.map((overtime) => (
                   <TableRow
                     key={overtime.id}
                     className="hover:bg-gray-50 font-medium"

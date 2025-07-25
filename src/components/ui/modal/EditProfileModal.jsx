@@ -1,4 +1,4 @@
-import { Input } from "keep-react";
+import { Input, Upload } from "keep-react";
 import { useEditProfileStore } from "../../../store/settings/EditProfileStore";
 import BaseModal from "./common/BaseModal";
 

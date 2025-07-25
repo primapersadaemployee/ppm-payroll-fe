@@ -16,18 +16,15 @@ import {
   NotePencil,
   Plus,
 } from "phosphor-react";
-import { useState } from "react";
 import { AttendanceLocationData } from "../../../data/SettingData";
 import { useAddAttendanceLocationStore } from "../../../store/settings/AddAttendanceLocationStore";
 import ConfirmModal from "../modal/common/ConfirmModal";
 import AddAttendanceLocationModal from "../modal/AddAttendanceLocationModal";
 import { useEditAttendanceLocationStore } from "../../../store/settings/EditAttendanceLocationStore";
 import EditAttendanceLocationModal from "../modal/EditAttendanceLocationModal";
+import { useTableFeatures } from "../../../hooks/useTableFeatures";
 
 export default function TableAttendanceLocation() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
   const {
     setAttendanceLocation,
     setIsFirstModalOpen,
@@ -42,32 +39,23 @@ export default function TableAttendanceLocation() {
     resetForm,
   } = useAddAttendanceLocationStore();
 
-  // Filter work schedules based on search and filters
-  const filteredAttendanceLocation = AttendanceLocationData.filter(
-    (schedule) => {
-      const matchesSearch = schedule.nama
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase());
+  const filterConfig = [
+    {
+      keys: ["nama", "alamat"],
+    },
+  ];
 
-      return matchesSearch;
-    }
-  );
-
-  // Pagination
-  const totalPages = Math.ceil(
-    filteredAttendanceLocation.length / itemsPerPage
-  );
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedAttendanceLocation = filteredAttendanceLocation.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
-
-  // Reset to first page when search change
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-    setCurrentPage(1);
-  };
+  const {
+    currentPage,
+    setCurrentPage,
+    searchTerm,
+    handleSearchChange,
+    paginatedData,
+    totalPages,
+  } = useTableFeatures({
+    initialData: AttendanceLocationData,
+    filterConfig,
+  });
 
   const handleEditAttendanceLocation = (id) => {
     setAttendanceLocation(id, AttendanceLocationData);
@@ -130,8 +118,8 @@ export default function TableAttendanceLocation() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {paginatedAttendanceLocation.length > 0 ? (
-                paginatedAttendanceLocation.map((location) => (
+              {paginatedData.length > 0 ? (
+                paginatedData.map((location) => (
                   <TableRow
                     key={location.id}
                     className="hover:bg-gray-50 font-medium"

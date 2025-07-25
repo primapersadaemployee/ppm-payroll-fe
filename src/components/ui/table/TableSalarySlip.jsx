@@ -16,7 +16,6 @@ import {
   NotePencil,
   Plus,
 } from "phosphor-react";
-import { useState } from "react";
 import { SallarySlipData } from "../../../data/SettingData";
 import FilterDropdown from "../dropdown/FilterDropdown";
 import { useAddSalarySlipStore } from "../../../store/settings/AddSalarySlipStore";
@@ -24,12 +23,9 @@ import AddSalarySlipModal from "../modal/AddSalarySlipModal";
 import ConfirmModal from "../modal/common/ConfirmModal";
 import EditSalarySlipModal from "../modal/EditSalarySlipModal";
 import { useEditSalarySlipStore } from "../../../store/settings/EditSalarySlipStore";
+import { useTableFeatures } from "../../../hooks/useTableFeatures";
 
 export default function TableSalarySlip() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedPeriode, setSelectedPeriode] = useState("Semua Periode");
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
   const {
     setSalarySlip,
     setIsFirstModalOpen,
@@ -44,33 +40,30 @@ export default function TableSalarySlip() {
     resetForm,
   } = useAddSalarySlipStore();
 
-  const periodes = ["Semua Periode", "Tidak Tetap", "Tetap"];
+  const filterConfig = [
+    {
+      name: "periode",
+      key: "periode",
+      defaultValue: "Semua Periode",
+      keys: ["nama", "periode"],
+    },
+  ];
 
-  // Filter employees based on search and filters
-  const filteredSalarySlip = SallarySlipData.filter((slip) => {
-    const matchesSearch = slip.nama
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-
-    const matchesPeriode =
-      selectedPeriode === "Semua Periode" || slip.periode === selectedPeriode;
-
-    return matchesSearch && matchesPeriode;
+  const {
+    currentPage,
+    setCurrentPage,
+    searchTerm,
+    handleSearchChange,
+    filters,
+    handleFilterChange,
+    paginatedData,
+    totalPages,
+  } = useTableFeatures({
+    initialData: SallarySlipData,
+    filterConfig,
   });
 
-  // Pagination
-  const totalPages = Math.ceil(filteredSalarySlip.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedSalarySlip = filteredSalarySlip.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
-
-  // Reset to first page when search change
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-    setCurrentPage(1);
-  };
+  const periodes = ["Semua Periode", "Tidak Tetap", "Tetap"];
 
   const handleEditSalarySlip = (id) => {
     setSalarySlip(id, SallarySlipData);
@@ -107,9 +100,9 @@ export default function TableSalarySlip() {
             </InputIcon>
           </fieldset>
           <FilterDropdown
+            value={filters.periode}
             options={periodes}
-            value={selectedPeriode}
-            onChange={setSelectedPeriode}
+            onChange={handleFilterChange("periode")}
           />
         </div>
       </div>
@@ -138,8 +131,8 @@ export default function TableSalarySlip() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {paginatedSalarySlip.length > 0 ? (
-                paginatedSalarySlip.map((slip) => (
+              {paginatedData.length > 0 ? (
+                paginatedData.map((slip) => (
                   <TableRow
                     key={slip.id}
                     className="hover:bg-gray-50 font-medium"

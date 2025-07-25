@@ -16,7 +16,6 @@ import {
   NotePencil,
   Plus,
 } from "phosphor-react";
-import { useState } from "react";
 import { SpecialLeaveData } from "../../../data/AttendanceData";
 import FilterDropdown from "../dropdown/FilterDropdown";
 import { useAddSpecialLeaveStore } from "../../../store/presence/AddSpecialLeaveStore";
@@ -25,12 +24,9 @@ import EditSpecialLeaveModal from "../modal/EditSpecialLeaveModal";
 import { format } from "date-fns";
 import AddSpecialLeaveModal from "../modal/AddSpecialLeaveModal";
 import ConfirmModal from "../modal/common/ConfirmModal";
+import { useTableFeatures } from "../../../hooks/useTableFeatures";
 
 export default function TableSpecialLeave() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedStatus, setSelectedStatus] = useState("Semua Status");
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
   const {
     setSpecialLeave,
     setIsFirstModalOpen,
@@ -45,6 +41,29 @@ export default function TableSpecialLeave() {
     resetForm,
   } = useAddSpecialLeaveStore();
 
+  const filterConfig = [
+    {
+      name: "status",
+      key: "status",
+      defaultValue: "Semua Status",
+      keys: ["nama"],
+    },
+  ];
+
+  const {
+    currentPage,
+    setCurrentPage,
+    searchTerm,
+    handleSearchChange,
+    filters,
+    handleFilterChange,
+    paginatedData,
+    totalPages,
+  } = useTableFeatures({
+    initialData: SpecialLeaveData,
+    filterConfig,
+  });
+
   const statuses = [
     "Semua Status",
     "Disetujui",
@@ -52,37 +71,6 @@ export default function TableSpecialLeave() {
     "Arsip",
     "Menunggu Persetujuan",
   ];
-
-  // Filter employees based on search and filters
-  const filteredSpecialLeave = SpecialLeaveData.filter((employee) => {
-    const matchesSearch = employee.nama
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-
-    const matchesStatus =
-      selectedStatus === "Semua Status" || employee.status === selectedStatus;
-
-    return matchesSearch && matchesStatus;
-  });
-
-  // Pagination
-  const totalPages = Math.ceil(filteredSpecialLeave.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedEmployees = filteredSpecialLeave.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
-
-  // Reset to first page when filters change
-  const handleFilterChange = (setter) => (value) => {
-    setter(value);
-    setCurrentPage(1);
-  };
-
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-    setCurrentPage(1);
-  };
 
   const handleEditSpecialLeave = (id) => {
     setSpecialLeave(id, SpecialLeaveData);
@@ -119,9 +107,9 @@ export default function TableSpecialLeave() {
             </InputIcon>
           </fieldset>
           <FilterDropdown
-            value={selectedStatus}
+            value={filters.status}
             options={statuses}
-            onChange={handleFilterChange(setSelectedStatus)}
+            onChange={handleFilterChange("status")}
           />
         </div>
       </div>
@@ -135,29 +123,29 @@ export default function TableSpecialLeave() {
                 <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
                   No
                 </TableHead>
-                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
+                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center min-w-[170px]">
                   Nama
                 </TableHead>
-                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
+                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center min-w-[150px]">
                   Tanggal Pengajuan
                 </TableHead>
-                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
+                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center min-w-[150px]">
                   Jumlah Hari
                 </TableHead>
-                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
+                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center min-w-[150px]">
                   Tanggal Cuti
                 </TableHead>
-                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
+                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center min-w-[220px]">
                   Status
                 </TableHead>
-                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
+                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center min-w-[150px]">
                   Aksi
                 </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {paginatedEmployees.length > 0 ? (
-                paginatedEmployees.map((employee) => (
+              {paginatedData.length > 0 ? (
+                paginatedData.map((employee) => (
                   <TableRow
                     key={employee.id}
                     className="hover:bg-gray-50 font-medium"

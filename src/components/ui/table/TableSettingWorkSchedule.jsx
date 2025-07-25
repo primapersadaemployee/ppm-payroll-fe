@@ -16,7 +16,6 @@ import {
   NotePencil,
   Plus,
 } from "phosphor-react";
-import { useState } from "react";
 import { WorkScheduleData } from "../../../data/SettingData";
 import FilterDropdown from "../dropdown/FilterDropdown";
 import { useAddWorkScheduleStore } from "../../../store/settings/AddWorkScheduleStore";
@@ -25,12 +24,9 @@ import ConfirmModal from "../modal/common/ConfirmModal";
 import EditWorkScheduleModal from "../modal/EditWorkScheduleModal";
 import { useEditWorkScheduleStore } from "../../../store/settings/EditWorkScheduleStore";
 import { format } from "date-fns";
+import { useTableFeatures } from "../../../hooks/useTableFeatures";
 
 export default function TableSettingWorkSchedule() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedSchedule, setSelectedSchedule] = useState("Semua Jadwal");
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
   const {
     setWorkSchedule,
     setIsFirstModalOpen,
@@ -45,33 +41,30 @@ export default function TableSettingWorkSchedule() {
     resetForm,
   } = useAddWorkScheduleStore();
 
-  const schedules = ["Semua Jadwal", "Jadwal Kerja", "Jadwal Tambahan"];
+  const filterConfig = [
+    {
+      name: "schedules",
+      key: "nama",
+      defaultValue: "Semua Jadwal",
+      keys: ["nama"],
+    },
+  ];
 
-  // Filter work schedules based on search and filters
-  const filteredWorkSchedule = WorkScheduleData.filter((schedule) => {
-    const matchesSearch = schedule.nama
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-
-    const matchesSchedule =
-      selectedSchedule === "Semua Jadwal" || schedule.nama === selectedSchedule;
-
-    return matchesSearch && matchesSchedule;
+  const {
+    currentPage,
+    setCurrentPage,
+    searchTerm,
+    handleSearchChange,
+    filters,
+    handleFilterChange,
+    paginatedData,
+    totalPages,
+  } = useTableFeatures({
+    initialData: WorkScheduleData,
+    filterConfig,
   });
 
-  // Pagination
-  const totalPages = Math.ceil(filteredWorkSchedule.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedWorkSchedule = filteredWorkSchedule.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
-
-  // Reset to first page when search change
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-    setCurrentPage(1);
-  };
+  const schedules = ["Semua Jadwal", "Jadwal Kerja", "Jadwal Tambahan"];
 
   const handleEditWorkSchedule = (id) => {
     setWorkSchedule(id, WorkScheduleData);
@@ -108,9 +101,9 @@ export default function TableSettingWorkSchedule() {
             </InputIcon>
           </fieldset>
           <FilterDropdown
+            value={filters.schedules}
             options={schedules}
-            value={selectedSchedule}
-            onChange={setSelectedSchedule}
+            onChange={handleFilterChange("schedules")}
           />
         </div>
       </div>
@@ -142,8 +135,8 @@ export default function TableSettingWorkSchedule() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {paginatedWorkSchedule.length > 0 ? (
-                paginatedWorkSchedule.map((schedule) => (
+              {paginatedData.length > 0 ? (
+                paginatedData.map((schedule) => (
                   <TableRow
                     key={schedule.id}
                     className="hover:bg-gray-50 font-medium"

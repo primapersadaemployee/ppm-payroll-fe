@@ -11,39 +11,28 @@ import {
   TableRow,
 } from "keep-react";
 import { ReportPayroll } from "../../../data/ReportData";
-import { useState } from "react";
 import { CaretLeft, CaretRight, FunnelSimple } from "phosphor-react";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
+import { useTableFeatures } from "../../../hooks/useTableFeatures";
 
 export default function TableReportPayroll() {
-  const [selectedMonth, setSelectedMonth] = useState(null); // Null untuk menunjukkan tidak ada filter
-  const [selectedYear, setSelectedYear] = useState(null); // Null untuk menunjukkan tidak ada filter
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
-
-  // Data awal (semua data)
-  const allPayroll = ReportPayroll;
-
-  // Filter berdasarkan selectedMonth dan selectedYear jika ada
-  const filterPayroll =
-    selectedMonth !== null && selectedYear !== null
-      ? ReportPayroll.filter((payroll) => {
-          const payrollDate = new Date(payroll.bulan);
-          return (
-            payrollDate.getMonth() === selectedMonth &&
-            payrollDate.getFullYear() === selectedYear
-          );
-        })
-      : allPayroll;
-
-  // Pagination
-  const totalPages = Math.ceil(filterPayroll.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedPayroll = filterPayroll.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
+  const {
+    paginatedData,
+    currentPage,
+    totalPages,
+    setCurrentPage,
+    selectedMonth,
+    selectedYear,
+    handleMonthChange,
+    handleYearChange,
+  } = useTableFeatures({
+    initialData: ReportPayroll,
+    monthFilterKey: "bulan",
+    yearFilterKey: "bulan",
+    defaultMonth: null,
+    defaultYear: null,
+  });
 
   return (
     <div className="bg-white rounded-2xl py-4 lg:py-6 shadow-sm border border-gray-100">
@@ -67,16 +56,17 @@ export default function TableReportPayroll() {
               <div className="p-4">
                 <div className="flex gap-4 items-center">
                   <select
-                    value={selectedMonth ?? ""} // Kosong jika belum dipilih
+                    value={selectedMonth}
                     onChange={(e) => {
-                      const newMonth = e.target.value
-                        ? parseInt(e.target.value)
-                        : null;
-                      setSelectedMonth(newMonth);
+                      if (e.target.value === "Semua Bulan") {
+                        handleMonthChange(null);
+                      } else {
+                        handleMonthChange(parseInt(e.target.value));
+                      }
                     }}
                     className="min-w-[120px] text-sm px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
-                    <option value="">Semua Bulan</option>
+                    <option value="Semua Bulan">Semua Bulan</option>
                     {[
                       "Januari",
                       "Februari",
@@ -97,16 +87,17 @@ export default function TableReportPayroll() {
                     ))}
                   </select>
                   <select
-                    value={selectedYear ?? ""} // Kosong jika belum dipilih
+                    value={selectedYear}
                     onChange={(e) => {
-                      const newYear = e.target.value
-                        ? parseInt(e.target.value)
-                        : null;
-                      setSelectedYear(newYear);
+                      if (e.target.value === "Semua Tahun") {
+                        handleYearChange(null);
+                      } else {
+                        handleYearChange(parseInt(e.target.value));
+                      }
                     }}
                     className="min-w-[100px] text-sm px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
-                    <option value="">Semua Tahun</option>
+                    <option value="Semua Tahun">Semua Tahun</option>
                     {Array.from({ length: 11 }, (_, i) => 2020 + i).map(
                       (year) => (
                         <option key={year} value={year}>
@@ -143,8 +134,8 @@ export default function TableReportPayroll() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {paginatedPayroll.length > 0 ? (
-              paginatedPayroll.map((payroll, index) => (
+            {paginatedData.length > 0 ? (
+              paginatedData.map((payroll, index) => (
                 <TableRow
                   key={payroll.id}
                   className="hover:bg-gray-50 font-medium cursor-pointer"

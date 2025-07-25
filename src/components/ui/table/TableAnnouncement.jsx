@@ -11,7 +11,6 @@ import {
   TableRow,
 } from "keep-react";
 import { CaretLeft, CaretRight, MagnifyingGlass, Plus } from "phosphor-react";
-import { useState } from "react";
 import { AnnounceData } from "../../../data/AnnounceData";
 import FilterDropdown from "../dropdown/FilterDropdown";
 import { useAddAnnouncementStore } from "../../../store/announcement/AddAnnouncementStore";
@@ -19,12 +18,9 @@ import { format } from "date-fns";
 import AddAnnouncementModal from "../modal/AddAnnouncementModal";
 import ConfirmModal from "../modal/common/ConfirmModal";
 import { id } from "date-fns/locale";
+import { useTableFeatures } from "../../../hooks/useTableFeatures";
 
 export default function TableAnnouncement() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedStatus, setSelectedStatus] = useState("Semua Status");
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
   const {
     setIsFirstModalOpen: setIsAddFirstModalOpen,
     isSecondModalOpen,
@@ -32,38 +28,30 @@ export default function TableAnnouncement() {
     resetForm,
   } = useAddAnnouncementStore();
 
-  const statuses = ["Semua Status", "Sudah Dibaca", "Belum Dibaca"];
+  const filterConfig = [
+    {
+      name: "status",
+      key: "dibaca",
+      defaultValue: "Semua Status",
+      keys: ["isiPengumuman"],
+    },
+  ];
 
-  // Filter announcements based on search and filters
-  const filteredAnnounceData = AnnounceData.filter((announce) => {
-    const matchesSearch = announce.isiPengumuman
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-
-    const matchesStatus =
-      selectedStatus === "Semua Status" || announce.dibaca === selectedStatus;
-
-    return matchesSearch && matchesStatus;
+  const {
+    currentPage,
+    setCurrentPage,
+    searchTerm,
+    handleSearchChange,
+    filters,
+    handleFilterChange,
+    paginatedData,
+    totalPages,
+  } = useTableFeatures({
+    initialData: AnnounceData,
+    filterConfig,
   });
 
-  // Pagination
-  const totalPages = Math.ceil(filteredAnnounceData.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedAnnouncements = filteredAnnounceData.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
-
-  // Reset to first page when filters change
-  const handleFilterChange = (setter) => (value) => {
-    setter(value);
-    setCurrentPage(1);
-  };
-
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-    setCurrentPage(1);
-  };
+  const statuses = ["Semua Status", "Sudah Dibaca", "Belum Dibaca"];
 
   const getStatusBadge = (status) => {
     switch (status) {
@@ -106,9 +94,9 @@ export default function TableAnnouncement() {
             </InputIcon>
           </fieldset>
           <FilterDropdown
-            value={selectedStatus}
+            value={filters.status}
             options={statuses}
-            onChange={handleFilterChange(setSelectedStatus)}
+            onChange={handleFilterChange("status")}
           />
         </div>
       </div>
@@ -137,8 +125,8 @@ export default function TableAnnouncement() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {paginatedAnnouncements.length > 0 ? (
-                paginatedAnnouncements.map((announce) => (
+              {paginatedData.length > 0 ? (
+                paginatedData.map((announce) => (
                   <TableRow
                     key={announce.id}
                     className="hover:bg-gray-50 font-medium"

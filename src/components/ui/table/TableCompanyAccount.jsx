@@ -16,7 +16,6 @@ import {
   NotePencil,
   Plus,
 } from "phosphor-react";
-import { useState } from "react";
 import { CompanyAccountData } from "../../../data/SettingData";
 import FilterDropdown from "../dropdown/FilterDropdown";
 import { useAddCompanyAccountStore } from "../../../store/settings/AddCompanyAccountStore";
@@ -24,12 +23,9 @@ import AddCompanyAccountModal from "../modal/AddCompanyAccountModal";
 import ConfirmModal from "../modal/common/ConfirmModal";
 import EditCompanyAccountModal from "../modal/EditCompanyAccountModal";
 import { useEditCompanyAccountStore } from "../../../store/settings/EditCompanyAccountStore";
+import { useTableFeatures } from "../../../hooks/useTableFeatures";
 
 export default function TableCompanyAccount() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedBank, setSelectedBank] = useState("Semua Bank");
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
   const {
     setCompanyAccount,
     setIsFirstModalOpen,
@@ -44,33 +40,30 @@ export default function TableCompanyAccount() {
     resetForm,
   } = useAddCompanyAccountStore();
 
-  const periodes = ["Semua Bank", "Bank BCA", "Bank BNI", "Bank Mandiri"];
+  const filterConfig = [
+    {
+      name: "bank",
+      key: "nama",
+      defaultValue: "Semua Bank",
+      keys: ["pemegangRekening", "nama"],
+    },
+  ];
 
-  // Filter employees based on search and filters
-  const filteredCompanyAccount = CompanyAccountData.filter((account) => {
-    const matchesSearch = account.nama
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-
-    const matchesBank =
-      selectedBank === "Semua Bank" || account.nama === selectedBank;
-
-    return matchesSearch && matchesBank;
+  const {
+    currentPage,
+    setCurrentPage,
+    searchTerm,
+    handleSearchChange,
+    filters,
+    handleFilterChange,
+    paginatedData,
+    totalPages,
+  } = useTableFeatures({
+    initialData: CompanyAccountData,
+    filterConfig,
   });
 
-  // Pagination
-  const totalPages = Math.ceil(filteredCompanyAccount.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedCompanyAccount = filteredCompanyAccount.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
-
-  // Reset to first page when search change
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-    setCurrentPage(1);
-  };
+  const banks = ["Semua Bank", "Bank BCA", "Bank BNI", "Bank Mandiri"];
 
   const handleEditCompanyAccount = (id) => {
     setCompanyAccount(id, CompanyAccountData);
@@ -107,9 +100,9 @@ export default function TableCompanyAccount() {
             </InputIcon>
           </fieldset>
           <FilterDropdown
-            options={periodes}
-            value={selectedBank}
-            onChange={setSelectedBank}
+            value={filters.bank}
+            options={banks}
+            onChange={handleFilterChange("bank")}
           />
         </div>
       </div>
@@ -141,8 +134,8 @@ export default function TableCompanyAccount() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {paginatedCompanyAccount.length > 0 ? (
-                paginatedCompanyAccount.map((account) => (
+              {paginatedData.length > 0 ? (
+                paginatedData.map((account) => (
                   <TableRow
                     key={account.id}
                     className="hover:bg-gray-50 font-medium"

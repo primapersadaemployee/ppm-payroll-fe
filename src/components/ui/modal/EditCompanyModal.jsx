@@ -1,4 +1,4 @@
-import { Input, Textarea } from "keep-react";
+import { Input, Textarea, Upload } from "keep-react";
 import { useEditCompanyStore } from "../../../store/settings/EditCompanyStore";
 import BaseModal from "./common/BaseModal";
 

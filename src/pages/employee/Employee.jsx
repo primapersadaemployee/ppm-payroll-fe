@@ -4,55 +4,42 @@ import NotificationDashboard from "../../components/ui/notification/Notification
 import TableEmployee from "../../components/ui/table/TableEmployee";
 import FilterDropdown from "../../components/ui/dropdown/FilterDropdown";
 import { Button, Input, InputIcon } from "keep-react";
-import { Plus, MagnifyingGlass, House, Users } from "phosphor-react";
+import { Plus, MagnifyingGlass, Users } from "phosphor-react";
 import { Link } from "react-router-dom";
 import { EmployeeData } from "../../data/EmployeeData";
+import { useTableFeatures } from "../../hooks/useTableFeatures";
 
 export default function Employee() {
   const [employees] = useState(EmployeeData);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedDivision, setSelectedDivision] = useState("Semua Divisi");
-  const [selectedStatus, setSelectedStatus] = useState("Semua Status");
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
 
-  // Filter employees based on search and filters
-  const filteredEmployees = employees.filter((employee) => {
-    const matchesSearch =
-      employee.nama.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      employee.idKartuIdentitas
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase());
+  const filterConfig = [
+    {
+      name: "division",
+      key: "divisi",
+      defaultValue: "Semua Divisi",
+      keys: ["nama", "idKartuIdentitas"],
+    },
+    {
+      name: "status",
+      key: "statusKaryawan",
+      defaultValue: "Semua Status",
+      keys: ["nama", "idKartuIdentitas"],
+    },
+  ];
 
-    const matchesDivision =
-      selectedDivision === "Semua Divisi" ||
-      employee.divisi === selectedDivision;
-
-    const matchesStatus =
-      selectedStatus === "Semua Status" ||
-      employee.statusKaryawan === selectedStatus;
-
-    return matchesSearch && matchesDivision && matchesStatus;
+  const {
+    currentPage,
+    setCurrentPage,
+    searchTerm,
+    handleSearchChange,
+    filters,
+    handleFilterChange,
+    paginatedData,
+    totalPages,
+  } = useTableFeatures({
+    initialData: employees,
+    filterConfig,
   });
-
-  // Pagination
-  const totalPages = Math.ceil(filteredEmployees.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedEmployees = filteredEmployees.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
-
-  // Reset to first page when filters change
-  const handleFilterChange = (setter) => (value) => {
-    setter(value);
-    setCurrentPage(1);
-  };
-
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-    setCurrentPage(1);
-  };
 
   const divisions = [
     "Semua Divisi",
@@ -120,14 +107,14 @@ export default function Employee() {
                   </Button>
                 </Link>
                 <FilterDropdown
-                  value={selectedDivision}
+                  value={filters.division}
                   options={divisions}
-                  onChange={handleFilterChange(setSelectedDivision)}
+                  onChange={handleFilterChange("division")}
                 />
                 <FilterDropdown
-                  value={selectedStatus}
+                  value={filters.status}
                   options={statuses}
-                  onChange={handleFilterChange(setSelectedStatus)}
+                  onChange={handleFilterChange("status")}
                 />
               </div>
             </div>
@@ -135,7 +122,7 @@ export default function Employee() {
             {/* Employee Table */}
             <div className="overflow-x-auto">
               <TableEmployee
-                employees={paginatedEmployees}
+                employees={paginatedData}
                 currentPage={currentPage}
                 totalPages={totalPages}
                 onPageChange={setCurrentPage}

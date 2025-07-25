@@ -20,62 +20,25 @@ import {
   CaretRight,
   FunnelSimple,
   MagnifyingGlass,
-  Plus,
 } from "phosphor-react";
-import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 
 export default function TablePayroll({
-  payrollData,
+  paginatedData,
+  itemsPerPage,
+  currentPage,
+  totalPages,
+  onPageChange,
+  searchTerm,
+  onSearchChange,
   selectedMonth,
   selectedYear,
   onMonthChange,
   onYearChange,
 }) {
-  const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [filterDate, setFilterDate] = useState(
-    new Date(selectedYear, selectedMonth, 1)
-  );
-  const itemsPerPage = 10;
-
-  // Sync filterDate when selectedMonth or selectedYear changes from parent
-  useEffect(() => {
-    setFilterDate(new Date(selectedYear, selectedMonth, 1));
-    setCurrentPage(1); // Reset to first page on month/year change
-  }, [selectedMonth, selectedYear]);
-
-  // Filter payroll data based on selected month and year
-  const filteredData = payrollData.filter((payroll) => {
-    const matchesSearch = payroll.slip
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-    const payrollStartDate = new Date(payroll.startPeriode);
-    const payrollMonth = payrollStartDate.getMonth(); // 0-11
-    const payrollYear = payrollStartDate.getFullYear();
-
-    return (
-      payrollMonth === selectedMonth &&
-      payrollYear === selectedYear &&
-      matchesSearch
-    );
-  });
-
-  // Pagination
-  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedData = filteredData.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
-
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-    setCurrentPage(1);
-  };
 
   const handleRowClick = (payrollId) => {
     navigate(`/payroll/detail/${payrollId}`);
@@ -114,7 +77,7 @@ export default function TablePayroll({
               placeholder="Cari"
               name="search"
               value={searchTerm}
-              onChange={handleSearchChange}
+              onChange={onSearchChange}
               className="flex-1 ps-11"
             />
             <InputIcon>
@@ -137,7 +100,7 @@ export default function TablePayroll({
               <div className="p-4">
                 <div className="flex gap-4 items-center">
                   <select
-                    value={filterDate.getMonth()}
+                    value={selectedMonth}
                     onChange={(e) => {
                       const newMonth = parseInt(e.target.value);
                       onMonthChange(newMonth);
@@ -164,7 +127,7 @@ export default function TablePayroll({
                     ))}
                   </select>
                   <select
-                    value={filterDate.getFullYear()}
+                    value={selectedYear}
                     onChange={(e) => {
                       const newYear = parseInt(e.target.value);
                       onYearChange(newYear);
@@ -282,7 +245,7 @@ export default function TablePayroll({
                 size="sm"
                 variant="outline"
                 color="secondary"
-                onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
+                onClick={() => onPageChange((prev) => Math.max(1, prev - 1))}
                 disabled={currentPage === 1}
                 className="p-2 flex items-center"
               >
@@ -309,7 +272,7 @@ export default function TablePayroll({
                         )}
                         <Button
                           size="sm"
-                          onClick={() => setCurrentPage(page)}
+                          onClick={() => onPageChange(page)}
                           className={`min-w-[32px] h-8 rounded-full ${
                             currentPage === page
                               ? "bg-[#5E718D] text-white hover:bg-[#5E718D]"
@@ -328,7 +291,7 @@ export default function TablePayroll({
                 variant="outline"
                 color="secondary"
                 onClick={() =>
-                  setCurrentPage((prev) => Math.min(totalPages, prev + 1))
+                  onPageChange((prev) => Math.min(totalPages, prev + 1))
                 }
                 disabled={currentPage === totalPages}
                 className="p-2 flex items-center"

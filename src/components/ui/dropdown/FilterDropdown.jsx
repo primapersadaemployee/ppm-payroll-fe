@@ -1,6 +1,7 @@
-import { Button, Popover, PopoverAction, PopoverContent } from 'keep-react';
+import { Button, Popover, PopoverAction, PopoverContent } from "keep-react";
+import { memo } from "react";
 
-export default function FilterDropdown({ value, options, onChange }) {
+function FilterDropdown({ value, options, onChange }) {
   return (
     <Popover>
       <PopoverAction asChild>
@@ -13,7 +14,7 @@ export default function FilterDropdown({ value, options, onChange }) {
           <span className="ml-2">▼</span>
         </Button>
       </PopoverAction>
-      <PopoverContent className="w-40 p-1">
+      <PopoverContent className="w-fit p-1">
         <div className="flex flex-col">
           {options.map((option) => (
             <button
@@ -29,3 +30,5 @@ export default function FilterDropdown({ value, options, onChange }) {
     </Popover>
   );
 }
+
+export default memo(FilterDropdown);

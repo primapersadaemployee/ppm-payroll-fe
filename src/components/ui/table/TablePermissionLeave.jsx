@@ -25,12 +25,9 @@ import EditPermissionLeaveModal from "../modal/EditPermissionLeaveModal";
 import { format } from "date-fns";
 import AddPermissionLeaveModal from "../modal/AddPermissionLeaveModal";
 import ConfirmModal from "../modal/common/ConfirmModal";
+import { useTableFeatures } from "../../../hooks/useTableFeatures";
 
 export default function TablePermissionLeave() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedStatus, setSelectedStatus] = useState("Semua Status");
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
   const {
     setPermissionLeave,
     setIsFirstModalOpen,
@@ -45,6 +42,29 @@ export default function TablePermissionLeave() {
     resetForm,
   } = useAddPermissionLeaveStore();
 
+  const filterConfig = [
+    {
+      name: "status",
+      key: "status",
+      defaultValue: "Semua Status",
+      keys: ["nama"],
+    },
+  ];
+
+  const {
+    currentPage,
+    setCurrentPage,
+    searchTerm,
+    handleSearchChange,
+    filters,
+    handleFilterChange,
+    paginatedData,
+    totalPages,
+  } = useTableFeatures({
+    initialData: PermissionLeaveData,
+    filterConfig,
+  });
+
   const statuses = [
     "Semua Status",
     "Disetujui",
@@ -52,37 +72,6 @@ export default function TablePermissionLeave() {
     "Arsip",
     "Menunggu Persetujuan",
   ];
-
-  // Filter employees based on search and filters
-  const filteredPermissionLeave = PermissionLeaveData.filter((employee) => {
-    const matchesSearch = employee.nama
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-
-    const matchesStatus =
-      selectedStatus === "Semua Status" || employee.status === selectedStatus;
-
-    return matchesSearch && matchesStatus;
-  });
-
-  // Pagination
-  const totalPages = Math.ceil(filteredPermissionLeave.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedEmployees = filteredPermissionLeave.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
-
-  // Reset to first page when filters change
-  const handleFilterChange = (setter) => (value) => {
-    setter(value);
-    setCurrentPage(1);
-  };
-
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-    setCurrentPage(1);
-  };
 
   const handleEditPermissionLeave = (id) => {
     setPermissionLeave(id, PermissionLeaveData);
@@ -119,9 +108,9 @@ export default function TablePermissionLeave() {
             </InputIcon>
           </fieldset>
           <FilterDropdown
-            value={selectedStatus}
+            value={filters.status}
             options={statuses}
-            onChange={handleFilterChange(setSelectedStatus)}
+            onChange={handleFilterChange("status")}
           />
         </div>
       </div>
@@ -135,29 +124,29 @@ export default function TablePermissionLeave() {
                 <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
                   No
                 </TableHead>
-                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
+                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center min-w-[170px]">
                   Nama
                 </TableHead>
-                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
+                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center min-w-[190px]">
                   Tanggal Pengajuan
                 </TableHead>
-                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
+                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center min-w-[150px]">
                   Jumlah Hari
                 </TableHead>
-                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
+                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center min-w-[150px]">
                   Tanggal Izin
                 </TableHead>
-                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
+                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center min-w-[220px]">
                   Status
                 </TableHead>
-                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center">
+                <TableHead className=" text-[#8897AE] bg-[#F9FAFB] text-center min-w-[150px]">
                   Aksi
                 </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {paginatedEmployees.length > 0 ? (
-                paginatedEmployees.map((employee) => (
+              {paginatedData.length > 0 ? (
+                paginatedData.map((employee) => (
                   <TableRow
                     key={employee.id}
                     className="hover:bg-gray-50 font-medium"
